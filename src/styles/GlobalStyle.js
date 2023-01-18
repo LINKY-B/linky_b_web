@@ -57,10 +57,11 @@ a {
 }
 button {
 	border: none;
-  	background: none;
+  background: none;
 }
-a, button: hover {
+a, button:hover {
 	cursor: pointer;
 }
 `;
+
 export default GlobalStyle;
