@@ -57,5 +57,13 @@ a {
   text-decoration: none;
 	color:inherit;
 }
+button {
+	border: none;
+  background: none;
+}
+a, button:hover {
+	cursor: pointer;
+}
 `;
+
 export default GlobalStyle;
