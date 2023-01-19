@@ -1,4 +1,4 @@
-import { ThemeProvider} from "styled-components";
+import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import { theme } from "./styles/theme";
@@ -13,23 +13,22 @@ const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   position: relative;
-`
+`;
 
 const App = () => {
-
   const setScreenSize = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
+  };
 
   useEffect(() => {
     setScreenSize();
-    window.addEventListener('resize', setScreenSize);
+    window.addEventListener("resize", setScreenSize);
 
     return () => {
-      window.removeEventListener('resize', setScreenSize);
-    }
-  }, [])
+      window.removeEventListener("resize", setScreenSize);
+    };
+  }, []);
 
   return (
     <Wrapper className="App">
