@@ -2,6 +2,7 @@ const colors = {
   mainGreen: "#9FC743",
   mainLightGreen: "#F8FAED",
   mainBlack: "#000000",
+  mainWhite: "#FFFFFF",
   mainGrey: "#E9E9E9",
   fortGreen: "#9FC743",
   fontGrey: "#878787",
