@@ -1,5 +1,7 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./src"
-    }
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es6",
+    "baseUrl": "./src"
+  }
 }

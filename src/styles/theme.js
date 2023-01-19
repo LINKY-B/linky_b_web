@@ -9,6 +9,7 @@ const colors = {
   backgroundGrey: "#f2f2f2",
 };
 
+<<<<<<< HEAD
 const spacing = {
   xs: '1px',
   sm: '2px',
@@ -24,6 +25,10 @@ const fontSize = {
   lg: '1.5rem',
   xl: '1.75rem'
 }
+=======
+
+
+>>>>>>> header
 
 export const theme = {
   colors, spacing, fontSize
