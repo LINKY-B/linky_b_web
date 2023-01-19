@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
 const StyledHeader = styled.header`
   height: 55px;
@@ -9,12 +11,14 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 
   & > .left_child {
     word-break: keep-all;
-    text-align: center;
+    margin-left: 20px;
     font-size: 28px;
-    width: 15%;
+    width: 20%;
+    white-space: nowrap;
   }
 
   & > .right_child {
@@ -30,15 +34,17 @@ const StyledHeader = styled.header`
   }
 `;
 
-const search = () => {
-  alert("검색버튼 클릭");
-};
+const MainHeader = ({ isFilter }) => {
+  const search = () => {
+    alert("검색버튼 클릭");
+  };
 
-const filter = () => {
-  alert("필터버튼 클릭");
-};
+  const filter = () => {
+    alert("필터버튼 클릭");
+  };
 
-const MainHeader = () => {
+  useEffect(() => {});
+
   return (
     <StyledHeader>
       <div className="left_child">LINKY-B</div>
@@ -48,14 +54,20 @@ const MainHeader = () => {
           <img
             src={process.env.PUBLIC_URL + `assets/reading glasses.png`}
             onClick={search}
+            alt="이미지 오류"
           ></img>
         </div>
-        <div className="emo2">
-          <img
-            src={process.env.PUBLIC_URL + `assets/filter.png`}
-            onClick={filter}
-          ></img>
-        </div>
+        {isFilter ? (
+          <div className="emo2">
+            <img
+              src={process.env.PUBLIC_URL + `assets/filter.png`}
+              onClick={filter}
+              alt="이미지 오류"
+            ></img>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </StyledHeader>
   );
