@@ -41,25 +41,25 @@ table {
 	border-spacing: 0;
 }
 * {
-  box-sizing: border-box ;
+  	box-sizing: border-box ;
 }
 html, body {
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
 }
 body {
-  background-color: ${(props) => props.theme.colors.backgroundGrey};
-  margin: 0 auto;
+	background-color: ${(props) => props.theme.colors.backgroundGrey};
+	margin: 0 auto;
 }
 a {
-  text-decoration: none;
+  	text-decoration: none;
 	color:inherit;
 }
 button {
 	border: none;
   	background: none;
 }
-a, button: hover {
+a, button:hover {
 	cursor: pointer;
 }
 `;
