@@ -1,8 +1,9 @@
-import styled, { css } from "styled-components";
+import styled, { css, ThemeProvider } from "styled-components";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const StyledHeader = styled.header`
+export const StyledHeader = styled.header`
   height: 55px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -12,28 +13,30 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   text-align: center;
-
-  & > .left_child {
-    word-break: keep-all;
-    margin-left: 20px;
-    font-size: 28px;
-    width: 20%;
-    white-space: nowrap;
-  }
-
-  & > .right_child {
-    display: flex;
-    justify-content: space-around;
-    width: 10%;
-
-    > div > img {
-      cursor: pointer;
-      width: 25px;
-      height: 25px;
-    }
-  }
 `;
 
+//MainTextWrapper는 추후에 text에서 이미지로 변경될시 변경해야함
+const MainTextWrapper = styled.div`
+  word-break: keep-all;
+  margin-left: 20px;
+  width: 20%;
+  white-space: nowrap;
+  > h2 {
+    font-size: ${(props) => props.fontSize || props.theme.fontSize.lg};
+  } //
+`;
+
+const ButtonWrapper = styled.div`
+display: flex;
+justify-content: end;
+width: 20%;
+margin-right:20px;
+> div > img {
+  margin-right:10px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+`;
 const MainHeader = ({ isFilter }) => {
   const search = () => {
     alert("검색버튼 클릭");
@@ -47,9 +50,11 @@ const MainHeader = ({ isFilter }) => {
 
   return (
     <StyledHeader>
-      <div className="left_child">LINKY-B</div>
+      <MainTextWrapper>
+        <h2>LINKY-B</h2>
+      </MainTextWrapper>
 
-      <div className="right_child">
+      <ButtonWrapper>
         <div className="emo1">
           <img
             src={process.env.PUBLIC_URL + `assets/reading glasses.png`}
@@ -68,7 +73,7 @@ const MainHeader = ({ isFilter }) => {
         ) : (
           <div></div>
         )}
-      </div>
+      </ButtonWrapper>
     </StyledHeader>
   );
 };
