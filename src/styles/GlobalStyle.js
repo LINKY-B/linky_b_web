@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -32,40 +33,46 @@ blockquote, q {
 	quotes: none;
 }
 blockquote:before, blockquote:after,
-q:before, q:after {
+q:before, q: after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 * {
   box-sizing: border-box ;
 }
+
 html, body {
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
 }
+
 body {
   background-color: ${(props) => props.theme.colors.backgroundGrey};
+  max-width: 76.8rem;
   margin: 0 auto;
 }
+
 a {
   text-decoration: none;
 	color:inherit;
 }
-<<<<<<< HEAD
+
 button {
 	border: none;
   	background: none;
 }
-a, button: hover {
+a, button:hover {
 	cursor: pointer;
-=======
+
 button{
 	cursor:pointer;
->>>>>>> header
+
 }
 `;
 export default GlobalStyle;
