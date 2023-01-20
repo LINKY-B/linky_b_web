@@ -1,9 +1,7 @@
 import { ThemeProvider } from "styled-components";
-import styled from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import { theme } from "./styles/theme";
-import { useEffect } from "react";
-import Test from "Test";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -34,7 +32,6 @@ const App = () => {
     <Wrapper className="App">
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Test />
       </ThemeProvider>
     </Wrapper>
   );

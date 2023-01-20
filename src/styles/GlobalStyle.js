@@ -58,7 +58,7 @@ a {
 button {
 	border: none;
   background: none;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto';
 }
 a, button:hover {
 	cursor: pointer;
