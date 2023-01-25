@@ -1,10 +1,14 @@
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import { theme } from "./styles/theme";
+
 import SubHeader from "./containers/SubHeader/SubHeader";
 import { useEffect } from "react";
 import MainHeader from "containers/MainHeader/MainHeader";
 import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { useEffect } from "react";
+
 
 const Wrapper = styled.div`
   background-color: white;
