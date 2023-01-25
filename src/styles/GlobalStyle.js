@@ -13,7 +13,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, input, select, textarea {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -41,21 +41,22 @@ table {
 	border-spacing: 0;
 }
 * {
-  box-sizing: border-box ;
+  	box-sizing: border-box ;
 }
 html, body {
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
 }
 body {
-  background-color: ${(props) => props.theme.colors.backgroundGrey};
-  margin: 0 auto;
+	background-color: ${(props) => props.theme.colors.backgroundGrey};
+	margin: 0 auto;
 }
 a {
   text-decoration: none;
 	color:inherit;
 }
 button {
+	font: inherit;
 	border: none;
   background: none;
 }
