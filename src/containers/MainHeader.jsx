@@ -2,6 +2,11 @@ import styled, { css, ThemeProvider } from "styled-components";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Spacing } from "styles/Style";
+
+//image
+import filterImg from "./../assets/images/filter.png";
+import searchImg from "./../assets/images/search.png";
 
 export const StyledHeader = styled.header`
   height: 55px;
@@ -23,7 +28,7 @@ const MainTextWrapper = styled.div`
   white-space: nowrap;
   > h2 {
     font-size: ${(props) => props.fontSize || props.theme.fontSize.lg};
-  } //
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -56,19 +61,11 @@ const MainHeader = ({ isFilter }) => {
 
       <ButtonWrapper>
         <div className="emo1">
-          <img
-            src={process.env.PUBLIC_URL + `assets/reading glasses.png`}
-            onClick={search}
-            alt="이미지 오류"
-          ></img>
+          <img src={searchImg} onClick={search} alt="검색 이미지 오류"></img>
         </div>
         {isFilter ? (
           <div className="emo2">
-            <img
-              src={process.env.PUBLIC_URL + `assets/filter.png`}
-              onClick={filter}
-              alt="이미지 오류"
-            ></img>
+            <img src={filterImg} onClick={filter} alt="필터 이미지 오류"></img>
           </div>
         ) : (
           <div></div>
@@ -77,4 +74,9 @@ const MainHeader = ({ isFilter }) => {
     </StyledHeader>
   );
 };
+
+MainHeader.propTypes = {
+  isFilter: PropTypes.bool,
+};
+
 export default MainHeader;

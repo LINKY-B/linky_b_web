@@ -35,8 +35,8 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        {/* <MainHeader isFilter={false}></MainHeader> */}
-        <SubHeader text={"text"}></SubHeader>
+        {<MainHeader isFilter={false}></MainHeader>}
+        {/* { <SubHeader isText={true}  text={"SubHeader Text"}></SubHeader> } */}
       </ThemeProvider>
     </Wrapper>
   );

@@ -1,5 +1,7 @@
-import styled, { css } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
+import { Spacing } from "styles/Style";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const StyledSubHeader = styled.header`
   height: 55px;
@@ -11,46 +13,54 @@ const StyledSubHeader = styled.header`
   align-items: center;
   justify-content: start;
 
-  & > .left_child {
-    margin-left: 20px;
+  > .header__head-text {
+  }
 
-    width: 20%;
-    display: flex;
+  > .header__button {
+  }
+`;
+const LogoWrapper = styled.div`
+  margin-top: 5px;
+  margin-left: 50px;
+  align-items: center;
+  width: 10%;
+  display: flex;
+
+  > button {
+    border: none;
+    background-color: white;
     align-items: center;
-
-    > button {
-      border: none;
-      background-color: white;
-    }
-  }
-
-  & > .head_text {
-    font-size: 20px;
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-  & > .right_child {
-    display: flex;
-
-    width: 10%;
-
-    > div > img {
-      cursor: pointer;
-      width: 25px;
-      height: 25px;
-    }
   }
 `;
 
-const SubHeader = ({ text }) => {
+const HeadTextWrapper = styled.div`
+  justify-content: start;
+  display: table-cell;
+  > h2 {
+    font-size: ${(props) => props.fontSize || props.theme.fontSize.lg};
+  }
+`;
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 10%;
+
+  > div > img {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
+`;
+
+const SubHeader = ({ text, subText, emo, isEtcButton, isAcceptButton }) => {
   const navigate = useNavigate();
 
+  console.log(text);
   return (
     <StyledSubHeader>
-      <div className="left_child">
+      <LogoWrapper>
         <button
           onClick={() => {
+            alert("뒤로가기 버튼 클릭");
             navigate(-1);
           }}
         >
@@ -60,12 +70,17 @@ const SubHeader = ({ text }) => {
             alt="이미지 오류"
           ></img>
         </button>
-      </div>
+      </LogoWrapper>
+      <HeadTextWrapper>
+        <h2>{text}</h2>
+      </HeadTextWrapper>
 
-      <div className="head_text">{text}</div>
-
-      <div className="right_child"></div>
+      <ButtonWrapper></ButtonWrapper>
     </StyledSubHeader>
   );
+};
+
+SubHeader.propTypes = {
+  text: PropTypes.string,
 };
 export default SubHeader;
