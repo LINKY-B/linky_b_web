@@ -2,6 +2,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import { theme } from "./styles/theme";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
   background-color: white;
