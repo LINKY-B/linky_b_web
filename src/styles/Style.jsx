@@ -4,9 +4,13 @@ export const Hr = styled.hr`
   width: 100%;
 `;
 
-/**
- * @param margin default: theme.md
- */
-export const Spacing = styled.div`
-  margin: ${(props) => props.margin || props.theme.spacing.md};
+export const ModalCover = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  margin: 0;
 `;
