@@ -1,49 +1,14 @@
-import styled, { useTheme } from "styled-components";
-import { Spacing } from "styles/Style";
-import Cover from "./Cover";
+import { Spacing } from "components/spacing";
+import { Text } from "components/text";
 import PropTypes from "prop-types";
-
-const AlertModalWrapper = styled.div`
-  z-index: 100;
-  min-width: 269px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  border-radius: 6px;
-  padding: 1rem;
-  background-color: ${(props) => props.theme.colors.mainWhite};
-`;
-
-const CloseButtonWrapper = styled.div`
-  width: 100%;
-  text-align: right;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 1rem;
-  padding-top: 0;
-`;
-
-const TempButton = styled.button`
-  padding: 1rem;
-  border-radius: 6px;
-  color: ${(props) => props.color || props.theme.colors.mainWhite};
-  background-color: ${(props) =>
-    props.backgroundColor || props.theme.colors.mainGreen};
-`;
-
-// white-space: pre-line을 통해 내용에 \n가 있으면 줄바꿈이 되도록 한다.
-const Text = styled.label`
-  font-size: ${(props) => props.fontSize || props.theme.fontSize.md};
-  color: ${(props) => props.color || props.theme.colors.mainBlack};
-  white-space: pre-line;
-`;
+import { useTheme } from "styled-components";
+import { ModalCover } from "styles/Style";
+import {
+  AlertModalWrapper,
+  CloseButtonWrapper,
+  ContentWrapper,
+  TempButton,
+} from "./AlertModal.style";
 
 const AlertModal = ({
   title,
@@ -59,7 +24,7 @@ const AlertModal = ({
 
   return (
     <section className="AlertModal">
-      <Cover className="Cover" />
+      <ModalCover className="Cover" />
       <AlertModalWrapper>
         <CloseButtonWrapper>
           <button onClick={onClickClose}>X</button>
