@@ -56,6 +56,7 @@ a {
 	color:inherit;
 }
 button {
+	font: inherit;
 	border: none;
   background: none;
 	font-family: 'Roboto';
