@@ -13,7 +13,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, input, select, textarea {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -52,10 +52,11 @@ body {
 	margin: 0 auto;
 }
 a {
-  	text-decoration: none;
+  text-decoration: none;
 	color:inherit;
 }
 button {
+	font: inherit;
 	border: none;
   background: none;
 }
