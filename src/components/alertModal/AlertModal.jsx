@@ -1,3 +1,4 @@
+import Button from "components/buttons/Button";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
 import PropTypes from "prop-types";
@@ -7,7 +8,6 @@ import {
   AlertModalWrapper,
   CloseButtonWrapper,
   ContentWrapper,
-  TempButton,
 } from "./AlertModal.style";
 
 const AlertModal = ({
@@ -16,7 +16,6 @@ const AlertModal = ({
   onClickClose,
   buttonTitle,
   buttonColor,
-  buttonBackgroundColor,
   onClickButton,
   children,
 }) => {
@@ -39,16 +38,14 @@ const AlertModal = ({
             </Text>
           )}
           <Spacing />
+
           {children}
+
           <Spacing />
           {buttonTitle && (
-            <TempButton
-              color={buttonColor}
-              backgroundColor={buttonBackgroundColor}
-              onClick={onClickButton}
-            >
+            <Button size="modal" color={buttonColor} onClick={onClickButton}>
               {buttonTitle}
-            </TempButton>
+            </Button>
           )}
         </ContentWrapper>
       </AlertModalWrapper>
@@ -61,7 +58,6 @@ AlertModal.propTypes = {
   subTitle: PropTypes.string,
   buttonTitle: PropTypes.string,
   buttonColor: PropTypes.string,
-  buttonBackground: PropTypes.string,
   onClickButton: PropTypes.func,
 };
 

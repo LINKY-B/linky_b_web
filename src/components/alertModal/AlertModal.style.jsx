@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AlertModalWrapper = styled.div`
   z-index: 100;
-  min-width: 269px;
+  width: 300px;
 
   position: absolute;
   top: 50%;
@@ -22,15 +22,8 @@ export const CloseButtonWrapper = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem;
   padding-top: 0;
-`;
-
-export const TempButton = styled.button`
-  padding: 1rem;
-  border-radius: 6px;
-  color: ${(props) => props.color || props.theme.colors.mainWhite};
-  background-color: ${(props) =>
-    props.backgroundColor || props.theme.colors.mainGreen};
 `;
