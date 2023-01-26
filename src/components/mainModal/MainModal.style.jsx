@@ -30,12 +30,12 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const BottomButton = styled.button`
+export const MainModalButton = styled.button`
   height: calc(var(--vh, 1vh) * 9);
   width: 100%;
+  font-weight: 700;
   padding: 1rem;
   border-radius: 6px;
-  font-size: inherit;
   color: ${(props) => props.color || props.theme.colors.fortGreen};
   background-color: ${(props) =>
     props.backgroundColor || props.theme.colors.mainWhite};

@@ -1,7 +1,14 @@
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import { theme } from "./styles/theme";
+
+import SubHeader from "./containers/SubHeader/SubHeader";
+import { useEffect } from "react";
+import MainHeader from "containers/MainHeader/MainHeader";
+import styled, { css } from "styled-components";
 import styled from "styled-components";
+import { useEffect } from "react";
+
 
 const Wrapper = styled.div`
   background-color: white;
@@ -12,7 +19,6 @@ const Wrapper = styled.div`
   margin-right: auto;
   position: relative;
 `;
-
 const App = () => {
   const setScreenSize = () => {
     const vh = window.innerHeight * 0.01;
@@ -32,6 +38,8 @@ const App = () => {
     <Wrapper className="App">
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        {/* {<MainHeader isFilter={false}></MainHeader>} */}
+        {<SubHeader isText={true} mainText={"SubHeader Text"}></SubHeader>}
       </ThemeProvider>
     </Wrapper>
   );
