@@ -35,7 +35,14 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         {/* {<MainHeader isFilter={false}></MainHeader>} */}
-        {<SubHeader isText={true} mainText={"SubHeader Text"}></SubHeader>}
+        {
+          <SubHeader
+            mainText={"배부른 청설모"}
+            subText={"컴퓨터정보공학부 | 17학번"}
+            //isLike={true}
+            rightBtnType={"isChat"}
+          ></SubHeader>
+        }
       </ThemeProvider>
     </Wrapper>
   );
