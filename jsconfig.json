@@ -1,7 +1,9 @@
 {
-  "compilerOptions": {
-    "module": "es6",
-    "target": "es6",
-    "baseUrl": "./src"
-  }
+
+    "compilerOptions": {
+        "target": "es6",
+        "module": "es6",
+        "baseUrl": "./src"
+    }
 }
+
