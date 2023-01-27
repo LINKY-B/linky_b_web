@@ -4,7 +4,7 @@ const colors = {
   mainBlack: "#000000",
   mainWhite: "#FFFFFF",
   mainGrey: "#E9E9E9",
-  fortGreen: "#9FC743",
+  fontGreen: "#9FC743",
   fontGrey: "#878787",
   errorRed: "##FF0000",
 
