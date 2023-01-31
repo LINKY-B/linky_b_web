@@ -1,9 +1,11 @@
-import { ThemeProvider } from "styled-components";
-import styled from "styled-components";
-import GlobalStyle from "styles/GlobalStyle";
-import { theme } from "./styles/theme";
 import { useEffect } from "react";
-import Test from "Test";
+import { Route, Routes } from "react-router";
+
+import styled from "styled-components";
+
+import { Match } from "pages/Match";
+import { MatchDetail } from "pages/MatchDetail";
+import MainHeader from "containers/MainHeader/MainHeader";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -32,10 +34,13 @@ const App = () => {
 
   return (
     <Wrapper className="App">
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Test />
-      </ThemeProvider>
+
+      {/* <MainHeader /> */}
+      <Routes>
+        <Route exact path="/" element={<div>It's Home</div>} />
+        <Route path="/match" element={<Match />} />
+        <Route path="/match/:userId" element={<MatchDetail />} />
+      </Routes>
     </Wrapper>
   );
 };
