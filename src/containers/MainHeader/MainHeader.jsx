@@ -61,6 +61,11 @@ const MainHeader = ({ isSearch, isFilter }) => {
 
 MainHeader.propTypes = {
   isFilter: PropTypes.bool,
+  isSearch: PropTypes.bool,
+};
+MainHeader.defaultProps = {
+  isLike: false,
+  rightBtnType: false,
 };
 
 export default MainHeader;
