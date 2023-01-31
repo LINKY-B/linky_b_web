@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 export const StyledHeader = styled.header`
   height: 55px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+
+  padding-top: 40px;
+  padding-bottom: 40px;
   padding-left: 10px;
   padding-right: 10px;
   display: flex;
