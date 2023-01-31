@@ -1,21 +1,3 @@
-// import PropTypes from "prop-types";
-
-// import Spacing from "components/spacing/Spacing"
-// import Text from "components/text/Text";
-
-// import
-
-// const Footer=()=>{
-
-//     return (
-//         <Container>
-
-//         </Containr>
-//     )
-
-// }
-
-// export default
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import {
