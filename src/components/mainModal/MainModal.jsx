@@ -1,11 +1,11 @@
-import { Hr, ModalCover } from "styles/Style";
+import { Spacing } from "components/spacing";
 import PropTypes from "prop-types";
+import { Hr, ModalCover } from "styles/Style";
 import {
-  BottomButton,
+  MainModalButton,
   ContentWrapper,
   MainModalWrapper,
 } from "./MainModal.style";
-import { Spacing } from "components/spacing";
 
 const MainModal = ({
   title,
@@ -25,13 +25,13 @@ const MainModal = ({
           {children}
         </ContentWrapper>
         <Spacing />
-        <BottomButton
+        <MainModalButton
           backgroundColor={buttonBackgroundColor}
           color={buttonColor}
           onClick={onClickButton}
         >
           {buttonTitle}
-        </BottomButton>
+        </MainModalButton>
       </MainModalWrapper>
     </section>
   );
