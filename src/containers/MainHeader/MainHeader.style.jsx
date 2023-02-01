@@ -24,13 +24,14 @@ export const MainTextWrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-display: flex;
-justify-content: end;
-width: 20%;
-margin-right:20px;
-> div > img {
-  margin-right:10px;
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
+  display: flex;
+  justify-content: end;
+  width: 20%;
+  margin-right: 20px;
+  > div > img {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
 `;
