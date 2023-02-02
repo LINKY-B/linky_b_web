@@ -3,6 +3,7 @@ import dotaddbutton from "assets/dotaddbutton.png";
 import checkbutton from "assets/checkbutton.png";
 import uncheckbutton from "assets/uncheckbutton.png";
 import topbutton from "assets/topbutton.png";
+import rejectbutton from "assets/rejectbutton.png";
 
 /* 버튼 크기 */
 const buttonSize = css`
@@ -123,6 +124,13 @@ export const CheckButtonStyled = styled(ImgButton)`
       background: url(${uncheckbutton}) no-repeat;
     `;
   }}
+`;
+
+// 거절 버튼(-)
+export const RejectButtonStyled = styled(ImgButton)`
+  width: 16px;
+  height: 16px;
+  background: url(${rejectbutton}) no-repeat;
 `;
 
 //  페이지 상단으로 가는 버튼
