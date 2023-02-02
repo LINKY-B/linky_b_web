@@ -2,7 +2,10 @@ import styled, { css, ThemeProvider } from "styled-components";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Spacing } from "styles/Style";
+
+//component
+import Spacing from "components/spacing/Spacing";
+import Text from "components/text/Text";
 
 //style
 import {
