@@ -4,16 +4,10 @@ export const Box = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-
-  height: 8vh;
-
+  height: 60px;
   background: ${(props) => props.colors || props.theme.colors.mainWhite};
   border-top: 1px solid
     ${(props) => props.colors || props.theme.colors.mainGrey};
-
-  @media screen and (max-width: 479px) {
-    height: 10vh;
-  }
 `;
 
 export const Container = styled.div`
@@ -40,7 +34,7 @@ export const Column = styled.div`
 
 
      .ChatSvg {
-      //추후에 배경색 9fc743 circle fill white로 변경
+      //추후에 배경색 9fc743, circle fill white로 변경
         ${(props) =>
           props.chat &&
           css`
