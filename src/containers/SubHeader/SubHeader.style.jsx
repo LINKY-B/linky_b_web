@@ -12,7 +12,7 @@ const StyledSubHeader = styled.header`
 `;
 const BackButtonWrapper = styled.div`
   margin-top: 5px;
-  margin-left: 50px;
+  margin-left: 20px;
   align-items: center;
   width: 5%;
   display: flex;
@@ -40,7 +40,14 @@ const HeadTextWrapper = styled.div`
 `;
 
 const MainText = styled.div`
+  white-space: nowrap;
   font-size: ${(props) => props.fontSize || props.theme.fontSize.lg};
+  @media screen and (max-width: 767px) {
+    font-size: ${(props) => props.fontSize || props.theme.fontSize.md};
+  }
+  @media screen and (max-width: 479px) {
+    font-size: ${(props) => props.fontSize || props.theme.fontSize.sm};
+  }
 `;
 
 const LikeWrapper = styled.div`
@@ -86,6 +93,11 @@ const SubText = styled.label`
   font-size: ${(props) => props.fontSize || props.theme.fontSize.md};
   color: ${(props) => props.color || props.theme.colors.fontGrey};
   white-space: pre-line;
+
+  @media screen and (max-width: 479px) {
+    font-size: ${(props) => props.fontSize || props.theme.fontSize.xs};
+    white-space: nowrap;
+  }
 `;
 
 export {

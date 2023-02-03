@@ -15,8 +15,8 @@ import {
 } from "./MainHeader.style";
 
 //image
-import filterImg from "./../../assets/images/filter.png";
-import searchImg from "./../../assets/images/search.png";
+import searchImg from "assets/images/search.svg";
+import filterImg from "assets/images/filter.svg";
 
 /**
  *
