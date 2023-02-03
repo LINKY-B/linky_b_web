@@ -1,19 +1,33 @@
 import styled, { css } from "styled-components";
 
 export const Box = styled.div`
-  padding: 15px 80px;
-  background: ${(props) => props.colors || props.theme.colors.mainWhite};
   position: absolute;
   bottom: 0;
   width: 100%;
+
+  height: 8vh;
+
+  background: ${(props) => props.colors || props.theme.colors.mainWhite};
   border-top: 1px solid
     ${(props) => props.colors || props.theme.colors.mainGrey};
+
+  @media screen and (max-width: 479px) {
+    height: 10vh;
+  }
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  justify-content: center;
+  margin: auto;
+  overflow: hidden;
+  max-width: 75%;
+  height: 100%;
+
+  @media screen and (max-width: 479px) {
+    max-width: 95%;
+  }
 `;
 
 export const Column = styled.div`
