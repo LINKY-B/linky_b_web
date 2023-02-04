@@ -1,4 +1,5 @@
 import { ReactComponent as PlusCircleIcon } from "assets/svgs/plus_circle.svg";
+import { ReactComponent as PlusDottedCircleIcon } from "assets/svgs/plus_dotted_circle.svg";
 import { ReactComponent as MinusCircleIcon } from "assets/svgs/minus_circle.svg";
 
 import { ReactComponent as TopArrowCircleIcon } from "assets/svgs/top_arrow_circle.svg";
@@ -36,6 +37,7 @@ export {
   FilterIcon,
   SearchIcon,
   PlusCircleIcon,
+  PlusDottedCircleIcon,
   MatchIcon,
   CrossIcon,
   CrossFillIcon,
