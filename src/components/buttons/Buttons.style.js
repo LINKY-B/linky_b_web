@@ -1,8 +1,4 @@
 import styled, { css } from "styled-components";
-import dotaddbutton from "assets/dotaddbutton.png";
-import checkbutton from "assets/checkbutton.png";
-import uncheckbutton from "assets/uncheckbutton.png";
-import topbutton from "assets/topbutton.png";
 
 /* 버튼 크기 */
 const buttonSize = css`
@@ -95,39 +91,8 @@ export const SelectButtonStyled = styled.button`
   }}
 `;
 
-// 이미지 버튼(스타일)
-const ImgButton = styled.button`
-  padding: 0px;
-  border-radius: 50%;
-`;
-
-// 더하기 버튼
-export const DotAddButtonStyled = styled(ImgButton)`
-  width: 29px;
-  height: 29px;
-  background: url(${dotaddbutton}) no-repeat;
-`;
-
-// 체크 버튼
-export const CheckButtonStyled = styled(ImgButton)`
-  width: 16px;
-  height: 16px;
-
-  ${({ isChecked }) => {
-    if (isChecked)
-      return css`
-        background: url(${checkbutton}) no-repeat;
-      `;
-
-    return css`
-      background: url(${uncheckbutton}) no-repeat;
-    `;
-  }}
-`;
-
-//  페이지 상단으로 가는 버튼
-export const TopButtonStyled = styled(ImgButton)`
-  width: 45px;
-  height: 45px;
-  background: url(${topbutton}) no-repeat;
+// 아이콘 버튼(스타일)
+export const IconButtonStyled = styled.button`
+  padding: 0;
+  margin: 0;
 `;

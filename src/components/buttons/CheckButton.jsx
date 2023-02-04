@@ -1,5 +1,7 @@
-import { CheckButtonStyled } from "./Buttons.style";
+import { IconButtonStyled } from "./Buttons.style";
 import PropTypes from "prop-types";
+import { CheckCircleIcon } from "components/Icon/CheckCircleIcon";
+import { useTheme } from "styled-components";
 
 /**
  * CheckButton component
@@ -9,22 +11,25 @@ import PropTypes from "prop-types";
  * @returns 스타일 적용된 컴포넌트 반환
  *
  */
-const CheckButton = ({ isChecked, onClick }) => {
+const CheckButton = ({ isChecked, onClick, inversed }) => {
+  const theme = useTheme();
+  const color = isChecked ? theme.colors.mainGreen : theme.colors.fontGrey;
+
   return (
-    <CheckButtonStyled
-      className="CheckButton"
-      isChecked={isChecked}
-      onClick={onClick}
-    ></CheckButtonStyled>
+    <IconButtonStyled className="CheckButton" onClick={onClick}>
+      <CheckCircleIcon color={color} inversed={inversed} />
+    </IconButtonStyled>
   );
 };
 
 CheckButton.defaultProps = {
   isChecked: true,
+  inversed: false,
 };
 
 CheckButton.propTypes = {
   isChecked: PropTypes.bool,
+  inversed: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
