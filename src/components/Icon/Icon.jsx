@@ -1,0 +1,34 @@
+import { ReactComponent as ThumbUpIcon } from "assets/svgs/thumb_up.svg";
+import { ReactComponent as MinusCircleIcon } from "assets/svgs/minus_circle.svg";
+import { ReactComponent as TopArrowCircleIcon } from "assets/svgs/top_arrow_circle.svg";
+import { ReactComponent as LeftArrowIcon } from "assets/svgs/left_arrow.svg";
+import { ReactComponent as DotMenuIcon } from "assets/svgs/dot_menu.svg";
+import { ReactComponent as FilterIcon } from "assets/svgs/filter.svg";
+import { ReactComponent as SearchIcon } from "assets/svgs/search.svg";
+import { ReactComponent as PlusCircleIcon } from "assets/svgs/plus_circle.svg";
+import { ReactComponent as MatchIcon } from "assets/svgs/match.svg";
+import { ReactComponent as CrossIcon } from "assets/svgs/cross.svg";
+import { ReactComponent as HomeIcon } from "assets/svgs/home.svg";
+import { ReactComponent as ChatIcon } from "assets/svgs/chat.svg";
+import { ReactComponent as ProfileIcon } from "assets/svgs/profile.svg";
+import { ReactComponent as PinIcon } from "assets/svgs/pin.svg";
+
+import { CheckCircleIcon } from "./CheckCircleIcon";
+
+export {
+  ThumbUpIcon,
+  MinusCircleIcon,
+  TopArrowCircleIcon,
+  LeftArrowIcon,
+  CheckCircleIcon,
+  DotMenuIcon,
+  FilterIcon,
+  SearchIcon,
+  PlusCircleIcon,
+  MatchIcon,
+  CrossIcon,
+  HomeIcon,
+  ChatIcon,
+  ProfileIcon,
+  PinIcon,
+};
