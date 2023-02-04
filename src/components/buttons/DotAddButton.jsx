@@ -1,5 +1,6 @@
-import { DotAddButtonStyled } from "./Buttons.style";
 import PropTypes from "prop-types";
+import { IconButtonStyled } from "./Buttons.style";
+import { PlusCircleIcon } from "components/Icon/Icon";
 
 /**
  * DotAddButton component
@@ -10,10 +11,9 @@ import PropTypes from "prop-types";
  */
 const DotAddButton = ({ onClick }) => {
   return (
-    <DotAddButtonStyled
-      className="DotAddButton"
-      onClick={onClick}
-    ></DotAddButtonStyled>
+    <IconButtonStyled className="DotAddButton" onClick={onClick}>
+      <PlusCircleIcon />
+    </IconButtonStyled>
   );
 };
 
