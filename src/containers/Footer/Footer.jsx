@@ -10,11 +10,16 @@ import {
 } from "./Footer.style";
 
 //img
-
 import { ReactComponent as Home } from "assets/images/Home.svg";
 import { ReactComponent as Link } from "assets/images/Link.svg";
 import { ReactComponent as Profile } from "assets/images/Profile.svg";
 import { ReactComponent as Chat } from "assets/images/Chat.svg";
+
+/**
+ * Footer component
+ *
+ * @returns 스타일 적용된 컴포넌트 반환
+ */
 const Footer = () => {
   const navigate = useNavigate();
   return (

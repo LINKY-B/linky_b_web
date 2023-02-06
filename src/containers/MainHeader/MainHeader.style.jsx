@@ -2,15 +2,17 @@ import styled from "styled-components";
 
 export const StyledHeader = styled.header`
   height: 55px;
-
   padding-top: 40px;
   padding-bottom: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   text-align: center;
+
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 //MainTextWrapper는 추후에 text에서 이미지로 변경될시 변경해야함

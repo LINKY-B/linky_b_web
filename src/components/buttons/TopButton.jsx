@@ -1,5 +1,6 @@
-import { TopButtonStyled } from "./Buttons.style";
 import PropTypes from "prop-types";
+import { IconButtonStyled } from "./Buttons.style";
+import { TopArrowCircleIcon } from "components/Icon/Icon";
 
 /**
  * TopButton component
@@ -10,7 +11,9 @@ import PropTypes from "prop-types";
  */
 const TopButton = ({ onClick }) => {
   return (
-    <TopButtonStyled className="TopButton" onClick={onClick}></TopButtonStyled>
+    <IconButtonStyled className="TopButton" onClick={onClick}>
+      <TopArrowCircleIcon />
+    </IconButtonStyled>
   );
 };
 

@@ -1,10 +1,16 @@
-import { SelectButtonStyled } from "components/buttons/Buttons.style";
 import styled from "styled-components";
 
 export const ProfileImage = styled.img`
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 49px;
+  height: 49px;
+`;
+
+export const SmallProfileImage = styled.img`
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  margin: 0 7px;
 `;
 
 export const ColumnDirectionWrapper = styled.div`
@@ -14,33 +20,6 @@ export const ColumnDirectionWrapper = styled.div`
   height: 100%;
 `;
 
-export const FlexContainer = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.2rem;
-`;
-
-export const ForClickHoverWrapper = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0.2rem 0;
-  flex: 7;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const ButtonWrapper = styled(FlexContainer)`
-  justify-content: space-around;
-  flex: 1;
-`;
-
-export const RadiusLabel = styled(SelectButtonStyled)`
-  color: ${(props) => props.theme.colors.mainBlack};
-  font-size: ${(props) => props.theme.fontSize.xs};
-  padding: 0 0.3rem;
-  height: fit-content;
 `;

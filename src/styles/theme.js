@@ -20,9 +20,11 @@ const spacing = {
 };
 
 const fontSize = {
-  xs: "0.5rem",
-  sm: "0.75rem",
-  md: "1rem",
+  xxxs: "0.5rem", // 8
+  xxs: "0.625rem", // 10
+  xs: "0.75rem", // 12
+  sm: "0.875rem", // 14
+  md: "1rem", // 16
   lg: "1.5rem",
   xl: "1.75rem",
 };

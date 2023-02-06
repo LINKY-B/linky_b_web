@@ -15,10 +15,17 @@ import {
 } from "./MainHeader.style";
 
 //image
-import filterImg from "./../../assets/images/filter.png";
-import searchImg from "./../../assets/images/search.png";
+import searchImg from "assets/images/search.svg";
+import filterImg from "assets/images/filter.svg";
 
-const MainHeader = ({ isFilter }) => {
+/**
+ *
+ * @param {bool} isFilter 필터버튼 생성여부
+ * @param {bool} isSearch  검색버튼 생성여부
+ * @returns
+ */
+
+const MainHeader = ({ isSearch, isFilter }) => {
   const search = () => {
     alert("검색버튼 클릭");
   };
@@ -36,15 +43,16 @@ const MainHeader = ({ isFilter }) => {
       </MainTextWrapper>
 
       <ButtonWrapper>
-        <div className="emo1">
-          <img src={searchImg} onClick={search} alt="검색 이미지 오류"></img>
-        </div>
-        {isFilter ? (
+        {isSearch && (
+          <div className="emo1">
+            <img src={searchImg} onClick={search} alt="검색 이미지 오류"></img>
+          </div>
+        )}
+
+        {isFilter && (
           <div className="emo2">
             <img src={filterImg} onClick={filter} alt="필터 이미지 오류"></img>
           </div>
-        ) : (
-          <div></div>
         )}
       </ButtonWrapper>
     </StyledHeader>
@@ -53,6 +61,11 @@ const MainHeader = ({ isFilter }) => {
 
 MainHeader.propTypes = {
   isFilter: PropTypes.bool,
+  isSearch: PropTypes.bool,
+};
+MainHeader.defaultProps = {
+  isLike: false,
+  rightBtnType: false,
 };
 
 export default MainHeader;
