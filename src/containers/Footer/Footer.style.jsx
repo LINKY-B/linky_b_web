@@ -90,16 +90,7 @@ export const FooterText = styled.div`
   }
 `;
 
-export const HomeIcon = styled(Icon.HomeIcon)`
-  :hover{pointer;}
-`;
-
-export const MatchIcon = styled(Icon.MatchIcon)`
-:hover{pointer;}
-`;
-export const ProfileIcon = styled(Icon.ProfileIcon)`
-:hover{pointer;}
-`;
-export const ChatIcon = styled(Icon.ChatIcon)`
-:hover{pointer;}
-`;
+export const HomeIcon = styled(Icon.HomeIcon)``;
+export const MatchIcon = styled(Icon.MatchIcon)``;
+export const ProfileIcon = styled(Icon.ProfileIcon)``;
+export const ChatIcon = styled(Icon.ChatIcon)``;

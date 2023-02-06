@@ -13,12 +13,6 @@ import {
   ChatIcon,
 } from "./Footer.style";
 
-//img
-// import { ReactComponent as Home } from "assets/images/Home.svg";
-import { ReactComponent as Link } from "assets/images/Link.svg";
-import { ReactComponent as Profile } from "assets/images/Profile.svg";
-import { ReactComponent as Chat } from "assets/images/Chat.svg";
-
 /**
  * Footer component
  *
