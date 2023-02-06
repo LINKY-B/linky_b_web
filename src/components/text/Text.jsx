@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { StyledText } from "./Text.style";
 
-export const Text = ({ fontSize, color, children }) => {
+export const Text = ({ fontSize, color, fontWeight, children }) => {
   return (
-    <StyledText fontSize={fontSize} color={color}>
+    <StyledText fontSize={fontSize} fontWeight={fontWeight} color={color}>
       {children}
     </StyledText>
   );
@@ -12,6 +12,7 @@ export const Text = ({ fontSize, color, children }) => {
 Text.propTypes = {
   fontSize: PropTypes.string,
   color: PropTypes.string,
+  fontWeight: PropTypes.number,
 };
 
 export default Text;
