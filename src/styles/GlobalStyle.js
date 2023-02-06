@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -62,17 +61,15 @@ body {
 a {
   text-decoration: none;
   color:inherit;
+	cursor: pointer;
 }
 
 button {
   font: inherit;
+  cursor: pointer;
   border: none;
   background: none;
   font-family: 'Roboto';
-}
-
-a, button:hover {
-  cursor: pointer;
 }
 `;
 
