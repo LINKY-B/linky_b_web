@@ -7,14 +7,17 @@ import {
   Column,
   FooterText,
   FooterImg,
+  HomeIcon,
+  MatchIcon,
+  ProfileIcon,
+  ChatIcon,
 } from "./Footer.style";
 
-//img
-
-import { ReactComponent as Home } from "assets/images/Home.svg";
-import { ReactComponent as Link } from "assets/images/Link.svg";
-import { ReactComponent as Profile } from "assets/images/Profile.svg";
-import { ReactComponent as Chat } from "assets/images/Chat.svg";
+/**
+ * Footer component
+ *
+ * @returns 스타일 적용된 컴포넌트 반환
+ */
 const Footer = () => {
   const navigate = useNavigate();
   return (
@@ -23,7 +26,7 @@ const Footer = () => {
         <Row>
           <Column onClick={() => navigate("/")}>
             <FooterImg>
-              <Home className="HomeIcon"></Home>
+              <HomeIcon></HomeIcon>
             </FooterImg>
             <FooterText>
               <p>홈</p>
@@ -31,7 +34,7 @@ const Footer = () => {
           </Column>
           <Column onClick={() => navigate("/match")} match>
             <FooterImg>
-              <Link></Link>
+              <MatchIcon></MatchIcon>
             </FooterImg>
 
             <FooterText>
@@ -40,7 +43,7 @@ const Footer = () => {
           </Column>
           <Column onClick={() => navigate("/chat")} chat>
             <FooterImg>
-              <Chat className="ChatSvg"></Chat>
+              <ChatIcon className="ChatSvg"></ChatIcon>
             </FooterImg>
 
             <FooterText>
@@ -49,7 +52,7 @@ const Footer = () => {
           </Column>
           <Column onClick={() => navigate("/profile")}>
             <FooterImg>
-              <Profile></Profile>
+              <ProfileIcon></ProfileIcon>
             </FooterImg>
 
             <FooterText>
