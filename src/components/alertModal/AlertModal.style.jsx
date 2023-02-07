@@ -4,7 +4,7 @@ export const AlertModalWrapper = styled.div`
   z-index: 100;
   width: 300px;
 
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -24,6 +24,8 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+
+  margin: 0;
   padding: 0.5rem;
   padding-top: 0;
 `;

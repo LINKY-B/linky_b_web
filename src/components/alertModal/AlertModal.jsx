@@ -1,4 +1,5 @@
 import Button from "components/buttons/Button";
+import { CrossIcon } from "components/Icon/Icon";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
 import PropTypes from "prop-types";
@@ -26,7 +27,9 @@ const AlertModal = ({
       <ModalCover className="Cover" />
       <AlertModalWrapper>
         <CloseButtonWrapper>
-          <button onClick={onClickClose}>X</button>
+          <button onClick={onClickClose}>
+            <CrossIcon width="1.5em" height="1.5em" />
+          </button>
         </CloseButtonWrapper>
 
         <ContentWrapper>
