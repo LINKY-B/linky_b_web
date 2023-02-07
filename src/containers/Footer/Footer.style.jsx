@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Icon } from "components/Icon/index";
 
 export const Box = styled.div`
   position: absolute;
@@ -88,3 +89,8 @@ export const FooterText = styled.div`
     font-size: ${(props) => props.fontSize || props.theme.fontSize.md};
   }
 `;
+
+export const HomeIcon = styled(Icon.HomeIcon)``;
+export const MatchIcon = styled(Icon.MatchIcon)``;
+export const ProfileIcon = styled(Icon.ProfileIcon)``;
+export const ChatIcon = styled(Icon.ChatIcon)``;
