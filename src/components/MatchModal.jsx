@@ -1,3 +1,4 @@
+import { RadiusLabel } from "containers/MemberInfoContainer/MemberInfoContainer.style";
 import { useRef } from "react";
 import { matchActions, MATCH_MODAL_TYPES } from "store/ducks/matchSlice";
 import { useAppDispatch, useAppSelector } from "store/Hooks";
@@ -5,7 +6,9 @@ import {
   useMatchApproveMutation,
   useMatchRejectMutation,
 } from "utils/hooks/useMatch";
+import SelectButton from "components/buttons/SelectButton";
 import { AlertModal } from "./alertModal";
+import { ReportModal } from "containers/Modals/ReportModal";
 
 export const MatchModal = ({ onSuccessMutation, onMutation }) => {
   // redux
@@ -43,6 +46,16 @@ export const MatchModal = ({ onSuccessMutation, onMutation }) => {
 
   const handleReject = () => {
     rejectMutation.mutate({ id: userId }, commonMutationOptions);
+  };
+
+  const handleDelete = () => {};
+
+  const handleApproveAll = () => {};
+
+  const handleBlock = () => {};
+
+  const handleReport = (title, reason) => {
+    console.log(`report : ${userId} ${userNickname} ${title} ${reason}`);
   };
 
   // CASE: NONE
@@ -88,6 +101,56 @@ export const MatchModal = ({ onSuccessMutation, onMutation }) => {
         buttonColor="grey"
         onClickButton={handleReject}
         onClickClose={handleClose}
+      />
+    );
+  }
+
+  // CASE: Delete Alert
+  if (modalType === MATCH_MODAL_TYPES.DELETE) {
+    return (
+      <AlertModal
+        title={`연결 시도 내역을 삭제하겠습니까?`}
+        buttonTitle="삭제하기"
+        buttonColor="grey"
+        onClickButton={handleDelete}
+        onClickClose={handleClose}
+      />
+    );
+  }
+
+  // CASE: Approve All Alert
+  if (modalType === MATCH_MODAL_TYPES.APPROVE_ALL) {
+    return (
+      <AlertModal
+        title={`모든 연결을 수락하시겠습니까?`}
+        buttonTitle="모두 수락하기"
+        onClickButton={handleApproveAll}
+        onClickClose={handleClose}
+      />
+    );
+  }
+
+  // CASE: Block Alert
+  if (modalType === MATCH_MODAL_TYPES.BLOCK) {
+    return (
+      <AlertModal
+        title={`${userNickname} 님을 \n 차단하시겠습니까?`}
+        subTitle={`*삭제한 회원은 설정의 차단 관리에서 \n 관리할 수 있습니다`}
+        buttonTitle="차단하기"
+        buttonColor="grey"
+        onClickButton={handleBlock}
+        onClickClose={handleClose}
+      />
+    );
+  }
+
+  // CASE: Report All Alert
+  if (modalType === MATCH_MODAL_TYPES.REPORT) {
+    return (
+      <ReportModal
+        userNickname={userNickname}
+        onClickClose={handleClose}
+        onClickReport={handleReport}
       />
     );
   }
