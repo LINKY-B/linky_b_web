@@ -4,7 +4,7 @@ import { useTheme } from "styled-components";
 import Header from "containers/Header/Header";
 
 import { useNavigate } from "react-router-dom";
-import { FlexWrapper } from "containers/Header/Header.style";
+import { FlexWrapper, ButtonWrapper } from "containers/Header/Header.style";
 import { LeftArrowIcon } from "./SubHeader.style";
 
 const SubHeader = ({ leftChild, rightChild }) => {
@@ -20,7 +20,7 @@ const SubHeader = ({ leftChild, rightChild }) => {
         <Spacing></Spacing>
         {leftChild}
       </FlexWrapper>
-      {rightChild}
+      <ButtonWrapper>{rightChild}</ButtonWrapper>
     </Header>
   );
 };

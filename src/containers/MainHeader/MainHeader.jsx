@@ -1,71 +1,49 @@
-import styled, { css, ThemeProvider } from "styled-components";
 import React, { useEffect } from "react";
-import { useState } from "react";
 import PropTypes from "prop-types";
+import { useTheme } from "styled-components";
 
 //component
 import Spacing from "components/spacing/Spacing";
 import Text from "components/text/Text";
 
 //style
-import {
-  StyledHeader,
-  MainTextWrapper,
-  ButtonWrapper,
-} from "./MainHeader.style";
+import { FilterIcon, SearchIcon } from "./MainHeader.style";
 
-//image
-import searchImg from "assets/images/search.svg";
-import filterImg from "assets/images/filter.svg";
+import Header from "containers/Header/Header";
+import { FlexWrapper, ButtonWrapper } from "containers/Header/Header.style";
 
 /**
  *
- * @param {bool} isFilter 필터버튼 생성여부
- * @param {bool} isSearch  검색버튼 생성여부
+ * @param {bool} filter 필터버튼 생성여부
+ * @param {bool} search  검색버튼 생성여부
+ * @param {function} onClickSearch search버튼 클릭시 동작 함수
+ * @param {function} onClickFilter filter버튼 클릭시 동작 함수
  * @returns
  */
 
-const MainHeader = ({ isSearch, isFilter }) => {
-  const search = () => {
-    alert("검색버튼 클릭");
-  };
-
-  const filter = () => {
-    alert("필터버튼 클릭");
-  };
+const MainHeader = ({ search, filter, onClickSearch, onClickFilter }) => {
+  const theme = useTheme();
 
   useEffect(() => {});
 
   return (
-    <StyledHeader>
-      <MainTextWrapper>
-        <h2>LINKY-B</h2>
-      </MainTextWrapper>
-
+    <Header>
+      <Text fontSize={theme.fontSize.lg}>LINKY-B</Text>
+      <Spacing></Spacing>
+      <FlexWrapper></FlexWrapper>
       <ButtonWrapper>
-        {isSearch && (
-          <div className="emo1">
-            <img src={searchImg} onClick={search} alt="검색 이미지 오류"></img>
-          </div>
-        )}
-
-        {isFilter && (
-          <div className="emo2">
-            <img src={filterImg} onClick={filter} alt="필터 이미지 오류"></img>
-          </div>
-        )}
+        {search && <SearchIcon onClick={onClickSearch}></SearchIcon>}
+        {filter && <FilterIcon onClick={onClickFilter}></FilterIcon>}
       </ButtonWrapper>
-    </StyledHeader>
+    </Header>
   );
 };
 
 MainHeader.propTypes = {
-  isFilter: PropTypes.bool,
-  isSearch: PropTypes.bool,
-};
-MainHeader.defaultProps = {
-  isLike: false,
-  rightBtnType: false,
+  search: PropTypes.bool,
+  filter: PropTypes.bool,
+  onClickFilter: PropTypes.func,
+  onClickSearch: PropTypes.func,
 };
 
 export default MainHeader;
