@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { fetchMatchHomeApi, fetchMatchDetail, approveMatch, rejectMatch } from "utils/apis/match"
+import { fetchMatchHomeApi, fetchMatchDetail, approveMatch, rejectMatch, fetchTryMatchingListApi, fetchTryMatchedListApi } from "utils/apis/match"
 
 // 연결화면에 쓰이는 key들
 const matchKeys = {
     all: ['match'],
     home: () => [...matchKeys.all, 'home'],
-    matched: () => [...matchKeys.all, 'matched'],
-    matching: () => [...matchKeys.all, 'matching'],
+    lists: () => [...matchKeys.all, 'list'],
+    matched: () => [...matchKeys.lists(), 'matched'],
+    matching: () => [...matchKeys.lists(), 'matching'],
     detail: (id) => [...matchKeys.all, 'detail', id]
 }
 
@@ -52,6 +53,16 @@ export const useMatchRejectMutation = () => {
 // Get 연결화면 - 홈 데이터 가져오기
 export const useMatchHome = () => {
     return useQuery(matchKeys.home(), () => fetchMatchHomeApi())
+}
+
+// Get 연결화면 - 내가 연결을 시도한 회원 데이터 가져오기
+export const useMatchingList = () => {
+    return useQuery(matchKeys.matching(), () => fetchTryMatchingListApi())
+}
+
+// Get 연결화면 - 나에게 연결을 시도한 회원 데이터 가져오기
+export const useMatchedList = (type) => {
+    return useQuery(matchKeys.matched(), () => fetchTryMatchedListApi())
 }
 
 // Get 연결화면 - 나에게 연결을 시도한 회원의 상세정보 가져오기
