@@ -42,8 +42,16 @@ const buttonColor = css`
         color: ${theme.colors.fontGrey};
       `;
     }
+
+    if (color === "lightGrey") {
+      return css`
+        background: ${theme.colors.mainLightGrey};
+        color: ${theme.colors.fontGrey};
+      `;
+    }
   }}
 `;
+
 
 // 일반버튼
 export const ButtonStyled = styled.button`

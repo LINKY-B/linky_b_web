@@ -23,7 +23,7 @@ import { ReactComponent as HomeIcon } from "assets/svgs/home.svg";
 import { ReactComponent as MatchIcon } from "assets/svgs/match.svg";
 import { ReactComponent as ChatIcon } from "assets/svgs/chat.svg";
 import { ReactComponent as ProfileIcon } from "assets/svgs/profile.svg";
-
+import { ReactComponent as MainLogoIcon } from "assets/svgs/main_logo.svg";
 import { CheckCircleIcon } from "./CheckCircleIcon";
 
 export {
@@ -50,4 +50,5 @@ export {
   ProfileQuestionMarkIcon,
   QuarterCircleIcon,
   BottomArrowIcon,
+  MainLogoIcon,
 };

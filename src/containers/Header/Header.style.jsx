@@ -5,7 +5,7 @@ export const StyledHeader = styled.header`
   padding-top: 30px;
   padding-bottom: 30px;
   align-items: center;
-  max-width: 85%;
+  max-width: 90%;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
