@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { fetchMatchHomeApi, fetchMatchDetail, approveMatch, rejectMatch, fetchTryMatchingListApi, fetchTryMatchedListApi } from "utils/apis/match"
+import { fetchMatchHomeApi, fetchMatchDetail, approveMatch, rejectMatch, fetchTryMatchingListApi, fetchTryMatchedListApi, approveAllMatch } from "utils/apis/match"
 
 // 연결화면에 쓰이는 key들
 const matchKeys = {
@@ -23,6 +23,22 @@ export const useMatchApproveMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation(approveMatch, {
+        onSuccess: (data) => {
+            queryClient.invalidateQueries(matchKeys.home());
+            queryClient.invalidateQueries(matchKeys.matched());
+            console.log(data);
+        },
+        onError: (error) => {
+            console.log(error);
+        }
+    })
+}
+
+// Mutation: 모든 연결 수락
+export const useMatchApproveAllMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation(approveAllMatch, {
         onSuccess: (data) => {
             queryClient.invalidateQueries(matchKeys.home());
             queryClient.invalidateQueries(matchKeys.matched());
