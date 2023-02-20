@@ -3,7 +3,7 @@ import { StickyFooterContainer } from "containers/StickyFooter/StickyFooter.styl
 import styled from "styled-components";
 
 export const StyledMatchDetail = styled.article`
-  // height: calc(var(--vh, 1vh) * 150);
+  height: calc(var(--vh, 1vh) * 150);
   // border: 1px solid red;
 `;
 
@@ -11,7 +11,7 @@ export const StyledMatchDetail = styled.article`
 export const StyledHeader = styled.section`
   position: relative;
   height: 186px;
-  background-color: ${(props) => props.theme.colors.mainLightGreen};
+  background-color: ${(props) => props.theme.colors.mainLightGrey};
   box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.25);
   // border: 1px solid red;
 `;

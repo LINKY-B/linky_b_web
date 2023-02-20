@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 
-import { matchActions, MATCH_MODAL_TYPES } from "store/ducks/matchSlice";
+import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
 import { useAppDispatch } from "store/Hooks";
 import { useMatchDetail } from "utils/hooks/useMatch";
 
 import Button from "components/buttons/Button";
-import { MatchModal } from "components/MatchModal";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
+import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
 
 import { DotMenuIcon } from "components/Icon/Icon";
 import MemberInfoContainer from "containers/MemberInfoContainer/MemberInfoContainer";
@@ -39,13 +39,7 @@ const MatchDetail = () => {
   const [showMainModal, setShowMainModal] = useState(false);
 
   const { userId } = params;
-  const { data: user, error, isLoading, isError } = useMatchDetail(userId);
-
-  useEffect(() => {
-    return () => {
-      dispatch(matchActions.resetModal());
-    };
-  }, [dispatch]);
+  const { data: user, error, isLoading } = useMatchDetail(userId);
 
   // UseQuery status에 따른 처리
   if (isLoading) {
@@ -103,19 +97,19 @@ const MatchDetail = () => {
   // Callback Functions
   const onClickApproveButton = () => {
     dispatch(
-      matchActions.showModal({
+      modalActions.showModal({
         userId,
         userNickname,
-        modalType: MATCH_MODAL_TYPES.APPROVE,
+        modalType: MODAL_TYPES.APPROVE,
       }),
     );
   };
   const onClickRejectButton = () => {
     dispatch(
-      matchActions.showModal({
+      modalActions.showModal({
         userId,
         userNickname,
-        modalType: MATCH_MODAL_TYPES.REJECT,
+        modalType: MODAL_TYPES.REJECT,
       }),
     );
   };
@@ -126,7 +120,7 @@ const MatchDetail = () => {
 
   return (
     <StyledMatchDetail>
-      <MatchModal
+      <TotalAlertModal
         onSuccessMutation={() => {
           navigate(-1);
         }}
@@ -160,7 +154,9 @@ const MatchDetail = () => {
 
       <article className="MatchDetailArticle">
         <IntroductionWrapper className="userIntroduction">
-          <Text fontSize={theme.fontSize.xs}>{userSelfIntroduction}</Text>
+          <Text fontSize={theme.fontSize.xs} whiteSpace="pre-line">
+            {userSelfIntroduction}
+          </Text>
         </IntroductionWrapper>
 
         <InfoWrapper>

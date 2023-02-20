@@ -4,7 +4,7 @@ import { useAppDispatch } from "store/Hooks";
 import { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 
-import { matchActions, MATCH_MODAL_TYPES } from "store/ducks/matchSlice";
+import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
 
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
@@ -41,7 +41,7 @@ export const MatchList = ({
   // when unmount: reset modal
   useEffect(() => {
     return () => {
-      dispatch(matchActions.resetModal());
+      dispatch(modalActions.resetModal());
     };
   }, [dispatch]);
 
@@ -61,38 +61,38 @@ export const MatchList = ({
 
   const onClickApproveButton = ({ userId, userNickname }) => {
     dispatch(
-      matchActions.showModal({
+      modalActions.showModal({
         userId,
         userNickname,
-        modalType: MATCH_MODAL_TYPES.APPROVE,
+        modalType: MODAL_TYPES.APPROVE,
       }),
     );
   };
 
   const onClickRejectButton = ({ userId, userNickname }) => {
     dispatch(
-      matchActions.showModal({
+      modalActions.showModal({
         userId,
         userNickname,
-        modalType: MATCH_MODAL_TYPES.REJECT,
+        modalType: MODAL_TYPES.REJECT,
       }),
     );
   };
 
   const onClickDeleteButton = ({ userId, userNickname }) => {
     dispatch(
-      matchActions.showModal({
+      modalActions.showModal({
         userId,
         userNickname,
-        modalType: MATCH_MODAL_TYPES.DELETE,
+        modalType: MODAL_TYPES.DELETE,
       }),
     );
   };
 
   const onClickApproveAllButton = () => {
     dispatch(
-      matchActions.showModal({
-        modalType: MATCH_MODAL_TYPES.APPROVE_ALL,
+      modalActions.showModal({
+        modalType: MODAL_TYPES.APPROVE_ALL,
       }),
     );
   };

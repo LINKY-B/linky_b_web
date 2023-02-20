@@ -1,16 +1,14 @@
-import { useTheme } from "styled-components";
 import { useMatchedList, useMatchingList } from "utils/hooks/useMatch";
 
-import { MatchModal } from "components/MatchModal";
 import MatchList from "containers/MatchList/MatchList";
+import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
 
 export const MatchedListPage = () => {
   const { data, error, isLoading } = useMatchedList();
-  const theme = useTheme();
 
   return (
     <>
-      <MatchModal />
+      <TotalAlertModal />
       <MatchList
         data={data}
         error={error}
@@ -27,7 +25,7 @@ export const MatchingListPage = () => {
 
   return (
     <>
-      <MatchModal />
+      <TotalAlertModal />
       <MatchList
         data={data}
         error={error}
