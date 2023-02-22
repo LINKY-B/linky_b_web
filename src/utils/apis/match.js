@@ -39,6 +39,18 @@ export const approveMatch = async ({ id }) => {
     return result;
 }
 
+// 모든 연결 수락
+export const approveAllMatch = async () => {
+    const { data } = await authorizedAxios.patch(`/match/all`);
+    const { isSuccess, result, message } = data;
+
+    if (!isSuccess) {
+        throw new Error(commonErrorMsg(message));
+    }
+
+    return result;
+}
+
 // 연결 거절
 export const rejectMatch = async ({ id }) => {
     const { data } = await authorizedAxios.delete(`/match/${id}`);

@@ -11,7 +11,7 @@ export const ModalButtonWrapper = styled.div`
 export const ModalButton = styled.button`
   // border: 1px solid pink;
   width: 100%;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 `;
 
 export const ReportModalWrapper = styled.div`

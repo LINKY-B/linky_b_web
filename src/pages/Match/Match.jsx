@@ -1,44 +1,31 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "store/Hooks";
 import { useTheme } from "styled-components";
 
-import { matchActions } from "store/ducks/matchSlice";
 import { useMatchHome } from "utils/hooks/useMatch";
 
 import { RightArrowIcon } from "components/Icon/Icon";
-import { MatchModal } from "components/MatchModal";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
 import { Footer } from "containers/Footer";
 import MainHeader from "containers/MainHeader/MainHeader";
-import MatchList from "containers/MatchList/MatchList";
-import StickyFooter from "containers/StickyFooter/StickyFooter";
+import { MatchList } from "containers/MatchList";
+import { StickyFooter } from "containers/StickyFooter";
+import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
 import {
   AlignItemsCenterWrapper,
   FlexWrapper,
-  MatchWrapper,
   StyledMatch,
 } from "./Match.style";
 
 export const Match = () => {
   const { data, error, isLoading } = useMatchHome();
   const theme = useTheme();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    return () => {
-      dispatch(matchActions.resetModal());
-    };
-  }, [dispatch]);
-
-  console.log(data);
 
   return (
     <>
       <MainHeader />
-      <MatchModal />
+      <TotalAlertModal />
       <StyledMatch className="Match">
         <article className="MatchTryToMeArticle">
           <MatchList
