@@ -8,20 +8,10 @@ export const OnBoardingWrapper = styled.div`
   justify-content: center;
 `;
 
-export const MainLogoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 export const MainLogoImg = styled(Icon.MainLogoIcon)``;
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  bottom: 70px;
+  bottom: 80px;
 `;

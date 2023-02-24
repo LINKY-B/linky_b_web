@@ -9,20 +9,16 @@ import Spacing from "components/spacing/Spacing";
 import Text from "components/text/Text";
 import { useTheme } from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import MainLogo from "components/mainLogo/MainLogo";
 const OnBoarding = () => {
   const loginClick = () => {};
   const signupClick = () => {};
-  
+
   const theme = useTheme();
   const navigate = useNavigate();
   return (
     <OnBoardingWrapper>
-      <MainLogoWrapper>
-        <MainLogoImg></MainLogoImg>
-        <Spacing margin={theme.spacing.lg}></Spacing>
-        <Text fontSize={theme.fontSize.lg}>마음맞는 선후배 매칭 서비스</Text>
-      </MainLogoWrapper>
+      <MainLogo top={50}></MainLogo>
       <ButtonWrapper>
         <Button onClick={() => navigate("/login")}>로그인하기</Button>
         <Spacing></Spacing>
