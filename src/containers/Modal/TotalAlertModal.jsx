@@ -51,20 +51,10 @@ export const TotalAlertModal = () => {
 
   // mutation option
   const commonMutationOptions = (backward) => {
-    if (backward) {
-      return {
-        onSuccess: async () => {
-          await dispatch(modalActions.resetModal());
-          await navigate(-1);
-        },
-        onError: () => {
-          isCurrentError.current = true;
-        },
-      };
-    }
     return {
       onSuccess: async () => {
         await dispatch(modalActions.resetModal());
+        backward && (await navigate(-1));
       },
       onError: () => {
         isCurrentError.current = true;
