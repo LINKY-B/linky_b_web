@@ -5,7 +5,7 @@ import Draggable from "components/draggable/Draggable";
 import { PinIcon } from "components/Icon/Icon";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
-import MemberInfoContainer from "containers/MemberInfoContainer/MemberInfoContainer";
+import { MemberInfoContainer } from "containers/MemberInfoContainer";
 import { elapsedTime } from "utils/time";
 import {
   ItemWrapper,
@@ -23,10 +23,11 @@ import {
  * @param {function} onClick 채팅 아이템이 클릭됐을 때의 콜백함수
  * @param {function} onExit 드래그 해서 나가기 했을 때의 콜백함수
  * @param {function} onLike 드래그 해서 PIN을 했을 때의 콜백함수
+ * @param {function} draggable 드래그가 되게할지 안되게 할지
  *
  * @returns
  */
-const ChatListItem = ({ chat, onClick, onExit, onLike }) => {
+const ChatListItem = ({ chat, onClick, onExit, onLike, draggable }) => {
   const {
     userChattingRoomId,
     userProfileImg,
@@ -51,16 +52,17 @@ const ChatListItem = ({ chat, onClick, onExit, onLike }) => {
 
   return (
     <ItemWrapper>
-      <LeftSideWrapper>
-        <SideButton backgroundColor={like && theme.colors.fontGrey}>
-          <PinIcon
-            color={theme.colors.mainWhite}
-            width="0.8em"
-            height="0.8em"
-          />
-        </SideButton>
-      </LeftSideWrapper>
-
+      {draggable && (
+        <LeftSideWrapper>
+          <SideButton backgroundColor={like && theme.colors.fontGrey}>
+            <PinIcon
+              color={theme.colors.mainWhite}
+              width="0.8em"
+              height="0.8em"
+            />
+          </SideButton>
+        </LeftSideWrapper>
+      )}
       <Draggable
         onLeftFull={handleLeftFull}
         onRightFull={handleRightFull}
@@ -100,13 +102,15 @@ const ChatListItem = ({ chat, onClick, onExit, onLike }) => {
         </StyledMemberInfoSection>
       </Draggable>
 
-      <RightSideWrapper>
-        <SideButton backgroundColor={theme.colors.fontGrey}>
-          <Text color={theme.colors.mainWhite} fontSize={theme.fontSize.xs}>
-            나가기
-          </Text>
-        </SideButton>
-      </RightSideWrapper>
+      {draggable && (
+        <RightSideWrapper>
+          <SideButton backgroundColor={theme.colors.fontGrey}>
+            <Text color={theme.colors.mainWhite} fontSize={theme.fontSize.xs}>
+              나가기
+            </Text>
+          </SideButton>
+        </RightSideWrapper>
+      )}
     </ItemWrapper>
   );
 };
@@ -116,8 +120,11 @@ ChatListItem.propTypes = {
   onClick: PropTypes.func,
   onExit: PropTypes.func,
   onLike: PropTypes.func,
+  draggable: PropTypes.bool,
 };
 
-ChatListItem.defaultProps = {};
+ChatListItem.defaultProps = {
+  draggable: true,
+};
 
 export default ChatListItem;
