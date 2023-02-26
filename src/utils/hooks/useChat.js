@@ -1,10 +1,11 @@
 import { useQuery, useQueryClient, useMutation } from "react-query"
-import { doExitChat, doLikeChat, fetchChatDetail, fetchChatLists } from "utils/apis/chat"
+import { doExitChat, doLikeChat, fetchChatDetail, fetchChatLists, fetchChatListSearch } from "utils/apis/chat"
 
 // 연결화면에 쓰이는 key들
 const chatKeys = {
     all: ['chat'],
     lists: () => [...chatKeys.all, 'lists'],
+    list: (filter) => [...chatKeys.lists(), { filter }],
     detail: (roomId) => [...chatKeys.all, 'details', roomId]
 }
 
@@ -30,6 +31,15 @@ const compareChat = (a, b) => {
 // Get 채팅화면 - 채팅 목록 가져오기
 export const useChatLists = () => {
     return useQuery(chatKeys.lists(), () => fetchChatLists());
+}
+
+
+// Get 채팅화면 - 검색된 채팅 목록 가져오기
+export const useChatListSearch = (q) => {
+    return useQuery(chatKeys.list(q), () => fetchChatListSearch(q), {
+        enabled: !!q,
+        select: (data) => data.slice(0, 10)
+    });
 }
 
 
