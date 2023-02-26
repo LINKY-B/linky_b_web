@@ -11,8 +11,9 @@ import {
   MatchedListPage,
   MatchingListPage,
 } from "pages/MatchListPage/MatchListPage";
-import Chat from "pages/Chat/Chat";
-import ChatDetail from "pages/ChatDetail/ChatDetail";
+import { Chat } from "pages/Chat";
+import { ChatDetail } from "pages/ChatDetail";
+import { ChatListSearch } from "pages/ChatListSearch";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -61,6 +62,7 @@ const App = () => {
         <Route path="/match/matching" element={<MatchingListPage />} />
         <Route path="/match/matched/:userId" element={<MatchDetail />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/search" element={<ChatListSearch />} />
         <Route path="/chat/:roomId" element={<ChatDetail />} />
       </Routes>
       <Footer></Footer>

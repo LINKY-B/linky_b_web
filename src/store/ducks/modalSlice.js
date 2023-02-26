@@ -9,6 +9,7 @@ export const MODAL_TYPES = {
     BLOCK: "MODAL_TYPES/BLOCK",
     REPORT: "MODAL_TYPES/REPORT",
     EXIT: "MODAL_TYPES/EXIT",
+    ETC: "MODAL_TYPES/ETC"
 };
 
 const initialState = {
@@ -16,6 +17,8 @@ const initialState = {
     userNickname: '',
 
     chatRoomId: '',
+
+    content: '',
     modalType: MODAL_TYPES.NONE,
 }
 
@@ -23,24 +26,19 @@ const modalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        setMatchInfo: (state, action) => {
-            const { userId, userNickname } = action.payload;
-            state.userId = userId;
-            state.userNickname = userNickname;
-        },
-        setModalType: (state, action) => {
-            state.modalType = action.payload;
-        },
         showModal: (state, action) => {
-            const { userId, userNickname, chatRoomId, modalType } = action.payload;
-            state.userId = userId;
-            state.userNickname = userNickname;
-            state.chatRoomId = chatRoomId;
+            const { userId, userNickname, chatRoomId, content, modalType } = action.payload;
+            state.userId = userId || '';
+            state.userNickname = userNickname || '';
+            state.chatRoomId = chatRoomId || '';
+            state.content = content || '';
             state.modalType = modalType;
         },
         resetModal: (state) => {
-            state.userId = null;
-            state.userNickname = null;
+            state.userId = '';
+            state.userNickname = '';
+            state.chatRoomId = '';
+            state.content = '';
             state.modalType = MODAL_TYPES.NONE
         }
     }

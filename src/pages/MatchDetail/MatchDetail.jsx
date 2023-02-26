@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 
 import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
@@ -34,7 +34,6 @@ import {
 const MatchDetail = () => {
   const theme = useTheme();
   const params = useParams();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showMainModal, setShowMainModal] = useState(false);
 
@@ -120,11 +119,7 @@ const MatchDetail = () => {
 
   return (
     <StyledMatchDetail>
-      <TotalAlertModal
-        onSuccessMutation={() => {
-          navigate(-1);
-        }}
-      />
+      <TotalAlertModal />
 
       {showMainModal && (
         <BottomButtonMenu
