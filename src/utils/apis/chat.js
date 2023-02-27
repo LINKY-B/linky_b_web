@@ -9,6 +9,12 @@ export const fetchChatLists = async () => {
     return data.data;
 }
 
+// 채팅화면 - 채팅목록 검색
+export const fetchChatListSearch = async (q) => {
+    const { data } = await authorizedAxios.get(`/chat/lists/search?q=${q}`);
+    return data.data;
+}
+
 // 채팅화면 - 채팅방 좋아요
 export const doLikeChat = async (roomId) => {
     const { data } = await authorizedAxios.post(`/chat/like/${roomId}`);
@@ -32,6 +38,7 @@ export const doExitChat = async (roomId) => {
 
     return result;
 }
+
 
 // 채팅화면 - 채팅 Details - 목록 가져오기
 export const fetchChatDetail = async (roomId) => {

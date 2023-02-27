@@ -43,7 +43,7 @@ const AlertModal = ({
             <Text
               fontSize={theme.fontSize.sm}
               color={theme.colors.fontGrey}
-              whiteSpace="pre"
+              whiteSpace="pre-line"
             >
               {subTitle}
             </Text>

@@ -56,7 +56,6 @@ const MatchListItem = ({
           />
         </button>
       }
-      onClick={onClick}
       userNickname={userNickname}
       userLikeCount={userLikeCount}
       userDetail={`${userMajorName} / 20학번`}

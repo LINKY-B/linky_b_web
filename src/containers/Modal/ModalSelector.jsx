@@ -16,8 +16,8 @@ const ModalSelector = ({ type, handler }) => {
   } = handler;
 
   // redux
-  const match = useAppSelector((state) => state.modal);
-  const { userNickname } = match;
+  const modalState = useAppSelector((state) => state.modal);
+  const { userNickname, content } = modalState;
 
   const modals = {
     [MODAL_TYPES.NONE]: <></>,
@@ -79,6 +79,14 @@ const ModalSelector = ({ type, handler }) => {
         buttonTitle="방에서 나가기"
         buttonColor="grey"
         onClickButton={handleExit}
+        onClickClose={handleClose}
+      />
+    ),
+    [MODAL_TYPES.ETC]: (
+      <AlertModal
+        title={`${content}`}
+        buttonTitle="확인"
+        onClickButton={handleClose}
         onClickClose={handleClose}
       />
     ),
