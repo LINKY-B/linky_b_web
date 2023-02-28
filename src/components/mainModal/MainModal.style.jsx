@@ -1,18 +1,24 @@
 import styled from "styled-components";
 
-export const MainModalWrapper = styled.div`
+export const StyledMainModal = styled.div`
   position: fixed;
   z-index: 100;
   padding: 0;
   bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: none;
+`;
+
+export const StyledContainer = styled.div`
   width: var(--app-max-width, 100%);
   max-width: var(--app-max-width, 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  background: none;
-  // border: 5px solid orange;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const ContentWrapper = styled.div`

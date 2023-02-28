@@ -6,7 +6,8 @@ import { Hr, ModalCover } from "styles/Style";
 import {
   ContentWrapper,
   MainModalButton,
-  MainModalWrapper,
+  StyledMainModal,
+  StyledContainer,
 } from "./MainModal.style";
 
 const MainModal = ({
@@ -23,25 +24,27 @@ const MainModal = ({
   return (
     <section className="MainModal">
       <ModalCover className="Cover" onClick={onClickCover} />
-      <MainModalWrapper className="MainModalWrapper">
-        <ContentWrapper>
+      <StyledMainModal className="MainModalWrapper">
+        <StyledContainer>
+          <ContentWrapper>
+            <Spacing />
+            <Text color={theme.colors.fontGrey} fontSize={theme.fontSize.xs}>
+              {title}
+            </Text>
+            <Hr />
+            {children}
+          </ContentWrapper>
           <Spacing />
-          <Text color={theme.colors.fontGrey} fontSize={theme.fontSize.xs}>
-            {title}
-          </Text>
-          <Hr />
-          {children}
-        </ContentWrapper>
-        <Spacing />
-        <MainModalButton
-          backgroundColor={buttonBackgroundColor}
-          onClick={onClickButton}
-        >
-          <Text color={buttonColor} fontWeight={700}>
-            {buttonTitle}
-          </Text>
-        </MainModalButton>
-      </MainModalWrapper>
+          <MainModalButton
+            backgroundColor={buttonBackgroundColor}
+            onClick={onClickButton}
+          >
+            <Text color={buttonColor} fontWeight={700}>
+              {buttonTitle}
+            </Text>
+          </MainModalButton>
+        </StyledContainer>
+      </StyledMainModal>
     </section>
   );
 };
