@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import selectarrow from "assets/selectarrow.png";
+import selectarrow from "assets/images/selectarrow.png";
 
 export const InputStyled = styled.input`
   height: 36px;
@@ -10,7 +10,7 @@ export const InputStyled = styled.input`
 
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.fontGrey};
-    font-size: ${theme.fontSize.sm};
+    font-size: ${theme.fontSize.xs};
   `}
 
   ${({ size }) => {
@@ -44,6 +44,12 @@ export const TextareaStyled = styled.textarea`
     border: 1px solid ${theme.colors.fontGrey};
     font-size: ${theme.fontSize.sm};
   `};
+
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width};
+    `}
 `;
 
 export const SelectOptionStyled = styled.select`
@@ -54,8 +60,9 @@ export const SelectOptionStyled = styled.select`
   appearance: none;
   border-radius: 6px;
   background: url(${selectarrow}) no-repeat right 1rem center;
-  ${({ theme }) => css`
+  ${({ theme, width }) => css`
     border: 1px solid ${theme.colors.fontGrey};
     font-size: ${theme.fontSize.sm};
+    width: ${width};
   `};
 `;
