@@ -6,7 +6,7 @@ import authReducer from "./ducks/authSlice";
 import termsServiceReducer from "./ducks/termsServiceSlice";
 
 export const store = configureStore({
-  //git test
+  //git test2
   reducer: {
     match: matchReducer,
     termsService: termsServiceReducer,
