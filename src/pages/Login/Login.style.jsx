@@ -4,7 +4,7 @@ export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 95vh;
+  min-height: 100vh;
   overflow: hidden;
 `;
 
@@ -15,33 +15,34 @@ export const MainLogoWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  flex: 1;
-  max-height: 400px;
-
+  max-height: 500px;
+  height: 400px;
   display: flex;
   flex-direction: column;
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
 `;
 
 export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  //   position: absolute;
-  //   top: 60%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-
-  max-height: 50px;
-  flex: 1;
+  align-items: center;
 `;
 
 export const ButtonWrapper = styled.div`
-  position: relative;
   flex: 1;
   max-height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+
+  align-items: center;
 `;
 
 export const FooterWrapper = styled.div`
@@ -53,4 +54,8 @@ export const FooterWrapper = styled.div`
   margin: 10px;
   flex: 1;
   overflow: hidden;
+`;
+
+export const BottomButton = styled.button`
+  color: #878787;
 `;

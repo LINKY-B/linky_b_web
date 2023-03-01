@@ -1,4 +1,3 @@
-import MainLogo from "components/mainLogo/MainLogo";
 import {
   LoginWrapper,
   MainLogoWrapper,
@@ -6,53 +5,108 @@ import {
   ButtonWrapper,
   FooterWrapper,
   Container,
+  InputWrapper,
+  BottomButton,
 } from "./Login.style";
-import Input from "components/inputs/Input";
-import { useState } from "react";
-import Spacing from "components/spacing/Spacing";
+
+import React, { useState } from "react";
 import { useTheme } from "styled-components";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { authSlice } from "store/ducks/authSlice";
+import { authService } from "utils/apis/authService";
+
+/* component */
+import MainLogo from "components/mainLogo/MainLogo";
+import ChangePassword from "pages/Login/ChangePassword";
+import Input from "components/inputs/Input";
+import Spacing from "components/spacing/Spacing";
 import Button from "components/buttons/Button";
+import Text from "components/text/Text";
+
 const Login = () => {
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const navigate = useNavigate();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
+  const [err, setErr] = useState("");
+  const [findPwd, setFindPwd] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //login Logic
+
+    try {
+      const token = await authService.login(id, password);
+      console.log(token);
+      dispatch(authSlice.actions.loginSuccess(token));
+      navigate("/", { replace: true });
+    } catch (err) {
+      dispatch(authSlice.actions.loginFailure(err));
+      setErr(err.message);
+    }
+  };
+  console.log(findPwd);
+
+  const handleFindPassword = () => {
+    setFindPwd(true);
   };
   return (
     <LoginWrapper>
       <MainLogoWrapper>
         <MainLogo top={35}></MainLogo>
       </MainLogoWrapper>
+
       <Container>
-        <LoginForm onSubmit={handleSubmit}>
-          <Input
-            type="number"
-            size="large"
-            value={id}
-            placeholder="휴대폰 번호"
-            onChange={(e) => setId(e.target.value)}
-          ></Input>
-          <Spacing margin={theme.spacing.xl}></Spacing>
-          <Input
-            type="password"
-            size="large"
-            value={password}
-            placeholder="비밀번호"
-            onChange={(e) => setPassword(e.target.value)}
-          ></Input>
-          <Spacing margin={theme.spacing.xl}></Spacing>
-        </LoginForm>
-        <Spacing margin={theme.spacing.xl}></Spacing>
-        <ButtonWrapper>
-          <Button type="sumbit">로그인</Button>
-        </ButtonWrapper>
-        <FooterWrapper>
-          <button>회원가입</button>
-          <button>비밀번호찾기</button>
-        </FooterWrapper>
+        {findPwd ? (
+          <ChangePassword></ChangePassword>
+        ) : (
+          <div>
+            <LoginForm onSubmit={handleSubmit}>
+              <InputWrapper>
+                <Input
+                  type="text"
+                  size="large"
+                  value={id}
+                  placeholder="이메일"
+                  onChange={(e) => setId(e.target.value)}
+                ></Input>
+                {err === "" ? (
+                  <Spacing margin={theme.spacing.xl}></Spacing>
+                ) : (
+                  <Text>{err}</Text>
+                )}
+                <Input
+                  type="password"
+                  size="large"
+                  value={password}
+                  placeholder="비밀번호"
+                  onChange={(e) => setPassword(e.target.value)}
+                ></Input>
+                {err === "" ? (
+                  <Spacing margin={theme.spacing.xl}></Spacing>
+                ) : (
+                  <Text>{err}</Text>
+                )}
+              </InputWrapper>
+              <Spacing margin={theme.spacing.xl}></Spacing>
+              <ButtonWrapper>
+                <Button type="sumbit">로그인</Button>
+              </ButtonWrapper>
+              <Spacing margin={theme.spacing.sm}></Spacing>
+            </LoginForm>
+            <FooterWrapper>
+              <BottomButton onClick={() => navigate("/signup")}>
+                회원가입
+              </BottomButton>
+              <BottomButton onClick={handleFindPassword}>
+                비밀번호찾기
+              </BottomButton>
+            </FooterWrapper>{" "}
+          </div>
+        )}
       </Container>
     </LoginWrapper>
   );
