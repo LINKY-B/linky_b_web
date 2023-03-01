@@ -1,18 +1,17 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useTheme } from "styled-components";
 import { Spacing } from "components/spacing";
+import MemberInfoContainer from "containers/MemberInfoContainer/MemberInfoContainer";
 import {
   CheckCircleIcon,
   CrossIcon,
   MinusCircleIcon,
 } from "components/Icon/Icon";
-import MemberInfoContainer from "containers/MemberInfoContainer/MemberInfoContainer";
 import {
   ButtonWrapper,
   ProfileImage,
   SmallProfileImage,
 } from "./MatchListItem.style";
-import { useTheme } from "styled-components";
 
 /**
  * @param {*} object
@@ -23,8 +22,10 @@ import { useTheme } from "styled-components";
  */
 const MatchListItem = ({
   user,
+  onClickDeleteButton,
   onClickApproveButton,
   onClickRejectButton,
+  onClick,
   simple,
 }) => {
   const {
@@ -37,9 +38,6 @@ const MatchListItem = ({
   } = user;
 
   const theme = useTheme();
-  const navigate = useNavigate();
-
-  const onClickWrapper = () => navigate(`/match/${userId}`);
 
   return simple ? (
     <MemberInfoContainer
@@ -50,7 +48,7 @@ const MatchListItem = ({
         </>
       }
       rightChild={
-        <button onClick={onClickApproveButton}>
+        <button onClick={onClickDeleteButton}>
           <CrossIcon
             color={theme.colors.fontGrey}
             width="1.2em"
@@ -58,7 +56,6 @@ const MatchListItem = ({
           />
         </button>
       }
-      onClick={onClickWrapper}
       userNickname={userNickname}
       userLikeCount={userLikeCount}
       userDetail={`${userMajorName} / 20학번`}
@@ -81,7 +78,7 @@ const MatchListItem = ({
           </button>
         </ButtonWrapper>
       }
-      onClick={onClickWrapper}
+      onClick={onClick}
       userNickname={userNickname}
       userLikeCount={userLikeCount}
       userInterests={getUserInterestRes}

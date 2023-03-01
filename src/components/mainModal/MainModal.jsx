@@ -1,10 +1,13 @@
 import { Spacing } from "components/spacing";
+import { Text } from "components/text/";
 import PropTypes from "prop-types";
+import { useTheme } from "styled-components";
 import { Hr, ModalCover } from "styles/Style";
 import {
-  MainModalButton,
   ContentWrapper,
-  MainModalWrapper,
+  MainModalButton,
+  StyledMainModal,
+  StyledContainer,
 } from "./MainModal.style";
 
 const MainModal = ({
@@ -12,37 +15,47 @@ const MainModal = ({
   buttonTitle,
   buttonColor,
   buttonBackgroundColor,
+  onClickCover,
   onClickButton,
   children,
 }) => {
+  const theme = useTheme();
+
   return (
     <section className="MainModal">
-      <ModalCover className="Cover" />
-      <MainModalWrapper className="MainModalWrapper">
-        <ContentWrapper>
-          {title}
-          <Hr />
-          {children}
-        </ContentWrapper>
-        <Spacing />
-        <MainModalButton
-          backgroundColor={buttonBackgroundColor}
-          color={buttonColor}
-          onClick={onClickButton}
-        >
-          {buttonTitle}
-        </MainModalButton>
-      </MainModalWrapper>
+      <ModalCover className="Cover" onClick={onClickCover} />
+      <StyledMainModal className="MainModalWrapper">
+        <StyledContainer>
+          <ContentWrapper>
+            <Spacing />
+            <Text color={theme.colors.fontGrey} fontSize={theme.fontSize.xs}>
+              {title}
+            </Text>
+            <Hr />
+            {children}
+          </ContentWrapper>
+          <Spacing />
+          <MainModalButton
+            backgroundColor={buttonBackgroundColor}
+            onClick={onClickButton}
+          >
+            <Text color={buttonColor} fontWeight={700}>
+              {buttonTitle}
+            </Text>
+          </MainModalButton>
+        </StyledContainer>
+      </StyledMainModal>
     </section>
   );
 };
 
 MainModal.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   buttonTitle: PropTypes.string,
   buttonColor: PropTypes.string,
   buttonBackground: PropTypes.string,
   onClickButton: PropTypes.func,
+  onClickCover: PropTypes.func,
 };
 
 export default MainModal;

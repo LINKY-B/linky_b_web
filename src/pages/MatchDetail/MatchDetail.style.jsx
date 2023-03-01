@@ -1,10 +1,22 @@
 import { SelectButtonStyled } from "components/buttons/Buttons.style";
+import { StickyFooterContainer } from "containers/StickyFooter/StickyFooter.style";
 import styled from "styled-components";
 
-export const StyledMatchDetail = styled.section`
-  background-color: ${(props) => props.theme.colors.mainWhite};
+export const StyledMatchDetail = styled.article`
+  height: calc(var(--vh, 1vh) * 150);
+  // border: 1px solid red;
 `;
 
+// 서브 헤더와 프로필 이미지를 포함하는 컨테이너
+export const StyledHeader = styled.section`
+  position: relative;
+  height: 186px;
+  background-color: ${(props) => props.theme.colors.mainLightGrey};
+  box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.25);
+  // border: 1px solid red;
+`;
+
+// 동그란 프로필 이미지
 export const ProfileImage = styled.img`
   position: absolute;
   top: 50%;
@@ -16,6 +28,7 @@ export const ProfileImage = styled.img`
   height: 74px;
 `;
 
+// 소개글 컨테이너
 export const IntroductionWrapper = styled.div`
   border: 1px solid ${(props) => props.theme.colors.fontGrey};
   border-radius: 6px;
@@ -31,36 +44,12 @@ export const IntroductionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 2rem;
-`;
-
-export const SubHeader = styled.div`
-  height: 55px;
-  // position: fixed;
-  display: flex;
-  border: 1px solid green;
-  width: 100%;
-  align-items: center;
-`;
-
-export const ImageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const StyledHeader = styled.section`
-  position: relative;
-  height: 186px;
-  background-color: ${(props) => props.theme.colors.mainLightGreen};
-  box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid red;
+  padding: 0 1rem;
 `;
 
 export const InfoItemContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   align-items: center;
   margin: 0.3rem 0;
@@ -69,7 +58,7 @@ export const InfoItemContainer = styled.div`
 `;
 
 export const InfoWrapper = styled.div`
-  width: 90%;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -80,24 +69,16 @@ export const InfoWrapper = styled.div`
 
 export const BlackSelectButton = styled(SelectButtonStyled)`
   color: ${(props) => props.theme.colors.mainBlack};
+  font-size: ${(props) => props.theme.fontSize.xs};
 `;
 
-export const Footer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
-  margin-top: 1rem;
-  // border: 1px solid pink;
-`;
-
-export const FooterContainer = styled.div`
+export const FooterContainer = styled(StickyFooterContainer)`
+  height: 100%;
   display: flex;
-  // width: 90%;
+  padding: 0 1rem;
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
   justify-content: space-around;
   align-items: center;
-  // border: 1px solid blue;
 `;
