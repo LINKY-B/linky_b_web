@@ -37,15 +37,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     //login Logic
-
     try {
       const token = await authService.login(id, password);
-      console.log(token);
+
       dispatch(authSlice.actions.loginSuccess(token));
       navigate("/", { replace: true });
     } catch (err) {
       dispatch(authSlice.actions.loginFailure(err));
-      setErr(err.message);
+      console.log(err);
+      setErr(err.message); //임시 에러처리
     }
   };
   console.log(findPwd);

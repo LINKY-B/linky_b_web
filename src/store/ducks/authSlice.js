@@ -32,7 +32,6 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
       state.accessToken = null;
       state.refreshToken = null;
-
       state.error = action.payload;
     },
     logoutSuccess: (state) => {

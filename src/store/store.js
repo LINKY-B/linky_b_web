@@ -11,4 +11,9 @@ export const store = configureStore({
     termsService: termsServiceReducer,
     auth: authReducer,
   },
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: false,
+  //   }),
+  //추후 서버연결시 CORS에러가 난다면 미들웨어 로직 추가 고려
 });

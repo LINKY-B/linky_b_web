@@ -2,21 +2,26 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8001";
 
-const login = async (email, password) => {
+const login = async (phone, password) => {
   try {
     const response = await axios.post(
-      `${API_URL}/users/auth/login`,
+      // `${API_URL}/users/auth/login`,
+      `https://dev.runwayserver.shop/login`,
       {
-        email,
+        phone,
         password,
       },
       { withCredentials: true },
     );
+
     const { accessToken, refreshToken } = response.data;
+
+    console.log(response.data);
+    console.log(JSON.stringify(response.data));
+
     return { accessToken, refreshToken };
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    throw error.response.data.message;
   }
 };
 
