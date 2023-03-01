@@ -2,7 +2,6 @@ import {
   OnBoardingWrapper,
   ButtonWrapper,
   MainLogoWrapper,
-  MainLogoImg,
 } from "./OnBoarding.style";
 import Button from "components/buttons/Button";
 import Spacing from "components/spacing/Spacing";
@@ -18,7 +17,9 @@ const OnBoarding = () => {
   const navigate = useNavigate();
   return (
     <OnBoardingWrapper>
-      <MainLogo top={50}></MainLogo>
+      <MainLogoWrapper>
+        <MainLogo top={50}></MainLogo>
+      </MainLogoWrapper>
       <ButtonWrapper>
         <Button onClick={() => navigate("/login")}>로그인하기</Button>
         <Spacing></Spacing>
