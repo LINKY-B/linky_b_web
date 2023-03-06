@@ -1,5 +1,5 @@
 import { AlertModal } from "components/alertModal";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
 import { useAppDispatch, useAppSelector } from "store/Hooks";
@@ -16,7 +16,7 @@ import {
 } from "utils/hooks/useUsers";
 import ModalSelector from "./ModalSelector";
 
-export const TotalAlertModal = () => {
+export const TotalAlertModal = memo(() => {
   // navigation
   const params = useParams();
   const navigate = useNavigate();
@@ -164,4 +164,4 @@ export const TotalAlertModal = () => {
   }
 
   return <ModalSelector type={modalType} handler={handler} />;
-};
+});

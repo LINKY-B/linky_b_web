@@ -1,7 +1,8 @@
-import AlertModal from "components/alertModal/AlertModal";
-import { ReportModal } from "containers/Modals/ReportModal";
+import { memo } from "react";
 import { MODAL_TYPES } from "store/ducks/modalSlice";
 import { useAppSelector } from "store/Hooks";
+import AlertModal from "components/alertModal/AlertModal";
+import ReportModal from "containers/Modals/ReportModal";
 
 const ModalSelector = ({ type, handler }) => {
   const {
@@ -95,4 +96,4 @@ const ModalSelector = ({ type, handler }) => {
   return modals[type];
 };
 
-export default ModalSelector;
+export default memo(ModalSelector);

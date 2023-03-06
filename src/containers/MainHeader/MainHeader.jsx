@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "styled-components";
 
@@ -46,4 +46,4 @@ MainHeader.propTypes = {
   onClickSearch: PropTypes.func,
 };
 
-export default MainHeader;
+export default memo(MainHeader);

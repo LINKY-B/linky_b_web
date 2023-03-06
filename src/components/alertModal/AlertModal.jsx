@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "styled-components";
 
@@ -8,7 +9,7 @@ import { Text } from "components/text";
 import { ModalCover } from "styles/Style";
 import {
   AlertModalWrapper,
-  CloseButtonWrapper,
+  StyledCloseButtonWrapper,
   ContentWrapper,
 } from "./AlertModal.style";
 
@@ -26,38 +27,51 @@ const AlertModal = ({
 
   onClickCover = onClickCover || onClickClose;
 
+  const CloseButtonWrapper = () => (
+    <StyledCloseButtonWrapper>
+      <button onClick={onClickClose}>
+        <CrossIcon width="1.5em" height="1.5em" />
+      </button>
+    </StyledCloseButtonWrapper>
+  );
+
+  const ModalHeader = () => (
+    <>
+      <Text whiteSpace="pre">{title}</Text>
+      <Spacing />
+      {subTitle && (
+        <Text
+          fontSize={theme.fontSize.sm}
+          color={theme.colors.fontGrey}
+          whiteSpace="pre-line"
+        >
+          {subTitle}
+        </Text>
+      )}
+      <Spacing />
+    </>
+  );
+
+  const ModalFooter = () => (
+    <>
+      <Spacing />
+      {buttonTitle && (
+        <Button size="modal" color={buttonColor} onClick={onClickButton}>
+          {buttonTitle}
+        </Button>
+      )}
+    </>
+  );
+
   return (
     <section className="AlertModal">
       <ModalCover className="Cover" onClick={onClickCover} />
       <AlertModalWrapper>
-        <CloseButtonWrapper>
-          <button onClick={onClickClose}>
-            <CrossIcon width="1.5em" height="1.5em" />
-          </button>
-        </CloseButtonWrapper>
-
         <ContentWrapper>
-          <Text whiteSpace="pre">{title}</Text>
-          <Spacing />
-          {subTitle && (
-            <Text
-              fontSize={theme.fontSize.sm}
-              color={theme.colors.fontGrey}
-              whiteSpace="pre-line"
-            >
-              {subTitle}
-            </Text>
-          )}
-          <Spacing />
-
+          <CloseButtonWrapper />
+          <ModalHeader />
           {children}
-
-          <Spacing />
-          {buttonTitle && (
-            <Button size="modal" color={buttonColor} onClick={onClickButton}>
-              {buttonTitle}
-            </Button>
-          )}
+          <ModalFooter />
         </ContentWrapper>
       </AlertModalWrapper>
     </section>
@@ -73,4 +87,4 @@ AlertModal.propTypes = {
   onClickCover: PropTypes.func,
 };
 
-export default AlertModal;
+export default memo(AlertModal);

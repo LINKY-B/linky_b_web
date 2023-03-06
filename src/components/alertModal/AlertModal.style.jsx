@@ -14,7 +14,7 @@ export const AlertModalWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.mainWhite};
 `;
 
-export const CloseButtonWrapper = styled.div`
+export const StyledCloseButtonWrapper = styled.div`
   width: 100%;
   text-align: right;
 `;
