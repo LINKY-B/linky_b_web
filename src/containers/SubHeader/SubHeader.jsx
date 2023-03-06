@@ -1,3 +1,4 @@
+import { memo, useCallback } from "react";
 import Spacing from "components/spacing/Spacing";
 import Header from "containers/Header/Header";
 
@@ -7,11 +8,14 @@ import { IconWrapper, LeftArrowIcon } from "./SubHeader.style";
 
 const SubHeader = ({ leftChild, rightChild }) => {
   const navigate = useNavigate();
+
+  const backHandle = useCallback(() => navigate(-1), [navigate]);
+
   return (
     <Header>
       <FlexWrapper>
         <IconWrapper>
-          <LeftArrowIcon width="20" height="20" onClick={() => navigate(-1)} />
+          <LeftArrowIcon width="20" height="20" onClick={backHandle} />
         </IconWrapper>
         <Spacing />
         {leftChild}
@@ -20,4 +24,4 @@ const SubHeader = ({ leftChild, rightChild }) => {
     </Header>
   );
 };
-export default SubHeader;
+export default memo(SubHeader);

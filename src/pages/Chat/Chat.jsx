@@ -10,52 +10,67 @@ import { Footer } from "containers/Footer";
 import { MainHeader } from "containers/MainHeader";
 import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
 import { ChatWrapper, StyledChat } from "./Chat.style";
+import { useCallback } from "react";
+import { memo } from "react";
 
 const Chat = () => {
-  const { data, isLoading, error } = useChatLists();
-  const chatLikeMutation = useLikeChatMutation();
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const dispatch = useAppDispatch();
+  const ChatList = () => {
+    const { data, isLoading, error } = useChatLists();
+    const chatLikeMutation = useLikeChatMutation();
+    const theme = useTheme();
+    const dispatch = useAppDispatch();
 
-  const handleExit = (roomId) => {
-    dispatch(
-      modalActions.showModal({
-        chatRoomId: roomId,
-        modalType: MODAL_TYPES.EXIT,
-      }),
+    const handleExit = useCallback((roomId) => {
+      dispatch(
+        modalActions.showModal({
+          chatRoomId: roomId,
+          modalType: MODAL_TYPES.EXIT,
+        }),
+      );
+    });
+
+    // useQuery pre return
+    if (isLoading) {
+      return <span>Loading...</span>;
+    }
+
+    if (error) {
+      return <span>Error : {error.message}</span>;
+    }
+
+    const ChatItem = ({ item }) => {
+      const { userChattingRoomId } = item;
+      return (
+        <>
+          <ChatListItem
+            chat={item}
+            onExit={() => handleExit(userChattingRoomId)}
+            onLike={() => chatLikeMutation.mutate(userChattingRoomId)}
+          />
+          <Spacing margin={theme.spacing.lg} />
+        </>
+      );
+    };
+
+    return (
+      data &&
+      data.map((item) => {
+        const { userChattingRoomId } = item;
+        return <ChatItem item={item} key={userChattingRoomId} />;
+      })
     );
   };
 
-  // useQuery pre return
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
-
-  if (error) {
-    return <span>Error : {error.message}</span>;
-  }
+  const navigate = useNavigate();
+  const handleSearch = useCallback(() => navigate("/chat/search"));
 
   return (
     <>
-      <MainHeader onClickSearch={() => navigate("/chat/search")} search />
+      <MainHeader onClickSearch={handleSearch} search />
       <TotalAlertModal />
       <StyledChat>
         <ChatWrapper>
-          {data &&
-            data.map((item) => {
-              const { userChattingRoomId } = item;
-              return (
-                <div key={userChattingRoomId}>
-                  <ChatListItem
-                    chat={item}
-                    onExit={() => handleExit(userChattingRoomId)}
-                    onLike={() => chatLikeMutation.mutate(userChattingRoomId)}
-                  />
-                  <Spacing margin={theme.spacing.lg} />
-                </div>
-              );
-            })}
+          <ChatList />
         </ChatWrapper>
       </StyledChat>
       <Footer />
@@ -63,4 +78,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default memo(Chat);

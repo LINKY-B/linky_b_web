@@ -16,6 +16,7 @@ import {
   StyledMemberInfoContainer,
   StyledMemberInfoSection,
 } from "./ChatListItem.style";
+import { memo } from "react";
 
 /**
  *
@@ -127,4 +128,4 @@ ChatListItem.defaultProps = {
   draggable: true,
 };
 
-export default ChatListItem;
+export default memo(ChatListItem);

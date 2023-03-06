@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   StickyFooterContainer,
   StyledStickyFooter,
@@ -11,4 +12,4 @@ export const StickyFooter = ({ children }) => {
   );
 };
 
-export default StickyFooter;
+export default memo(StickyFooter);

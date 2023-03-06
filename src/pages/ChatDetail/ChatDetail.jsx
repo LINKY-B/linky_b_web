@@ -23,6 +23,7 @@ import {
   StyledChatList,
   StyledDateLine,
 } from "./ChatDetail.style";
+import { memo } from "react";
 
 const ChatDetail = () => {
   const theme = useTheme();
@@ -62,7 +63,7 @@ const ChatDetail = () => {
   } = info;
 
   /* 내가 아닌 다른 사람의 채팅을 보여주기 위한 컴포넌트 */
-  const OtherChat = ({ sender, msg, createdAt }) => {
+  const OtherChat = memo(({ sender, msg, createdAt }) => {
     return (
       <FlexWrapper>
         <ColumnWrapper>
@@ -81,10 +82,10 @@ const ChatDetail = () => {
         <Text fontSize={theme.fontSize.xxs}>{formatTime(createdAt)}</Text>
       </FlexWrapper>
     );
-  };
+  });
 
   /* 내 채팅을 보여주기 위한 컴포넌트 */
-  const MyChat = ({ msg, createdAt }) => {
+  const MyChat = memo(({ msg, createdAt }) => {
     return (
       <ReversedFlexWrapper>
         <ColumnWrapper>
@@ -106,20 +107,10 @@ const ChatDetail = () => {
         <Text fontSize={theme.fontSize.xxs}>{formatTime(createdAt)}</Text>
       </ReversedFlexWrapper>
     );
-  };
+  });
 
-  return (
-    <StyledChatDetail>
-      <TotalAlertModal onSuccessMutation={() => navigate(-1)} />
-
-      {showMainModal && (
-        <BottomButtonMenu
-          userId={userId}
-          userNickname={userNickname}
-          onClickClose={() => setShowMainModal(false)}
-          roomId={roomId}
-        />
-      )}
+  const ChatViewer = () => (
+    <>
       <SubHeader
         leftChild={
           <MemberInfoContainer
@@ -163,6 +154,22 @@ const ChatDetail = () => {
           );
         })}
       </StyledChatList>
+    </>
+  );
+
+  return (
+    <StyledChatDetail>
+      <TotalAlertModal onSuccessMutation={() => navigate(-1)} />
+
+      {showMainModal && (
+        <BottomButtonMenu
+          userId={userId}
+          userNickname={userNickname}
+          onClickClose={() => setShowMainModal(false)}
+          roomId={roomId}
+        />
+      )}
+      <ChatViewer />
       <Input />
     </StyledChatDetail>
   );
