@@ -10,6 +10,7 @@ import {
   StyledMemberInfoContainer,
 } from "./MemberInfoContainer.style";
 import { PinIcon, ThumbUpIcon } from "components/Icon/Icon";
+import { memo } from "react";
 
 /**
  * @param {*} object
@@ -112,4 +113,4 @@ MemberInfoContainer.defaultProps = {
   onClick: () => {},
 };
 
-export default MemberInfoContainer;
+export default memo(MemberInfoContainer);

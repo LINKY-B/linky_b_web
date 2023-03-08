@@ -1,97 +1,114 @@
-import { useEffect } from "react";
-import { useAppDispatch } from "store/Hooks";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 
-import { matchActions, MATCH_MODAL_TYPES } from "store/ducks/matchSlice";
 import { useMatchHome } from "utils/hooks/useMatch";
 
-import { MatchModal } from "components/MatchModal";
-import MatchListItem from "containers/MatchListItem/MatchListItem";
-import { Text } from "components/text";
+import { RightArrowIcon } from "components/Icon/Icon";
 import { Spacing } from "components/spacing";
-import { Hr } from "styles/Style";
-import { MatchWrapper, StyledMatch } from "./Match.style";
+import { Text } from "components/text";
+import { Footer } from "containers/Footer";
+import MainHeader from "containers/MainHeader/MainHeader";
+import { MatchList } from "containers/MatchList";
+import { StickyFooter } from "containers/StickyFooter";
+import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
+import {
+  AlignItemsCenterWrapper,
+  FlexWrapper,
+  StyledMatch,
+} from "./Match.style";
+import { memo } from "react";
 
 export const Match = () => {
-  const { data, error, isLoading } = useMatchHome();
   const theme = useTheme();
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    return () => {
-      dispatch(matchActions.resetModal());
-    };
-  }, [dispatch]);
+  const MatchTryToMeArticle = memo(({ data, error, isLoading }) => (
+    <article className="MatchTryToMeArticle">
+      <MatchList
+        data={data}
+        error={error}
+        isLoading={isLoading}
+        title="나에게 연결을 시도한 회원"
+        sectionHeader={
+          <>
+            <FlexWrapper>
+              <Text fontSize={theme.fontSize.sm}>
+                나에게 연결을 시도한 회원
+              </Text>
 
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
+              <AlignItemsCenterWrapper
+                onClick={() => navigate("/match/matched")}
+              >
+                <Text fontSize={theme.fontSize.xs}>전체 보기</Text>
+                <RightArrowIcon />
+              </AlignItemsCenterWrapper>
+            </FlexWrapper>
+            <Spacing margin={theme.spacing.lg} />
+          </>
+        }
+      />
+    </article>
+  ));
 
-  if (error) {
-    return <span>Error : {error.message}</span>;
-  }
+  const MatchingTryingArticle = memo(({ data, error, isLoading }) => (
+    <article className="MatchTryingArticle">
+      <MatchList
+        data={data}
+        error={error}
+        isLoading={isLoading}
+        title="내가 연결을 시도한 회원"
+        sectionHeader={
+          <>
+            <FlexWrapper>
+              <Text fontSize={theme.fontSize.sm}>내가 연결을 시도한 회원</Text>
 
-  console.log(data);
+              <AlignItemsCenterWrapper
+                onClick={() => navigate("/match/matching")}
+              >
+                <Text fontSize={theme.fontSize.xs}>전체 보기</Text>
+                <RightArrowIcon />
+              </AlignItemsCenterWrapper>
+            </FlexWrapper>
+            <Spacing margin={theme.spacing.lg} />
+          </>
+        }
+        isSimple
+      />
+    </article>
+  ));
 
-  const onClickApproveButton = ({ userId, userNickname }) => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.APPROVE,
-      }),
-    );
-  };
+  const MatchContent = () => {
+    const matchHome = useMatchHome();
+    const { data, isLoading, error } = matchHome;
 
-  const onClickRejectButton = ({ userId, userNickname }) => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.REJECT,
-      }),
+    if (isLoading) {
+      return <span>Loading...</span>;
+    }
+
+    if (error) {
+      return <span>Error : {error.message}</span>;
+    }
+
+    const { tryMatchedUsers, tryMatchingUsers } = data;
+
+    return (
+      <StyledMatch className="Match">
+        <MatchTryToMeArticle data={tryMatchedUsers} />
+        <MatchingTryingArticle data={tryMatchingUsers} />
+      </StyledMatch>
     );
   };
 
   return (
-    <StyledMatch className="Match">
-      <MatchModal />
-
-      <MatchWrapper>
-        <Text>나에게 연결을 시도한 회원</Text>
-        {data?.tryMatchedUsers &&
-          data.tryMatchedUsers.map((user) => {
-            const { userId, userNickname } = user;
-            return (
-              <div key={user.userId}>
-                <Spacing margin={theme.spacing.lg} />
-                <MatchListItem
-                  user={user}
-                  onClickApproveButton={() =>
-                    onClickApproveButton({ userId, userNickname })
-                  }
-                  onClickRejectButton={() => {
-                    onClickRejectButton({ userId, userNickname });
-                  }}
-                />
-                {/* <Hr /> */}
-              </div>
-            );
-          })}
-      </MatchWrapper>
-      <MatchWrapper>
-        <Text>내가 연결을 시도한 회원</Text>
-        {data?.tryMatchingUsers &&
-          data.tryMatchingUsers.map((user) => (
-            <div key={user.userId}>
-              <Spacing margin={theme.spacing.lg} />
-              <MatchListItem user={user} />
-              <Hr />
-            </div>
-          ))}
-      </MatchWrapper>
-    </StyledMatch>
+    <>
+      <TotalAlertModal />
+      <MainHeader />
+      <MatchContent />
+      <StickyFooter>
+        <Footer />
+      </StickyFooter>
+    </>
   );
 };
 
-export default Match;
+export default memo(Match);
