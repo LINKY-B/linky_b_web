@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { authSlice } from "./ducks/authSlice";
 import authReducer from "./ducks/authSlice";
-
 import { chatReducer } from "./ducks/chatSlice";
 import { modalReducer } from "./ducks/modalSlice";
 
