@@ -1,51 +1,30 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:8001";
+import usePrivateAxios from "utils/hooks/usePrivateAxios";
+import { loginAxios } from "utils/customAxios";
 
 const login = async (phone, password) => {
   try {
-    const response = await axios.post(
-      // `${API_URL}/users/auth/login`,
-      `https://dev.runwayserver.shop/login`,
-      {
+    const response = await usePrivateAxios.post(
+      `/users/auth/login`,
+      JSON.stringify({
         phone,
         password,
-      },
-      { withCredentials: true },
+      }),
     );
 
-    const { accessToken, refreshToken } = response.data;
+    //백엔드에서 data에 상태와 토큰(data)를 넘겨줌
+    const { accessToken } = response.data.data;
 
-    console.log(response.data);
-    console.log(JSON.stringify(response.data));
-
-    return { accessToken, refreshToken };
-  } catch (error) {
-    throw error.response.data.message;
-  }
-};
-
-const refreshToken = async (refreshToken) => {
-  try {
-    const response = await axios.post(
-      `${API_URL}/users/auth/refresh-token`,
-      { refreshToken },
-      { withCredentials: true },
-    );
-    const { accessToken } = response.data;
     return { accessToken };
   } catch (error) {
-    throw error.response.data;
+    //메세지 객체에 여러 상황의 에러메세지 담겨야함
+    throw error.response.data.message;
   }
 };
 
 const logout = async () => {
   try {
-    await axios.post(
-      `${API_URL}/users/auth/logout`,
-      {},
-      { withCredentials: true },
-    );
+    await loginAxios.post(`/logout`, {});
   } catch (error) {
     throw error.response.data;
   }
