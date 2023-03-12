@@ -9,10 +9,10 @@ import {
   BottomButton,
 } from "./Login.style";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useTheme } from "styled-components";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { authSlice } from "store/ducks/authSlice";
 import { authService } from "utils/apis/authService";
@@ -29,26 +29,40 @@ const Login = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  console.log(from);
+  // const userRef = useRef(null);
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
+  const [errMsg, setErrMsg] = useState({ id: "", pw: "" });
   const [findPwd, setFindPwd] = useState(false);
+
+  const { isLoading, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    // userRef.current.focus();
+  });
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [id, password]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     //login Logic
+    // dispatch(await authService.login(id, password));
     try {
       const token = await authService.login(id, password);
-
       dispatch(authSlice.actions.loginSuccess(token));
-      navigate("/", { replace: true });
+      navigate(from, { replace: true });
     } catch (err) {
       dispatch(authSlice.actions.loginFailure(err));
       console.log(err);
-      setErr(err.message); //임시 에러처리
     }
   };
-  console.log(findPwd);
 
   const handleFindPassword = () => {
     setFindPwd(true);
@@ -58,7 +72,6 @@ const Login = () => {
       <MainLogoWrapper>
         <MainLogo top={35}></MainLogo>
       </MainLogoWrapper>
-
       <Container>
         {findPwd ? (
           <ChangePassword></ChangePassword>
@@ -71,12 +84,15 @@ const Login = () => {
                   size="large"
                   value={id}
                   placeholder="이메일"
+                  // ref={userRef}
                   onChange={(e) => setId(e.target.value)}
                 ></Input>
-                {err === "" ? (
+                {!error?.code === "001" ? (
                   <Spacing margin={theme.spacing.xl}></Spacing>
                 ) : (
-                  <Text>{err}</Text>
+                  <Text fontSize={theme.fontSize.sm} color="red">
+                    {error?.message}
+                  </Text>
                 )}
                 <Input
                   type="password"
@@ -85,10 +101,17 @@ const Login = () => {
                   placeholder="비밀번호"
                   onChange={(e) => setPassword(e.target.value)}
                 ></Input>
-                {err === "" ? (
+                {/* 백엔드 에러메세지를 id오류와 pw오류를 따로 객체화 시켜 보내줘야함 */}
+                {!error?.code === "002" ? (
                   <Spacing margin={theme.spacing.xl}></Spacing>
                 ) : (
-                  <Text>{err}</Text>
+                  <Text
+                    fontSize={theme.fontSize.sm}
+                    color="red"
+                    aria-live="assertive"
+                  >
+                    {error?.message}
+                  </Text>
                 )}
               </InputWrapper>
               <Spacing margin={theme.spacing.xl}></Spacing>
@@ -104,7 +127,7 @@ const Login = () => {
               <BottomButton onClick={handleFindPassword}>
                 비밀번호찾기
               </BottomButton>
-            </FooterWrapper>{" "}
+            </FooterWrapper>
           </div>
         )}
       </Container>
