@@ -1,48 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import jwtDecode from "../../../node_modules/jwt-decode/index";
-// import axios from "../../../node_modules/axios/index";
 
-export const TOKEN_TIME_OUT = 600 * 1000;
+// export const TOKEN_TIME_OUT = 600 * 1000;
 
 export const authSlice = createSlice({
   name: "auth",
 
   initialState: {
-    inLoggedIn: false,
+    isLogined: false, //일단 열어둠
     accessToken: null,
-    refreshToken: null,
-    loading: false,
+
+    isLoading: false,
     error: null,
   },
 
   reducers: {
-    // SET_TOKEN: (state, action) => {
-    //   state.authenticated = true;
-    //   state.accessToken = action.payload;
-    //   state.expireTime = new Date().getTime() + TOKEN_TIME_OUT;
-    // },
+    loginRequest: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
 
     loginSuccess: (state, action) => {
-      state.isLoggedIn = true;
+      state.isLoading = false;
+      state.isLogined = true;
       state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
       state.error = null;
     },
     loginFailure: (state, action) => {
-      state.isLoggedIn = false;
+      state.isLoading = false;
+      state.isLogined = false;
       state.accessToken = null;
-      state.refreshToken = null;
-      state.error = action.payload;
+      state.error = action.payload; //id에러 pw에러 나눠져야함
     },
     logoutSuccess: (state) => {
-      state.isLoggedIn = false;
+      state.isLoading = false;
+      state.isLogined = false;
       state.accessToken = null;
-      state.refreshToken = null;
       state.error = null;
     },
   },
 });
 
-export const { loginSuccess, loginFailure, logoutSuccess } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logoutSuccess } =
+  authSlice.actions;
 
 export default authSlice.reducer;
