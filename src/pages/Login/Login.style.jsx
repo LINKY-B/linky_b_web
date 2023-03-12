@@ -24,7 +24,7 @@ export const Container = styled.div`
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   min-height: 200px;
 `;
