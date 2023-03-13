@@ -65,8 +65,8 @@ const Footer = () => {
             </FooterText>
           </Column>
           <Column
-            onClick={() => navigate("/profile")}
-            current={location.pathname === "/profile"}
+            onClick={() => navigate("/profile/:userid")}
+            current={location.pathname === "/profile/userid"}
           >
             <FooterImg>
               <ProfileIcon></ProfileIcon>

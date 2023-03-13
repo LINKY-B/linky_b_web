@@ -15,6 +15,12 @@ import { Chat } from "pages/Chat";
 import { ChatDetail } from "pages/ChatDetail";
 import { ChatListSearch } from "pages/ChatListSearch";
 
+import OnBoarding from "pages/OnBoarding/OnBoarding";
+import Home from "pages/Home/Home";
+import Login from "pages/Login/Login";
+import RequireAuthRoute from "utils/Route/RequireAuthRoute";
+import PublicRoute from "utils/Route/PublicRoute";
+
 const Wrapper = styled.div`
   background-color: white;
   border: none;
@@ -54,18 +60,27 @@ const App = () => {
 
   return (
     <Wrapper className="App">
-      <MainHeader />
       <Routes>
-        <Route exact path="/" element={<div>It's Home</div>} />
-        <Route path="/match" element={<Match />} />
-        <Route path="/match/matched" element={<MatchedListPage />} />
-        <Route path="/match/matching" element={<MatchingListPage />} />
-        <Route path="/match/matched/:userId" element={<MatchDetail />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/chat/search" element={<ChatListSearch />} />
-        <Route path="/chat/:roomId" element={<ChatDetail />} />
+        {/* public route */}
+        <Route element={<PublicRoute />}>
+          <Route path="/onboarding" element={<OnBoarding />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          {/* <Route path="/signup" element={<signup></signup>}></Route> */}
+        </Route>
+        {/* private route */}
+        <Route element={<RequireAuthRoute />}>
+          <Route exact path="/" element={<Home></Home>} />
+          <Route path="/match" element={<Match />} />
+          <Route path="/match/matched" element={<MatchedListPage />} />
+          <Route path="/match/matching" element={<MatchingListPage />} />
+          <Route path="/match/matched/:userId" element={<MatchDetail />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/search" element={<ChatListSearch />} />
+          <Route path="/chat/:roomId" element={<ChatDetail />} />
+          <Route path="/profile/:userid" element={<div>profile</div>}></Route>
+        </Route>
+        <Route path="*" element={<div>not found</div>}></Route>
       </Routes>
-      <Footer></Footer>
     </Wrapper>
   );
 };
