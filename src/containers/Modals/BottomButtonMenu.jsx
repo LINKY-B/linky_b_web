@@ -10,7 +10,7 @@ import { ModalButton, ModalButtonWrapper } from "./Modals.style";
  *
  * @param {function} onClickClose 닫혀야할 때의 콜백
  * @param {string} userId 사용자 아이디
- * @param {string} userNickname 사용자 닉네임
+ * @param {string} userNickName 사용자 닉네임
  * @param {roomId} 채팅화면에서 쓰이는 메뉴인 경우 roomId가 필요하다.
  *
  * @returns
@@ -18,7 +18,7 @@ import { ModalButton, ModalButtonWrapper } from "./Modals.style";
 export const BottomButtonMenu = ({
   onClickClose,
   userId,
-  userNickname,
+  userNickName,
   roomId,
 }) => {
   const theme = useTheme();
@@ -30,7 +30,7 @@ export const BottomButtonMenu = ({
     dispatch(
       modalActions.showModal({
         userId,
-        userNickname,
+        userNickName,
         modalType: MODAL_TYPES.REPORT,
       }),
     );
@@ -41,7 +41,7 @@ export const BottomButtonMenu = ({
     dispatch(
       modalActions.showModal({
         userId,
-        userNickname,
+        userNickName,
         modalType: MODAL_TYPES.BLOCK,
       }),
     );

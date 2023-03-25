@@ -14,7 +14,7 @@ export const MODAL_TYPES = {
 
 const initialState = {
     userId: '',
-    userNickname: '',
+    userNickName: '',
 
     chatRoomId: '',
 
@@ -27,16 +27,16 @@ const modalSlice = createSlice({
     initialState,
     reducers: {
         showModal: (state, action) => {
-            const { userId, userNickname, chatRoomId, content, modalType } = action.payload;
+            const { userId, userNickName, chatRoomId, content, modalType } = action.payload;
             state.userId = userId || '';
-            state.userNickname = userNickname || '';
+            state.userNickName = userNickName || '';
             state.chatRoomId = chatRoomId || '';
             state.content = content || '';
             state.modalType = modalType;
         },
         resetModal: (state) => {
             state.userId = '';
-            state.userNickname = '';
+            state.userNickName = '';
             state.chatRoomId = '';
             state.content = '';
             state.modalType = MODAL_TYPES.NONE

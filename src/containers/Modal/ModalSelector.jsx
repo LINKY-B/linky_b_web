@@ -18,13 +18,13 @@ const ModalSelector = ({ type, handler }) => {
 
   // redux
   const modalState = useAppSelector((state) => state.modal);
-  const { userNickname, content } = modalState;
+  const { userNickName, content } = modalState;
 
   const modals = {
     [MODAL_TYPES.NONE]: <></>,
     [MODAL_TYPES.APPROVE]: (
       <AlertModal
-        title={`${userNickname} 님의 \n 연결요청을 수락하시겠습니까?`}
+        title={`${userNickName} 님의 \n 연결요청을 수락하시겠습니까?`}
         buttonTitle="수락하기"
         onClickButton={handleApprove}
         onClickClose={handleClose}
@@ -40,7 +40,7 @@ const ModalSelector = ({ type, handler }) => {
     ),
     [MODAL_TYPES.REJECT]: (
       <AlertModal
-        title={`${userNickname} 님의 \n 연결요청을 거절하시겠습니까?`}
+        title={`${userNickName} 님의 \n 연결요청을 거절하시겠습니까?`}
         buttonTitle="거절하기"
         buttonColor="grey"
         onClickButton={handleReject}
@@ -58,7 +58,7 @@ const ModalSelector = ({ type, handler }) => {
     ),
     [MODAL_TYPES.BLOCK]: (
       <AlertModal
-        title={`${userNickname} 님을 \n 차단하시겠습니까?`}
+        title={`${userNickName} 님을 \n 차단하시겠습니까?`}
         subTitle={`*삭제한 회원은 설정의 차단 관리에서 \n 관리할 수 있습니다`}
         buttonTitle="차단하기"
         buttonColor="grey"
@@ -68,7 +68,7 @@ const ModalSelector = ({ type, handler }) => {
     ),
     [MODAL_TYPES.REPORT]: (
       <ReportModal
-        userNickname={userNickname}
+        userNickName={userNickName}
         onClickClose={handleClose}
         onClickReport={handleReport}
       />

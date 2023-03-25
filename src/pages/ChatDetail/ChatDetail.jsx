@@ -56,7 +56,7 @@ const ChatDetail = () => {
 
   const {
     userId,
-    userNickname,
+    userNickName,
     userMajorName,
     userStudentNum,
     userProfileImg,
@@ -120,7 +120,7 @@ const ChatDetail = () => {
                 <Spacing />
               </>
             }
-            userNickname={userNickname}
+            userNickName={userNickName}
             userDetail={`${userMajorName} / ${userStudentNum}`}
             subheader
           />
@@ -146,7 +146,7 @@ const ChatDetail = () => {
             );
           }
 
-          const ChatItem = sender === userNickname ? MyChat : OtherChat;
+          const ChatItem = sender === userNickName ? MyChat : OtherChat;
           return (
             <div key={id}>
               <ChatItem {...value} />
@@ -164,7 +164,7 @@ const ChatDetail = () => {
       {showMainModal && (
         <BottomButtonMenu
           userId={userId}
-          userNickname={userNickname}
+          userNickName={userNickName}
           onClickClose={() => setShowMainModal(false)}
           roomId={roomId}
         />
