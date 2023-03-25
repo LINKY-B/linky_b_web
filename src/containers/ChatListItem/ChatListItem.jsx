@@ -32,7 +32,7 @@ const ChatListItem = ({ chat, onClick, onExit, onLike, draggable }) => {
   const {
     userChattingRoomId,
     userProfileImg,
-    userNickname,
+    userNickName,
     userStudentNum,
     userMajorName,
     lastConversationContents,
@@ -95,7 +95,7 @@ const ChatListItem = ({ chat, onClick, onExit, onLike, draggable }) => {
                 </Text>
               }
               onClick={onClick}
-              userNickname={userNickname}
+              userNickName={userNickName}
               userDetail={`${userMajorName} / ${userStudentNum}`}
               pin={like}
             />

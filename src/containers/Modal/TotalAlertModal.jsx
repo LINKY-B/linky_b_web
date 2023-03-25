@@ -24,7 +24,7 @@ export const TotalAlertModal = memo(() => {
   // redux
   const dispatch = useAppDispatch();
   const modalSelector = useAppSelector((state) => state.modal);
-  const { userId, userNickname, chatRoomId, modalType } = modalSelector;
+  const { userId, userNickName, chatRoomId, modalType } = modalSelector;
 
   // mutations
   // match 관련
@@ -95,11 +95,11 @@ export const TotalAlertModal = memo(() => {
   };
 
   const handleBlock = () => {
-    blockUserMutation.mutate({ id: userId }, commonMutationOptions());
+    blockUserMutation.mutate({ id: userId }, commonMutationOptions(isGoBack()));
   };
 
   const handleReport = (title, reason) => {
-    console.log(`report : ${userId} ${userNickname} ${title} ${reason}`);
+    console.log(`report : ${userId} ${userNickName} ${title} ${reason}`);
     const reportMutationOptions = {
       ...commonMutationOptions,
       onSuccess: () => {

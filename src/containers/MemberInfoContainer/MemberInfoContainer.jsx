@@ -18,7 +18,7 @@ import { memo } from "react";
  * @param {Node} rightChild 오른쪽에 표시할 노드
  * @param {Node} bottomChild 가장 아래에 표시할 노드
  * @param {Function} onClick 이 컨테이너를 눌렀을 때의 콜백. left child와 right child에는 적용되지 않음.
- * @param {String} userNickname 사용자 이름
+ * @param {String} userNickName 사용자 이름
  * @param {String} userDetail 사용자 이름 옆에 회색 작은 글씨로 표시될 내용.
  * @param {String | Number} userLikeCount 엄지척 아이콘에 표시될 숫자
  * @param {Array} userInterests 사용자 이름 아래에 동그란 라벨로 표시될 요소.
@@ -30,7 +30,7 @@ const MemberInfoContainer = ({
   rightChild,
   bottomChild,
   onClick,
-  userNickname,
+  userNickName,
   userDetail,
   userLikeCount,
   userInterests,
@@ -46,9 +46,9 @@ const MemberInfoContainer = ({
           {leftChild}
           <ColumnDirectionWrapper onClick={onClick}>
             <FlexContainer>
-              <Text>{userNickname}</Text>
+              <Text>{userNickName}</Text>
 
-              {userLikeCount && (
+              {
                 <>
                   <Spacing margin={theme.spacing.md} />
                   <ThumbUpIcon />
@@ -60,7 +60,7 @@ const MemberInfoContainer = ({
                     {userLikeCount}
                   </Text>
                 </>
-              )}
+              }
 
               {userDetail && (
                 <>
@@ -80,8 +80,8 @@ const MemberInfoContainer = ({
             {userInterests && (
               <FlexContainer>
                 {userInterests.map((i) => (
-                  <FlexContainer key={i.interest}>
-                    <RadiusLabel>{i.interest}</RadiusLabel>
+                  <FlexContainer key={i.userInterest}>
+                    <RadiusLabel>{i.userInterest}</RadiusLabel>
                     <Spacing margin={theme.spacing.sm} />
                   </FlexContainer>
                 ))}
@@ -101,7 +101,7 @@ MemberInfoContainer.propTypes = {
   rightChild: PropTypes.node,
   bottomChild: PropTypes.node,
   onClick: PropTypes.func,
-  userNickname: PropTypes.string.isRequired,
+  userNickName: PropTypes.string.isRequired,
   userDetail: PropTypes.string,
   userLikeCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   userInterests: PropTypes.array,

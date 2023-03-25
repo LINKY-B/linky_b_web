@@ -18,7 +18,7 @@ const reportContent = [
   "음란물 불건전 대화",
 ];
 
-const ReportModal = ({ userNickname, onClickReport, onClickClose }) => {
+const ReportModal = ({ userNickName, onClickReport, onClickClose }) => {
   const theme = useTheme();
   const [selectedTitle, setSelectedTitle] = useState("");
   const reportReason = useRef("");
@@ -64,7 +64,7 @@ const ReportModal = ({ userNickname, onClickReport, onClickClose }) => {
 
   return (
     <AlertModal
-      title={`${userNickname} 님을 \n 신고하시겠습니까?`}
+      title={`${userNickName} 님을 \n 신고하시겠습니까?`}
       buttonTitle="신고하기"
       buttonColor="grey"
       onClickButton={handleSubmit}

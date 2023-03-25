@@ -53,33 +53,33 @@ export const MatchList = ({
    */
   const MatchListContent = () => {
     // 연결내역목록 - 수락버튼 핸들러
-    const onClickApproveButton = useCallback(({ userId, userNickname }) => {
+    const onClickApproveButton = useCallback(({ userId, userNickName }) => {
       dispatch(
         modalActions.showModal({
           userId,
-          userNickname,
+          userNickName,
           modalType: MODAL_TYPES.APPROVE,
         }),
       );
     }, []);
 
     // 연결내역목록 - 거절버튼 핸들러
-    const onClickRejectButton = useCallback(({ userId, userNickname }) => {
+    const onClickRejectButton = useCallback(({ userId, userNickName }) => {
       dispatch(
         modalActions.showModal({
           userId,
-          userNickname,
+          userNickName,
           modalType: MODAL_TYPES.REJECT,
         }),
       );
     }, []);
 
     // 연결내역목록 - 삭제버튼 핸들러
-    const onClickDeleteButton = useCallback(({ userId, userNickname }) => {
+    const onClickDeleteButton = useCallback(({ userId, userNickName }) => {
       dispatch(
         modalActions.showModal({
           userId,
-          userNickname,
+          userNickName,
           modalType: MODAL_TYPES.DELETE,
         }),
       );
@@ -102,20 +102,20 @@ export const MatchList = ({
     return (
       data &&
       data.map((user) => {
-        const { userId, userNickname } = user;
+        const { userId, userNickName } = user;
         return (
           <div key={userId}>
             <MatchListItem
               user={user}
               onClick={() => handleOnClickItem(userId)}
               onClickDeleteButton={() => {
-                onClickDeleteButton({ userId, userNickname });
+                onClickDeleteButton({ userId, userNickName });
               }}
               onClickApproveButton={() =>
-                onClickApproveButton({ userId, userNickname })
+                onClickApproveButton({ userId, userNickName })
               }
               onClickRejectButton={() => {
-                onClickRejectButton({ userId, userNickname });
+                onClickRejectButton({ userId, userNickName });
               }}
               simple={isSimple}
             />

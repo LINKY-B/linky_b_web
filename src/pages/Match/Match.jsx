@@ -89,7 +89,8 @@ export const Match = () => {
       return <span>Error : {error.message}</span>;
     }
 
-    const { tryMatchedUsers, tryMatchingUsers } = data;
+    const tryMatchedUsers = data["나에게 연결을 시도한 회원"];
+    const tryMatchingUsers = data["내가 연결을 시도한 회원"];
 
     return (
       <StyledMatch className="Match">

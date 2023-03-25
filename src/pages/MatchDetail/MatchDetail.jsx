@@ -42,22 +42,22 @@ const MatchDetail = () => {
 
   // Callback Functions
   const onClickApproveButton = useCallback(() => {
-    const { userNickname } = user;
+    const { userNickName } = user;
     dispatch(
       modalActions.showModal({
         userId,
-        userNickname,
+        userNickName,
         modalType: MODAL_TYPES.APPROVE,
       }),
     );
   }, [user, userId, dispatch]);
 
   const onClickRejectButton = useCallback(() => {
-    const { userNickname } = user;
+    const { userNickName } = user;
     dispatch(
       modalActions.showModal({
         userId,
-        userNickname,
+        userNickName,
         modalType: MODAL_TYPES.REJECT,
       }),
     );
@@ -80,7 +80,7 @@ const MatchDetail = () => {
 
   // 데이터 추출
   const {
-    userNickname,
+    userNickName,
     userMajorName,
     userStudentNum,
     userProfileImg,
@@ -88,8 +88,8 @@ const MatchDetail = () => {
     userSex,
     userMBTI,
     userSelfIntroduction,
-    getUserPersonalityRes,
-    getUserInterestRes,
+    userPersonality,
+    userInterest,
     userLikeCount,
   } = user;
 
@@ -98,7 +98,7 @@ const MatchDetail = () => {
       <SubHeader
         leftChild={
           <MemberInfoContainer
-            userNickname={userNickname}
+            userNickName={userNickName}
             userLikeCount={userLikeCount}
             userDetail={`${userLikeCount}명과 링크중입니다 `}
             subheader
@@ -128,8 +128,8 @@ const MatchDetail = () => {
 
   const UserDetail = () => {
     // 데이터 전처리. API 스펙에 의존
-    const userInterests = getUserInterestRes.map((i) => i.interest);
-    const userPersonalities = getUserPersonalityRes.map((p) => p.personality);
+    const userInterests = userInterest.map((i) => i.userInterest);
+    const userPersonalities = userPersonality.map((p) => p.userPersonality);
     const userInfos = [
       { title: "학과", value: userMajorName },
       { title: "학번", value: userStudentNum },
@@ -197,7 +197,7 @@ const MatchDetail = () => {
       {showMainModal && (
         <BottomButtonMenu
           userId={userId}
-          userNickname={userNickname}
+          userNickName={userNickName}
           onClickClose={toggleMainModal}
         />
       )}

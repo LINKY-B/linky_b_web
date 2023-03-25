@@ -3,7 +3,7 @@ import { StickyFooterContainer } from "containers/StickyFooter/StickyFooter.styl
 import styled from "styled-components";
 
 export const StyledMatchDetail = styled.article`
-  height: calc(var(--vh, 1vh) * 150);
+  // height: calc(var(--vh, 1vh) * 150);
   // border: 1px solid red;
 `;
 
