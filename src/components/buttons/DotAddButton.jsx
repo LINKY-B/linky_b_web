@@ -5,13 +5,14 @@ import { IconButtonStyled } from "./Buttons.style";
 /**
  * DotAddButton component
  *
+ * @param {string} name 이름
  * @param {function} onClick 이벤트 함수
  * @returns 스타일 적용된 컴포넌트 반환
  *
  */
-const DotAddButton = ({ onClick }) => {
+const DotAddButton = ({ name, onClick }) => {
   return (
-    <IconButtonStyled className="DotAddButton" onClick={onClick}>
+    <IconButtonStyled name={name} onClick={onClick}>
       <PlusDottedCircleIcon />
     </IconButtonStyled>
   );
