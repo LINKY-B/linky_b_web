@@ -9,10 +9,18 @@ import PropTypes from "prop-types";
  * @param {function} onChange 이벤트 함수
  * @param {function} onBlur 이벤트 함수
  * @param {string} placeholder 대체 입력 문구
+ * @param {number} maxLength 최대 입력 길이 제한
  * @returns 스타일 적용된 컴포넌트 반환
  *
  */
-const Textarea = ({ value, width, onChange, onBlur, placeholder }) => {
+const Textarea = ({
+  value,
+  width,
+  onChange,
+  onBlur,
+  placeholder,
+  maxLength,
+}) => {
   return (
     <TextareaStyled
       className="Textarea"
@@ -21,6 +29,7 @@ const Textarea = ({ value, width, onChange, onBlur, placeholder }) => {
       onChange={onChange}
       onBlur={onBlur}
       placeholder={placeholder}
+      maxLength={maxLength}
     ></TextareaStyled>
   );
 };
@@ -31,6 +40,7 @@ Textarea.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
+  maxLength: PropTypes.number,
 };
 
 export default Textarea;
