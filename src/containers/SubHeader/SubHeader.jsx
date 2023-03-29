@@ -15,8 +15,9 @@ const SubHeader = ({ leftChild, rightChild }) => {
     <Header>
       <FlexWrapper>
         <IconWrapper>
-          <LeftArrowIcon width="20" height="20" onClick={backHandle} />
+          <LeftArrowIcon width="15" height="15" onClick={backHandle} />
         </IconWrapper>
+
         <Spacing />
         {leftChild}
       </FlexWrapper>
