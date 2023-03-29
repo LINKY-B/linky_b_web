@@ -47,7 +47,6 @@ export const Column = styled.div`
               fill: #9fc743;
             }
           `}
-
       }
 
     path {
@@ -60,13 +59,28 @@ export const Column = styled.div`
         css`
           stroke-width: 1.1;
         `}
-
-
-
-
       }
+
+
     }
   }
+
+  //해당 page에 도달했을 때 footer 아이콘 색상
+  ${(props) =>
+    props.current &&
+    css`
+      color: #9fc743;
+      font-weight: 500;
+      path {
+        fill: #9fc743;
+        stroke: #9fc743;
+      }
+      circle {
+        fill: #9fc743;
+      }
+    `}
+
+
 `;
 
 export const Row = styled.div`

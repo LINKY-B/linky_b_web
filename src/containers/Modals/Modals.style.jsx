@@ -11,7 +11,7 @@ export const ModalButtonWrapper = styled.div`
 export const ModalButton = styled.button`
   // border: 1px solid pink;
   width: 100%;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 `;
 
 export const ReportModalWrapper = styled.div`
@@ -20,18 +20,19 @@ export const ReportModalWrapper = styled.div`
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  width: 95%;
 `;
 
 export const SelectButtonWrapper = styled.div`
   display: flex;
   padding: 0;
-  width: 95%;
   flex-wrap: wrap;
   gap: 0.3rem 0.3rem;
+  width: 100%;
 `;
 
-export const ReportTextArea = styled(TextareaStyled)`
+export const StyledReportTextArea = styled(TextareaStyled)`
   font-size: ${(props) => props.theme.fontSize.xxs};
   // border: 1px solid red;
-  width: 95%;
+  width: 100%;
 `;

@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "store/Hooks";
 import { useTheme } from "styled-components";
+import { useAppDispatch } from "store/Hooks";
 import PropTypes from "prop-types";
 
-import { matchActions, MATCH_MODAL_TYPES } from "store/ducks/matchSlice";
+import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
 
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
@@ -38,68 +38,98 @@ export const MatchList = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // when unmount: reset modal
-  useEffect(() => {
-    return () => {
-      dispatch(matchActions.resetModal());
-    };
+  // '모두수락' 버튼 핸들러
+  const onClickApproveAllButton = useCallback(() => {
+    dispatch(
+      modalActions.showModal({
+        modalType: MODAL_TYPES.APPROVE_ALL,
+      }),
+    );
   }, [dispatch]);
 
-  // useQuery pre return
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
+  /**
+   * 연결 리스트의 내용을 보여주는 컴포넌트
+   * @returns
+   */
+  const MatchListContent = () => {
+    // 연결내역목록 - 수락버튼 핸들러
+    const onClickApproveButton = useCallback(({ userId, userNickName }) => {
+      dispatch(
+        modalActions.showModal({
+          userId,
+          userNickName,
+          modalType: MODAL_TYPES.APPROVE,
+        }),
+      );
+    }, []);
 
-  if (error) {
-    return <span>Error : {error.message}</span>;
-  }
+    // 연결내역목록 - 거절버튼 핸들러
+    const onClickRejectButton = useCallback(({ userId, userNickName }) => {
+      dispatch(
+        modalActions.showModal({
+          userId,
+          userNickName,
+          modalType: MODAL_TYPES.REJECT,
+        }),
+      );
+    }, []);
 
-  // click handlers
-  const handleOnClickItem = (userId) => {
-    navigate(`/match/matched/${userId}`);
-  };
+    // 연결내역목록 - 삭제버튼 핸들러
+    const onClickDeleteButton = useCallback(({ userId, userNickName }) => {
+      dispatch(
+        modalActions.showModal({
+          userId,
+          userNickName,
+          modalType: MODAL_TYPES.DELETE,
+        }),
+      );
+    }, []);
 
-  const onClickApproveButton = ({ userId, userNickname }) => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.APPROVE,
-      }),
+    // 연결내역목록 - 아이템 클릭 핸들러
+    const handleOnClickItem = useCallback((userId) => {
+      navigate(`/match/matched/${userId}`);
+    }, []);
+
+    // useQuery pre return
+    if (isLoading) {
+      return <span>Loading...</span>;
+    }
+
+    if (error) {
+      return <span>Error : {error.message}</span>;
+    }
+
+    return (
+      data &&
+      data.map((user) => {
+        const { userId, userNickName } = user;
+        return (
+          <div key={userId}>
+            <MatchListItem
+              user={user}
+              onClick={() => handleOnClickItem(userId)}
+              onClickDeleteButton={() => {
+                onClickDeleteButton({ userId, userNickName });
+              }}
+              onClickApproveButton={() =>
+                onClickApproveButton({ userId, userNickName })
+              }
+              onClickRejectButton={() => {
+                onClickRejectButton({ userId, userNickName });
+              }}
+              simple={isSimple}
+            />
+            <Spacing margin={theme.spacing.lg} />
+          </div>
+        );
+      })
     );
   };
 
-  const onClickRejectButton = ({ userId, userNickname }) => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.REJECT,
-      }),
-    );
-  };
-
-  const onClickDeleteButton = ({ userId, userNickname }) => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.DELETE,
-      }),
-    );
-  };
-
-  const onClickApproveAllButton = () => {
-    dispatch(
-      matchActions.showModal({
-        modalType: MATCH_MODAL_TYPES.APPROVE_ALL,
-      }),
-    );
-  };
-
-  return (
-    <>
-      {isSubheader && (
+  // 연결내역 목록 헤더
+  const MatchHeader = memo(({ title, isSubheader }) => {
+    return (
+      isSubheader && (
         <SubHeader
           leftChild={<Text fontSize={theme.fontSize.md}>{title}</Text>}
           rightChild={
@@ -110,33 +140,17 @@ export const MatchList = ({
             )
           }
         />
-      )}
+      )
+    );
+  });
+
+  return (
+    <>
+      <MatchHeader title={title} isSubheader={isSubheader} />
       <StyledMatch className="MatchList">
         <MatchWrapper>
           {sectionHeader}
-          {data &&
-            data.map((user) => {
-              const { userId, userNickname } = user;
-              return (
-                <div key={userId}>
-                  <MatchListItem
-                    user={user}
-                    onClick={() => handleOnClickItem(userId)}
-                    onClickDeleteButton={() => {
-                      onClickDeleteButton({ userId, userNickname });
-                    }}
-                    onClickApproveButton={() =>
-                      onClickApproveButton({ userId, userNickname })
-                    }
-                    onClickRejectButton={() => {
-                      onClickRejectButton({ userId, userNickname });
-                    }}
-                    simple={isSimple}
-                  />
-                  <Spacing margin={theme.spacing.lg} />
-                </div>
-              );
-            })}
+          <MatchListContent />
         </MatchWrapper>
       </StyledMatch>
     </>
@@ -153,4 +167,4 @@ MatchList.propTypes = {
   sectionHeader: PropTypes.node,
 };
 
-export default MatchList;
+export default memo(MatchList);

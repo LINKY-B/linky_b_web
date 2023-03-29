@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import React from "react";
 import {
   Box,
@@ -19,12 +20,17 @@ import {
  * @returns 스타일 적용된 컴포넌트 반환
  */
 const Footer = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  console.log(location.pathname === "/");
   return (
     <Box>
       <Container>
         <Row>
-          <Column onClick={() => navigate("/")}>
+          <Column
+            onClick={() => navigate("/")}
+            current={location.pathname === "/"}
+          >
             <FooterImg>
               <HomeIcon></HomeIcon>
             </FooterImg>
@@ -32,7 +38,11 @@ const Footer = () => {
               <p>홈</p>
             </FooterText>
           </Column>
-          <Column onClick={() => navigate("/match")} match>
+          <Column
+            onClick={() => navigate("/match")}
+            current={location.pathname === "/match"}
+            match
+          >
             <FooterImg>
               <MatchIcon></MatchIcon>
             </FooterImg>
@@ -41,7 +51,11 @@ const Footer = () => {
               <p>연결</p>
             </FooterText>
           </Column>
-          <Column onClick={() => navigate("/chat")} chat>
+          <Column
+            onClick={() => navigate("/chat")}
+            current={location.pathname === "/chat"}
+            chat
+          >
             <FooterImg>
               <ChatIcon className="ChatSvg"></ChatIcon>
             </FooterImg>
@@ -50,7 +64,10 @@ const Footer = () => {
               <p>채팅</p>
             </FooterText>
           </Column>
-          <Column onClick={() => navigate("/profile")}>
+          <Column
+            onClick={() => navigate("/profile/:userid")}
+            current={location.pathname === "/profile/userid"}
+          >
             <FooterImg>
               <ProfileIcon></ProfileIcon>
             </FooterImg>

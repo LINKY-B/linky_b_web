@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { memo, useCallback, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 
-import { matchActions, MATCH_MODAL_TYPES } from "store/ducks/matchSlice";
+import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
 import { useAppDispatch } from "store/Hooks";
 import { useMatchDetail } from "utils/hooks/useMatch";
 
 import Button from "components/buttons/Button";
-import { MatchModal } from "components/MatchModal";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
+import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
 
 import { DotMenuIcon } from "components/Icon/Icon";
 import MemberInfoContainer from "containers/MemberInfoContainer/MemberInfoContainer";
@@ -34,18 +34,38 @@ import {
 const MatchDetail = () => {
   const theme = useTheme();
   const params = useParams();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showMainModal, setShowMainModal] = useState(false);
 
   const { userId } = params;
-  const { data: user, error, isLoading, isError } = useMatchDetail(userId);
+  const { data: user, error, isLoading } = useMatchDetail(userId);
 
-  useEffect(() => {
-    return () => {
-      dispatch(matchActions.resetModal());
-    };
-  }, [dispatch]);
+  // Callback Functions
+  const onClickApproveButton = useCallback(() => {
+    const { userNickName } = user;
+    dispatch(
+      modalActions.showModal({
+        userId,
+        userNickName,
+        modalType: MODAL_TYPES.APPROVE,
+      }),
+    );
+  }, [user, userId, dispatch]);
+
+  const onClickRejectButton = useCallback(() => {
+    const { userNickName } = user;
+    dispatch(
+      modalActions.showModal({
+        userId,
+        userNickName,
+        modalType: MODAL_TYPES.REJECT,
+      }),
+    );
+  }, [user, userId, dispatch]);
+
+  const toggleMainModal = useCallback(() => {
+    setShowMainModal(!showMainModal);
+  }, [showMainModal]);
 
   // UseQuery status에 따른 처리
   if (isLoading) {
@@ -60,7 +80,7 @@ const MatchDetail = () => {
 
   // 데이터 추출
   const {
-    userNickname,
+    userNickName,
     userMajorName,
     userStudentNum,
     userProfileImg,
@@ -68,99 +88,78 @@ const MatchDetail = () => {
     userSex,
     userMBTI,
     userSelfIntroduction,
-    getUserPersonalityRes,
-    getUserInterestRes,
+    userPersonality,
+    userInterest,
     userLikeCount,
   } = user;
 
-  // 데이터 전처리. API 스펙에 의존
-  const userInterests = getUserInterestRes.map((i) => i.interest);
-  const userPersonalities = getUserPersonalityRes.map((p) => p.personality);
-  const userInfos = [
-    { title: "학과", value: userMajorName },
-    { title: "학번", value: userStudentNum },
-    { title: "나이", value: userBirth },
-    { title: "성별", value: userSex },
-    { title: "MBTI", value: userMBTI },
-  ];
-
-  // 반복되는 SelectButton 렌더링을 함수화
-  const SelectButtonItems = ({ title, items }) => (
-    <section>
-      <Text color={theme.colors.fontGrey} fontSize={theme.fontSize.xs}>
-        {title}
-      </Text>
-      <Spacing />
-      <InfoItemContainer>
-        {items.map((item) => (
-          <BlackSelectButton key={item}>{item}</BlackSelectButton>
-        ))}
-      </InfoItemContainer>
-      <Spacing />
-    </section>
+  const MatchHeader = () => (
+    <StyledHeader>
+      <SubHeader
+        leftChild={
+          <MemberInfoContainer
+            userNickName={userNickName}
+            userLikeCount={userLikeCount}
+            userDetail={`${userLikeCount}명과 링크중입니다 `}
+            subheader
+          />
+        }
+        rightChild={
+          <button onClick={toggleMainModal}>
+            <DotMenuIcon />
+          </button>
+        }
+      />
+      <ProfileImage src={userProfileImg} alt="" />
+    </StyledHeader>
   );
 
-  // Callback Functions
-  const onClickApproveButton = () => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.APPROVE,
-      }),
-    );
-  };
-  const onClickRejectButton = () => {
-    dispatch(
-      matchActions.showModal({
-        userId,
-        userNickname,
-        modalType: MATCH_MODAL_TYPES.REJECT,
-      }),
-    );
-  };
+  const MatchFooter = () => (
+    <StickyFooter>
+      <FooterContainer>
+        <Button onClick={onClickRejectButton} color="grey">
+          거절하기
+        </Button>
+        <Spacing />
+        <Button onClick={onClickApproveButton}>수락하기</Button>
+      </FooterContainer>
+    </StickyFooter>
+  );
 
-  const toggleMainModal = () => {
-    setShowMainModal(!showMainModal);
-  };
+  const UserDetail = () => {
+    // 데이터 전처리. API 스펙에 의존
+    const userInterests = userInterest.map((i) => i.userInterest);
+    const userPersonalities = userPersonality.map((p) => p.userPersonality);
+    const userInfos = [
+      { title: "학과", value: userMajorName },
+      { title: "학번", value: userStudentNum },
+      { title: "나이", value: userBirth },
+      { title: "성별", value: userSex },
+      { title: "MBTI", value: userMBTI },
+    ];
 
-  return (
-    <StyledMatchDetail>
-      <MatchModal
-        onSuccessMutation={() => {
-          navigate(-1);
-        }}
-      />
+    // 반복되는 SelectButton 렌더링을 함수화
+    const SelectButtonItems = memo(({ title, items }) => (
+      <section>
+        <Text color={theme.colors.fontGrey} fontSize={theme.fontSize.xs}>
+          {title}
+        </Text>
+        <Spacing />
+        <InfoItemContainer>
+          {items.map((item) => (
+            <BlackSelectButton key={item}>{item}</BlackSelectButton>
+          ))}
+        </InfoItemContainer>
+        <Spacing />
+      </section>
+    ));
 
-      {showMainModal && (
-        <BottomButtonMenu
-          userId={userId}
-          userNickname={userNickname}
-          onClickClose={toggleMainModal}
-        />
-      )}
-      <StyledHeader>
-        <SubHeader
-          leftChild={
-            <MemberInfoContainer
-              userNickname={userNickname}
-              userLikeCount={userLikeCount}
-              userDetail={`${userLikeCount}명과 링크중입니다 `}
-              subheader
-            />
-          }
-          rightChild={
-            <button onClick={toggleMainModal}>
-              <DotMenuIcon />
-            </button>
-          }
-        />
-        <ProfileImage src={userProfileImg} alt="" />
-      </StyledHeader>
-
-      <article className="MatchDetailArticle">
+    return (
+      <StyledMatchDetail>
         <IntroductionWrapper className="userIntroduction">
-          <Text fontSize={theme.fontSize.xs}>{userSelfIntroduction}</Text>
+          <Text fontSize={theme.fontSize.xs} whiteSpace="pre-line">
+            {userSelfIntroduction}
+          </Text>
         </IntroductionWrapper>
 
         <InfoWrapper>
@@ -187,17 +186,24 @@ const MatchDetail = () => {
           <Hr />
           <SelectButtonItems title="관심사" items={userInterests} />
         </InfoWrapper>
+      </StyledMatchDetail>
+    );
+  };
 
-        <StickyFooter>
-          <FooterContainer>
-            <Button onClick={onClickRejectButton} color="grey">
-              거절하기
-            </Button>
-            <Spacing />
-            <Button onClick={onClickApproveButton}>수락하기</Button>
-          </FooterContainer>
-        </StickyFooter>
-      </article>
+  return (
+    <StyledMatchDetail>
+      <TotalAlertModal />
+
+      {showMainModal && (
+        <BottomButtonMenu
+          userId={userId}
+          userNickName={userNickName}
+          onClickClose={toggleMainModal}
+        />
+      )}
+      <MatchHeader />
+      <UserDetail />
+      <MatchFooter />
     </StyledMatchDetail>
   );
 };

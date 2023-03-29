@@ -15,7 +15,7 @@ import {
 
 /**
  * @param {*} object
- * @param {object} user 서버로부터 받아온 사용자 정보 {userProfileImg, userNickname 등등}
+ * @param {object} user 서버로부터 받아온 사용자 정보 {userProfileImg, userNickName 등등}
  * @param {Function} onClickApproveButton 오른쪽에 표시할 노드
  * @param {Function} onClickRejectButton 이 컨테이너를 눌렀을 때의 콜백. left child와 right child에는 적용되지 않음.
  * @param {bool} simple 참이면 나에게 시도한 회원 컨테이너, 거짓이면 내가 연결을 시도한 회원 컨테이너를 보여준다.
@@ -31,10 +31,11 @@ const MatchListItem = ({
   const {
     userId,
     userProfileImg,
-    userNickname,
+    userNickName,
     userMajorName,
     userLikeCount,
-    getUserInterestRes,
+    userInterest,
+    userStudentNum,
   } = user;
 
   const theme = useTheme();
@@ -56,10 +57,9 @@ const MatchListItem = ({
           />
         </button>
       }
-      onClick={onClick}
-      userNickname={userNickname}
+      userNickName={userNickName}
       userLikeCount={userLikeCount}
-      userDetail={`${userMajorName} / 20학번`}
+      userDetail={`${userMajorName} / ${userStudentNum}학번`}
     />
   ) : (
     <MemberInfoContainer
@@ -80,10 +80,10 @@ const MatchListItem = ({
         </ButtonWrapper>
       }
       onClick={onClick}
-      userNickname={userNickname}
+      userNickName={userNickName}
       userLikeCount={userLikeCount}
-      userInterests={getUserInterestRes}
-      userDetail={`${userMajorName} / 20학번`}
+      userInterests={userInterest}
+      userDetail={`${userMajorName} / ${userStudentNum}학번`}
     />
   );
 };

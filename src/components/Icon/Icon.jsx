@@ -23,7 +23,7 @@ import { ReactComponent as HomeIcon } from "assets/svgs/home.svg";
 import { ReactComponent as MatchIcon } from "assets/svgs/match.svg";
 import { ReactComponent as ChatIcon } from "assets/svgs/chat.svg";
 import { ReactComponent as ProfileIcon } from "assets/svgs/profile.svg";
-
+import { ReactComponent as MainLogoIcon } from "assets/svgs/Linky-B.svg";
 import { CheckCircleIcon } from "./CheckCircleIcon";
 import { ReactComponent as M1Icon } from "assets/svgs/M1.svg";
 import { ReactComponent as M2Icon } from "assets/svgs/M2.svg";
@@ -66,4 +66,5 @@ export {
   W2Icon,
   W3Icon,
   W4Icon,
+  MainLogoIcon,
 };

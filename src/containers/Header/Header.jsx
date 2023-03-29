@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Container, StyledHeader } from "./Header.style";
 
 const Header = ({ children }) => {
@@ -7,4 +8,4 @@ const Header = ({ children }) => {
     </StyledHeader>
   );
 };
-export default Header;
+export default memo(Header);
