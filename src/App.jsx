@@ -18,6 +18,7 @@ import { ChatListSearch } from "pages/ChatListSearch";
 import OnBoarding from "pages/OnBoarding/OnBoarding";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
+import FindPwd from "pages/FindPwd/FindPwd";
 import RequireAuthRoute from "utils/Route/RequireAuthRoute";
 import PublicRoute from "utils/Route/PublicRoute";
 
@@ -65,6 +66,7 @@ const App = () => {
         <Route element={<PublicRoute />}>
           <Route path="/onboarding" element={<OnBoarding />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/findpwd" element={<FindPwd></FindPwd>}></Route>
           {/* <Route path="/signup" element={<signup></signup>}></Route> */}
         </Route>
         {/* private route */}
