@@ -31,11 +31,11 @@ const BasicInformation = ({ nextPage }) => {
           <Text fontWeight={700}>기본 정보</Text>
         </ContentBox>
 
-        <Email />
-
         <Name />
 
         <NickName />
+
+        <Email />
 
         <Birth />
 
