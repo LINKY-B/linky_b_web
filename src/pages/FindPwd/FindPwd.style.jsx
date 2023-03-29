@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 
-export const ChangePasswordWrapper = styled.div`
-  max-height: 500px;
-  height: 400px;
+export const FindPwdWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
 `;
 
 export const PartialInputWrapper = styled.div`
