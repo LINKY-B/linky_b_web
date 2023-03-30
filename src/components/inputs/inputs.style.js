@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Icon } from "components/Icon/index";
+import selectarrow from "assets/images/selectarrow.png";
 
 export const InputStyled = styled.input`
   height: 36px;
@@ -59,7 +59,7 @@ export const SelectOptionStyled = styled.select`
   font-weight: 400;
   appearance: none;
   border-radius: 6px;
-  background: url(${Icon.BottomArrowIcon}) no-repeat right 1rem center;
+  background: url(${selectarrow}) no-repeat right 1rem center;
   ${({ theme, width }) => css`
     border: 1px solid ${theme.colors.fontGrey};
     font-size: ${theme.fontSize.sm};
