@@ -12,7 +12,7 @@ const InputButtonBox = ({
 }) => {
   const [inputValue, setInputValue] = useState("");
 
-  const onChange = (e) => {
+  const onBlur = (e) => {
     setInputValue(e.target.value);
   };
 
@@ -23,8 +23,7 @@ const InputButtonBox = ({
         <Input
           name={title}
           size="small"
-          value={inputValue}
-          onChange={onChange}
+          onBlur={onBlur}
           placeholder={placeholder}
         ></Input>
         <Button size="small" onClick={() => handleClick(inputValue)}>
