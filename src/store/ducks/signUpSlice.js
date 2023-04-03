@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  profileImg: "",
   UserSignupReq: {
+    authCode: "",
+    gradeStatus: "",
+    profileImg: "",
     userName: "",
     userNickName: "",
     userEmail: "",
@@ -12,7 +14,6 @@ const initialState = {
     userMajorName: "",
     userMBTI: "",
     userStudentNum: "",
-    gradeStatus: "",
     userInterests: [],
     userSex: "",
     userPersonalities: [],
@@ -35,5 +36,4 @@ export const signUpSlice = createSlice({
 });
 
 export default signUpSlice.reducer;
-export const { addUserInfo, addUserSchoolImg, addUserProfileImg } =
-  signUpSlice.actions;
+export const { addUserInfo, addUserSchoolImg } = signUpSlice.actions;
