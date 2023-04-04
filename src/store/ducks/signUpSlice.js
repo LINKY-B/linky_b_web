@@ -29,11 +29,8 @@ export const signUpSlice = createSlice({
     addUserInfo: (state, action) => {
       state.UserSignupReq[action.payload.key] = action.payload.value;
     },
-    addUserSchoolImg: (state, action) => {
-      state.schoolImg = action.payload;
-    },
   },
 });
 
 export default signUpSlice.reducer;
-export const { addUserInfo, addUserSchoolImg } = signUpSlice.actions;
+export const { addUserInfo } = signUpSlice.actions;
