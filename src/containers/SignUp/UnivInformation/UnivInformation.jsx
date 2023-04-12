@@ -1,7 +1,6 @@
 import Button from "components/buttons/Button";
 import Text from "components/text/Text";
 import SubHeader from "containers/SubHeader/SubHeader";
-import { useSelector } from "react-redux";
 import {
   ContentBox,
   ContentWrapper,
@@ -12,14 +11,16 @@ import Major from "./Major";
 import StudentNumber from "./StudentNumber";
 import Univ from "./Univ";
 import UnivAuth from "./UnivAuth";
+import { useDispatch } from "react-redux";
+import { checkUnivInfo } from "store/ducks/signUpSlice";
 
-const UnivInformation = ({ nextPage }) => {
-  const onClick = () => {
-    nextPage();
+const UnivInformation = ({ getImage }) => {
+  const dispatch = useDispatch("signUp");
+
+  const handleNextClick = () => {
+    dispatch(checkUnivInfo());
   };
 
-  const userData = useSelector((state) => state.signUp);
-  console.log(userData);
   return (
     <>
       <SubHeader />
@@ -38,10 +39,10 @@ const UnivInformation = ({ nextPage }) => {
 
         <StudentNumber />
 
-        <UnivAuth className="univ-auth" />
+        <UnivAuth className="univ-auth" getImage={getImage} />
 
         <ContentBox className="next-button">
-          <Button onClick={onClick} shadow>
+          <Button onClick={handleNextClick} shadow>
             다음
           </Button>
         </ContentBox>

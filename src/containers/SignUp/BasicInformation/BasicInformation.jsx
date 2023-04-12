@@ -14,10 +14,14 @@ import Email from "./Email";
 import NickName from "./NickName";
 import Name from "./Name";
 import Password from "./Password";
+import { useDispatch } from "react-redux";
+import { checkBasicInfo } from "store/ducks/signUpSlice";
 
-const BasicInformation = ({ nextPage }) => {
+const BasicInformation = () => {
+  const dispatch = useDispatch("signUp");
+
   const handleNextClick = () => {
-    nextPage();
+    dispatch(checkBasicInfo());
   };
   return (
     <>

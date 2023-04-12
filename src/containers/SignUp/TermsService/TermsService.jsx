@@ -11,8 +11,11 @@ import { SIGNUP_TERMSSERVICE } from "constants/constants";
 import Spacing from "components/spacing/Spacing";
 import TermsList from "./TermsList";
 import TermsServiceFooter from "./TermsServiceFooter";
+import { useDispatch } from "react-redux";
+import { nextPage } from "store/ducks/signUpSlice";
 
-const TermsService = ({ nextPage }) => {
+const TermsService = () => {
+  const dispatch = useDispatch("signUp");
   return (
     <>
       <SubHeader />
@@ -39,7 +42,11 @@ const TermsService = ({ nextPage }) => {
         </TermsList>
       </ContentWrapper>
 
-      <TermsServiceFooter nextPage={nextPage} />
+      <TermsServiceFooter
+        nextPage={() => {
+          dispatch(nextPage());
+        }}
+      />
     </>
   );
 };
