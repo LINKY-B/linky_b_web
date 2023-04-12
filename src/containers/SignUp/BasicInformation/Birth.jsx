@@ -4,11 +4,13 @@ import Text from "components/text/Text";
 import { useDispatch } from "react-redux";
 import { addUserInfo } from "store/ducks/signUpSlice";
 import { ContentBox, FlexWrapper } from "../SignUp.style";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Birth = () => {
   const year = [
     1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001,
-    2002, 2003, 2004,
+    2002, 2003, 2004, 2005,
   ];
   const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const day = [
@@ -18,20 +20,23 @@ const Birth = () => {
 
   const dispatch = useDispatch("signUp");
 
-  const birth = {
+  const [birth, setBirth] = useState({
     yy: "",
     mm: "",
     dd: "",
-  };
+  });
 
-  const onChange = (e) => {
-    birth[e.target.name] = e.target.value;
+  useEffect(() => {
     dispatch(
       addUserInfo({
         key: "userBirth",
         value: `${birth.yy}-${birth.mm.padStart(2, "0")}-${birth.dd}`,
       }),
     );
+  }, [birth, dispatch]);
+
+  const onChange = (e) => {
+    setBirth({ ...birth, [e.target.name]: e.target.value });
   };
 
   return (
