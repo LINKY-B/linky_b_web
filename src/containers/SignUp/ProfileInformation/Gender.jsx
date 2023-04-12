@@ -1,16 +1,13 @@
 import SelectButton from "components/buttons/SelectButton";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUserInfo } from "store/ducks/signUpSlice";
 import { ContentBox, FlexWrapper } from "../SignUp.style";
 
 const Gender = ({ children }) => {
   const [isMale, setIsMale] = useState(false);
   const [isFemale, setIsFemale] = useState(false);
-
   const dispatch = useDispatch("signUp");
-  const selector = useSelector((state) => state.signUp);
-  console.log(selector);
 
   const onClickGender = (e) => {
     if (e.target.id === "1") {
