@@ -3,24 +3,27 @@ import ProfileInformation from "containers/SignUp/ProfileInformation/ProfileInfo
 import TermsService from "containers/SignUp/TermsService/TermsService";
 import UnivInformation from "containers/SignUp/UnivInformation/UnivInformation";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const SignUp = () => {
-  const [page, setPage] = useState(1);
+  const [univImage, setUnivImage] = useState(null);
 
-  const nextPage = () => {
-    setPage((page) => page + 1);
+  const getImage = (image) => {
+    setUnivImage(image);
   };
+
+  const page = useSelector((state) => state.signUp.page);
 
   const renderSwitch = () => {
     switch (page) {
       case 1:
-        return <TermsService nextPage={nextPage} />;
+        return <TermsService />;
       case 2:
-        return <BasicInformation nextPage={nextPage} />;
+        return <BasicInformation />;
       case 3:
-        return <UnivInformation nextPage={nextPage} />;
+        return <UnivInformation getImage={getImage} />;
       case 4:
-        return <ProfileInformation />;
+        return <ProfileInformation univImage={univImage} />;
       default:
         return null;
     }
