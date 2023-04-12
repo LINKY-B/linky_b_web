@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
+import selectarrow from "assets/images/selectarrow.png";
 
-import { Icon } from "components/Icon/index";
 export const InputStyled = styled.input`
   height: 36px;
   border-radius: 6px;
@@ -10,7 +10,7 @@ export const InputStyled = styled.input`
 
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.fontGrey};
-    font-size: ${theme.fontSize.sm};
+    font-size: ${theme.fontSize.xs};
   `}
 
   ${({ size }) => {
@@ -44,6 +44,12 @@ export const TextareaStyled = styled.textarea`
     border: 1px solid ${theme.colors.fontGrey};
     font-size: ${theme.fontSize.sm};
   `};
+
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width};
+    `}
 `;
 
 export const SelectOptionStyled = styled.select`
@@ -53,9 +59,10 @@ export const SelectOptionStyled = styled.select`
   font-weight: 400;
   appearance: none;
   border-radius: 6px;
-  background: url(${Icon.BottomArrowIcon}) no-repeat right 1rem center;
-  ${({ theme }) => css`
+  background: url(${selectarrow}) no-repeat right 1rem center;
+  ${({ theme, width }) => css`
     border: 1px solid ${theme.colors.fontGrey};
     font-size: ${theme.fontSize.sm};
+    width: ${width};
   `};
 `;
