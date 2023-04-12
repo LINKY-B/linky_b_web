@@ -7,12 +7,13 @@ import { theme } from "styles/theme";
 import { ContentBox } from "../SignUp.style";
 import ImageBox from "./Imagebox";
 
-const UnivAuth = ({ isGraduate = true }) => {
+const UnivAuth = ({ getImage }) => {
   const statusList = ["재학", "졸업"];
 
   const dispatch = useDispatch("signUp");
   const selectOptionHandler = (e) => {
-    dispatch(addUserInfo({ key: "gradeStatus", value: e.target.value }));
+    const status = e.target.value === "재학" ? true : false;
+    dispatch(addUserInfo({ key: "gradeStatus", value: status }));
   };
   return (
     <>
@@ -39,7 +40,7 @@ const UnivAuth = ({ isGraduate = true }) => {
           해주세요. 도용 또는 위조로 의심 시 가입이 반려됩니다.
         </Text>
         <Spacing />
-        <ImageBox />
+        <ImageBox getImage={getImage} />
       </ContentBox>
     </>
   );
