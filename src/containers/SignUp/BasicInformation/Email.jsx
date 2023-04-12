@@ -5,31 +5,45 @@ import { addUserInfo } from "store/ducks/signUpSlice";
 import InputButtonBox from "../InputButtonBox";
 import { ContentBox } from "../SignUp.style";
 import { isValidEmail } from "../validator";
+import { useMutateAuthEmail, useMutateSendEmail } from "utils/hooks/useSignUp";
+import { useState } from "react";
 
 const Email = () => {
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch("signUp");
-  const userdata = useSelector((state) => state.signUp);
-  console.log(userdata);
+  const userNickName = useSelector(
+    (state) => state.signUp.UserSignupReq.userNickName,
+  );
+  const sendEamilMutation = useMutateSendEmail();
+  const authEmailMutation = useMutateAuthEmail();
 
-  let userEmail = "";
-  const handleSendCodeClick = (inputEmail) => {
-    // 유효성 검사
-    if (isValidEmail(inputEmail)) {
-      alert("통과");
-    } else {
-      alert("실패");
+  const handleSendCodeClick = async (email) => {
+    setEmail(email);
+    if (isValidEmail(email)) {
+      sendEamilMutation.mutate({ email, userNickName });
+      alert("인증코드 이메일을 전송하였습니다.");
+      return;
     }
 
-    // 인증번호 받기
-    userEmail = inputEmail;
+    alert("올바르지 않은 이메일 형식입니다.");
   };
 
-  const handleCheckCodeClick = (code) => {
-    alert("인증번호 확인");
-    // 인증번호 확인
-    // 확인되면 dispatch에 사용자 이메일 추가
-    dispatch(addUserInfo({ key: "userEmail", value: userEmail }));
+  const handleCheckCodeClick = async (authCode) => {
+    // try - catch를 이용해 수동으로 오류 감지
+    try {
+      const res = await authEmailMutation.mutateAsync({
+        authCode,
+        email,
+        userNickName,
+      });
+      alert(res.data.message);
+      dispatch(addUserInfo({ key: "userEmail", value: email }));
+      dispatch(addUserInfo({ key: "authCode", value: authCode }));
+    } catch (e) {
+      alert(e.response.data.message);
+    }
   };
+
   return (
     <ContentBox className="user-email">
       <InputButtonBox
@@ -41,7 +55,6 @@ const Email = () => {
         <Text>이메일</Text>
         <Spacing />
       </InputButtonBox>
-
       <InputButtonBox
         title="verificationCode"
         buttonText="인증번호 확인"
