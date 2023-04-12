@@ -4,7 +4,7 @@ import { SelectButtonStyled } from "./Buttons.style";
 /**
  * SelectButton component
  *
- * @param {string} id 버튼id
+ * @param {number} id 버튼id
  * @param {string} type 버튼 종류(round, rectangle)
  * @param {boolean} isSelected true일 경우 초록색으로 스타일 바뀜
  * @param {function} onClick 이벤트 함수
@@ -14,6 +14,7 @@ import { SelectButtonStyled } from "./Buttons.style";
 const SelectButton = ({ id, type, isSelected, onClick, children }) => {
   return (
     <SelectButtonStyled
+      className="SelectButton"
       id={id}
       type={type}
       isSelected={isSelected}
@@ -30,7 +31,7 @@ SelectButton.defaultProps = {
 };
 
 SelectButton.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   type: PropTypes.string,
   isSelected: PropTypes.bool,
   onclick: PropTypes.func,
