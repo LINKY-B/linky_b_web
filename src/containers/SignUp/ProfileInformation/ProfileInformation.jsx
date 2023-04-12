@@ -14,13 +14,13 @@ import Introduction from "./Introduction";
 import Mbti from "./Mbti";
 import ProfileList from "./ProfileList";
 import Keyword from "./Keyword";
+import { useMutateSignUp } from "utils/hooks/useSignUp";
+import { useSelector } from "react-redux";
+import AlertModal from "components/alertModal/AlertModal";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ProfileInformation = () => {
-  const onClickStart = () => {
-    // 벡엔드로 데이터 넘기기
-    alert("클릭!");
-  };
-
+const ProfileInformation = ({ univImage }) => {
   const personalityList = [
     "모험심이 강한",
     "다정한",
@@ -109,6 +109,25 @@ const ProfileInformation = () => {
     "독서",
     "요리",
   ];
+  const userData = useSelector((state) => state.signUp);
+  const { mutateAsync } = useMutateSignUp();
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const handlerSuccessClick = () => {
+    setShowModal(false);
+    navigate("/login");
+  };
+
+  const onClickStart = async () => {
+    try {
+      const res = await mutateAsync({ userData, univImage });
+      setShowModal(true);
+      console.log(res);
+    } catch ({ response }) {
+      alert(response.data.message);
+    }
+  };
 
   return (
     <>
@@ -161,6 +180,15 @@ const ProfileInformation = () => {
           <Button onClick={onClickStart}>Linky - B 시작하기</Button>
         </div>
       </ContentWrapper>
+      {showModal ? (
+        <AlertModal
+          title="회원가입 완료"
+          subTitle="인증은 약 1~2일이 소요됩니다."
+          buttonTitle="확인"
+          onClickClose={handlerSuccessClick}
+          onClickButton={handlerSuccessClick}
+        ></AlertModal>
+      ) : null}
     </>
   );
 };
