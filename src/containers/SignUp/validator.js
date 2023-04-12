@@ -22,7 +22,7 @@ export const isValidNickName = (nickName) => {
 
 // 생년월일(숫자로된 8자리)
 export const isValidBirth = (birth) => {
-  const validBirthPattern = /^[0-9]{8}$/;
+  const validBirthPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
 
   return validBirthPattern.test(birth);
 };
@@ -45,4 +45,42 @@ export const isValidStudentNumber = (stdNum) => {
   const validStudenNumberPattern = /^[0-9]{2}$/;
 
   return validStudenNumberPattern.test(stdNum);
+};
+
+// 기본 정보 모두 입력되었는지 체크
+export const isValidBasicInfo = (
+  userName,
+  userNickName,
+  userEmail,
+  userBirth,
+  userPassword,
+) => {
+  return (
+    isValidName(userName) &&
+    isValidNickName(userNickName) &&
+    isValidEmail(userEmail) &&
+    isValidBirth(userBirth) &&
+    isValidPassword(userPassword)
+  );
+};
+
+// 학교 정보 모두 입력되었는지 체크
+export const isValidUnivInfo = (
+  userSchoolName,
+  userMajorName,
+  userStudentNum,
+  gradeStatus,
+) => {
+  console.log(
+    userSchoolName,
+    userMajorName,
+    isValidStudentNumber(userStudentNum),
+    gradeStatus !== "",
+  );
+  return (
+    userSchoolName &&
+    userMajorName &&
+    isValidStudentNumber(userStudentNum) &&
+    gradeStatus !== ""
+  );
 };
