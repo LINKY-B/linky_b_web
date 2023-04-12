@@ -1,19 +1,18 @@
-import {
-  M1Icon,
-  M2Icon,
-  M3Icon,
-  M4Icon,
-  W1Icon,
-  W2Icon,
-  W3Icon,
-  W4Icon,
-} from "components/Icon/Icon";
 import Spacing from "components/spacing/Spacing";
 import { useState } from "react";
 import { ContentBox, FlexWrapper, ProfileButton } from "../SignUp.style";
+import { useProfileImages } from "utils/hooks/useSignUp";
+import { useDispatch } from "react-redux";
+import { addUserInfo } from "store/ducks/signUpSlice";
 
 const ProfileList = () => {
+  const dispatch = useDispatch("signUp");
   const [profileList, setProfileList] = useState(Array(8).fill(false));
+  const { data, isLoading } = useProfileImages();
+
+  if (isLoading) return <div>로딩중</div>;
+
+  const profileImages = data.data.data;
 
   const onClickProfile = (e) => {
     setProfileList(
@@ -21,7 +20,14 @@ const ProfileList = () => {
         idx === parseInt(e.currentTarget.name) ? true : false,
       ),
     );
+    dispatch(
+      addUserInfo({
+        key: "profileImg",
+        value: profileImages[parseInt(e.currentTarget.name)],
+      }),
+    );
   };
+  // alt 때문에 반복문을 사용안하고 이렇게 작성하는게 맞는가?
   return (
     <ContentBox>
       <FlexWrapper gap={"20px"}>
@@ -30,7 +36,7 @@ const ProfileList = () => {
           isClick={profileList[0]}
           onClick={onClickProfile}
         >
-          <M1Icon />
+          <img src={profileImages[0]} alt="w3"></img>
         </ProfileButton>
 
         <ProfileButton
@@ -38,7 +44,7 @@ const ProfileList = () => {
           name="1"
           onClick={onClickProfile}
         >
-          <M2Icon />
+          <img src={profileImages[1]} alt="m11"></img>
         </ProfileButton>
 
         <ProfileButton
@@ -46,7 +52,7 @@ const ProfileList = () => {
           name="2"
           onClick={onClickProfile}
         >
-          <M3Icon />
+          <img src={profileImages[2]} alt="m21"></img>
         </ProfileButton>
 
         <ProfileButton
@@ -54,7 +60,7 @@ const ProfileList = () => {
           name="3"
           onClick={onClickProfile}
         >
-          <M4Icon />
+          <img src={profileImages[3]} alt="w41"></img>
         </ProfileButton>
       </FlexWrapper>
 
@@ -66,7 +72,7 @@ const ProfileList = () => {
           name="4"
           onClick={onClickProfile}
         >
-          <W1Icon />
+          <img src={profileImages[4]} alt="w21"></img>
         </ProfileButton>
 
         <ProfileButton
@@ -74,7 +80,7 @@ const ProfileList = () => {
           name="5"
           onClick={onClickProfile}
         >
-          <W2Icon />
+          <img src={profileImages[5]} alt="m31"></img>
         </ProfileButton>
 
         <ProfileButton
@@ -82,7 +88,7 @@ const ProfileList = () => {
           name="6"
           onClick={onClickProfile}
         >
-          <W3Icon />
+          <img src={profileImages[6]} alt="m4"></img>
         </ProfileButton>
 
         <ProfileButton
@@ -90,7 +96,7 @@ const ProfileList = () => {
           name="7"
           onClick={onClickProfile}
         >
-          <W4Icon />
+          <img src={profileImages[7]} alt="w11"></img>
         </ProfileButton>
       </FlexWrapper>
     </ContentBox>
