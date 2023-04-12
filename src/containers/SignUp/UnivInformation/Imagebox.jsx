@@ -1,21 +1,17 @@
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
-import { addUserSchoolImg } from "store/ducks/signUpSlice";
 import { UploadImageButton, PreviewImage, ContentBox } from "../SignUp.style";
 
-const ImageBox = () => {
+const ImageBox = ({ getImage }) => {
   const uploadImage = useRef();
   const previewImage = useRef();
-  const dispatch = useDispatch("signUp");
 
   const uploadButtonHandler = () => {
     uploadImage.current.click();
   };
 
   const changeImageHandler = (e) => {
-    console.log(e.target.files[0]);
     previewImage.current.src = URL.createObjectURL(e.target.files[0]);
-    dispatch(addUserSchoolImg(e.target.files[0]));
+    getImage(e.target.files[0]);
   };
   return (
     <ContentBox>
