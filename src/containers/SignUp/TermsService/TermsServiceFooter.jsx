@@ -7,9 +7,15 @@ import { theme } from "styles/theme";
 import ButtonBox from "./ButtonBox";
 import { TermsServiceFooterStyled } from "../SignUp.style";
 
-const TermsServiceFooter = () => {
+const TermsServiceFooter = ({ nextPage }) => {
   const onClick = () => {
-    // 다음 화면으로 넘어가는 기능
+    // 모두 체크 되었는지 확인
+    if (checkTerms[0]) {
+      nextPage();
+      return;
+    }
+
+    alert("모든 이용 약관에 동의해 주세요");
   };
 
   const checkTerms = useSelector((state) => state.termsService);
@@ -23,7 +29,7 @@ const TermsServiceFooter = () => {
           {SIGNUP_TERMSSERVICE.ALL_AGREE}
         </Text>
       </ButtonBox>
-      <Button color={buttonColor} onClick={onClick}>
+      <Button color={buttonColor} shadow onClick={onClick}>
         {SIGNUP_TERMSSERVICE.CONTINUE_SIGNUP}
       </Button>
     </TermsServiceFooterStyled>

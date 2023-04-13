@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router";
-
 import styled from "styled-components";
-
 import Footer from "containers/Footer/Footer";
 import MainHeader from "containers/MainHeader/MainHeader";
 import { Match } from "pages/Match";
@@ -21,6 +19,7 @@ import Login from "pages/Login/Login";
 import FindPwd from "pages/FindPwd/FindPwd";
 import RequireAuthRoute from "utils/Route/RequireAuthRoute";
 import PublicRoute from "utils/Route/PublicRoute";
+import SignUp from "pages/SignUp/SignUp";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -67,7 +66,7 @@ const App = () => {
           <Route path="/onboarding" element={<OnBoarding />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/findpwd" element={<FindPwd></FindPwd>}></Route>
-          {/* <Route path="/signup" element={<signup></signup>}></Route> */}
+          <Route path="/signUp" element={<SignUp />}></Route>
         </Route>
         {/* private route */}
         <Route element={<RequireAuthRoute />}>

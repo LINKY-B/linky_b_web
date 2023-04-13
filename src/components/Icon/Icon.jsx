@@ -25,6 +25,14 @@ import { ReactComponent as ChatIcon } from "assets/svgs/chat.svg";
 import { ReactComponent as ProfileIcon } from "assets/svgs/profile.svg";
 import { ReactComponent as MainLogoIcon } from "assets/svgs/Linky-B.svg";
 import { CheckCircleIcon } from "./CheckCircleIcon";
+import { ReactComponent as M1Icon } from "assets/svgs/M1.svg";
+import { ReactComponent as M2Icon } from "assets/svgs/M2.svg";
+import { ReactComponent as M3Icon } from "assets/svgs/M3.svg";
+import { ReactComponent as M4Icon } from "assets/svgs/M4.svg";
+import { ReactComponent as W1Icon } from "assets/svgs/W1.svg";
+import { ReactComponent as W2Icon } from "assets/svgs/W2.svg";
+import { ReactComponent as W3Icon } from "assets/svgs/W3.svg";
+import { ReactComponent as W4Icon } from "assets/svgs/W4.svg";
 
 export {
   ThumbUpIcon,
@@ -50,5 +58,13 @@ export {
   ProfileQuestionMarkIcon,
   QuarterCircleIcon,
   BottomArrowIcon,
+  M1Icon,
+  M2Icon,
+  M3Icon,
+  M4Icon,
+  W1Icon,
+  W2Icon,
+  W3Icon,
+  W4Icon,
   MainLogoIcon,
 };

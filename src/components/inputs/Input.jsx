@@ -10,10 +10,11 @@ import PropTypes from "prop-types";
  * @param {string} value 입력 값
  * @param {string} placeholder 대체 입력 문구
  * @param {function} onChange 이벤트 함수
+ * @param {function} onBlur 이벤트 함수
  * @returns 스타일 적용된 컴포넌트 반환
  *
  */
-const Input = ({ type, size, name, value, placeholder, onChange }) => {
+const Input = ({ type, size, name, value, placeholder, onChange, onBlur }) => {
   return (
     <InputStyled
       type={type}
@@ -22,6 +23,7 @@ const Input = ({ type, size, name, value, placeholder, onChange }) => {
       value={value}
       placeholder={placeholder}
       onChange={onChange}
+      onBlur={onBlur}
     ></InputStyled>
   );
 };
@@ -38,6 +40,7 @@ Input.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
 };
 
 export default Input;
