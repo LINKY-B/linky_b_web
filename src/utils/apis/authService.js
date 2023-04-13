@@ -1,9 +1,4 @@
-import axios from "axios";
-import jwtDecode from "jwt-decode";
-import { loginAxios } from "utils/customAxios";
-import { authorizedAxios } from "utils/customAxios";
-import { unauthorizedAxios } from "utils/customAxios";
-import { setAccessTokenHeader } from "utils/customAxios";
+import { authorizedAxios, setAccessTokenHeader } from "utils/customAxios";
 const login = async (email, password) => {
   try {
     const response = await authorizedAxios.post(`/auth/login`, {

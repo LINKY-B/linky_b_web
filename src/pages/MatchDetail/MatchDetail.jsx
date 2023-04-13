@@ -93,6 +93,10 @@ const MatchDetail = () => {
     userLikeCount,
   } = user;
 
+  /**
+   * 헤더 부분 컴포넌트
+   * @returns 
+   */
   const MatchHeader = () => (
     <StyledHeader>
       <SubHeader
@@ -114,6 +118,11 @@ const MatchDetail = () => {
     </StyledHeader>
   );
 
+
+  /**
+   * 밑부분 컴포넌트
+   * @returns 
+   */
   const MatchFooter = () => (
     <StickyFooter>
       <FooterContainer>
@@ -126,10 +135,11 @@ const MatchDetail = () => {
     </StickyFooter>
   );
 
+  /**
+   * 상세페이지 컴포넌트
+   * @returns 
+   */
   const UserDetail = () => {
-    // 데이터 전처리. API 스펙에 의존
-    const userInterests = userInterest.map((i) => i.userInterest);
-    const userPersonalities = userPersonality.map((p) => p.userPersonality);
     const userInfos = [
       { title: "학과", value: userMajorName },
       { title: "학번", value: userStudentNum },
@@ -182,9 +192,9 @@ const MatchDetail = () => {
           </section>
 
           <Hr />
-          <SelectButtonItems title="성격" items={userPersonalities} />
+          <SelectButtonItems title="성격" items={userPersonality} />
           <Hr />
-          <SelectButtonItems title="관심사" items={userInterests} />
+          <SelectButtonItems title="관심사" items={userInterest} />
         </InfoWrapper>
       </StyledMatchDetail>
     );
