@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore } from "redux-persist";
 
-import { authSlice } from "./ducks/authSlice";
-import authReducer from "./ducks/authSlice";
+import { authReducer } from "./ducks/authSlice";
+import persistedReducer from "./ducks/authSlice";
 import { chatReducer } from "./ducks/chatSlice";
 import { modalReducer } from "./ducks/modalSlice";
 
@@ -12,11 +13,12 @@ export const store = configureStore({
     modal: modalReducer,
     termsService: termsServiceReducer,
     auth: authReducer,
+    // persisted: persistedReducer,
     chat: chatReducer,
   },
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({
-  //     serializableCheck: false,
-  //   }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   //추후 서버연결시 CORS에러가 난다면 미들웨어 로직 추가 고려
 });
