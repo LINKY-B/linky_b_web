@@ -23,6 +23,7 @@ const buttonSize = css`
         height: 50px;
       `;
     }
+
     if (size === "small") {
       return css`
         width: 97px;
@@ -64,6 +65,11 @@ export const ButtonStyled = styled.button`
   border-radius: 6px;
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: 700;
+  ${({ shadow }) =>
+    shadow &&
+    css`
+      box-shadow: 0px 4px 8px -4px gray;
+    `}
 
   /* 버튼 크기 */
   ${buttonSize}
