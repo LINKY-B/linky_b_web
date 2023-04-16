@@ -36,9 +36,10 @@ const Login = React.memo(() => {
   const [password, setPassword] = useState("");
   const { error } = useSelector((state) => state.auth);
 
+  console.log("에러에러", error?.errors.reason);
   useEffect(() => {}, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
     //login Logic
@@ -47,16 +48,18 @@ const Login = React.memo(() => {
       dispatch(authSlice.actions.loginSuccess({ accessToken }));
       navigate(from, { replace: true });
     } catch (err) {
+      console.log("message" + err);
+      console.error(err);
       dispatch(authSlice.actions.loginFailure(err));
-      console.log("message" + err.message);
 
       throw err;
     }
-  };
+  });
   const handleFindPassword = () => {
     navigate("/findpwd");
   };
-
+  console.log("login auth error: " + JSON.stringify(error, null, 2));
+  console.log();
   return (
     <LoginWrapper>
       <MainLogoWrapper>
@@ -72,10 +75,12 @@ const Login = React.memo(() => {
               placeholder="이메일"
               onChange={(e) => setId(e.target.value)}
             ></Input>
-            {error ? (
+            {error?.errors[0].field === "email" ? (
               <div>
                 <Spacing margin={theme.spacing.xs}></Spacing>
-                <Text fontSize={theme.fontSize.xs}>{error}</Text>
+                <Text fontSize={theme.fontSize.xs}>
+                  {error.errors[0].reason}
+                </Text>
                 <Spacing margin={theme.spacing.xs}></Spacing>
               </div>
             ) : (
@@ -89,10 +94,13 @@ const Login = React.memo(() => {
               onChange={(e) => setPassword(e.target.value)}
             ></Input>
             {/* 백엔드 에러메세지를 id오류와 pw오류를 따로 객체화 시켜 보내줘야함 */}
-            {1 ? (
+            {error?.errors[0].field === "password" ? (
               <div>
                 <Spacing margin={theme.spacing.xs}></Spacing>
-                <Text fontSize={theme.fontSize.xs}></Text>
+                <Text fontSize={theme.fontSize.xs}>
+                  {" "}
+                  {error.errors[0].reason}
+                </Text>
                 <Spacing margin={theme.spacing.xs}></Spacing>
               </div>
             ) : (
