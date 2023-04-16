@@ -1,12 +1,16 @@
 import axios from "axios";
-import { privateAxios } from "utils/customAxios";
-const useRefreshToken = () => {
-  const refresh = async () => {
-    const response = await privateAxios.get("/reissue", {});
+import { loginAxios } from "utils/customAxios";
 
-    return response.data.accessToken;
-  };
-  return refresh;
+const refreshToken = async () => {
+  try {
+    const response = await loginAxios.post("/reissue");
+
+    const { accessToken } = response.data;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    
+    return accessToken;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
-
-export default useRefreshToken;
