@@ -7,6 +7,7 @@ import { modalReducer } from "./ducks/modalSlice";
 
 import termsServiceReducer from "./ducks/termsServiceSlice";
 import signUpReducer from "./ducks/signUpSlice";
+import { homeReducer } from "./ducks/homeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     auth: authReducer,
     chat: chatReducer,
     signUp: signUpReducer,
+    home: homeReducer
   },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({

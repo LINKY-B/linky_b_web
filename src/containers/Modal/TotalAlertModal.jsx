@@ -15,6 +15,7 @@ import {
   useReportUserMutation,
 } from "utils/hooks/useUsers";
 import ModalSelector from "./ModalSelector";
+import { useTryMatchMutation } from "utils/hooks/useHome";
 
 export const TotalAlertModal = memo(() => {
   // navigation
@@ -28,6 +29,7 @@ export const TotalAlertModal = memo(() => {
 
   // mutations
   // match 관련
+  const tryMatchMutation = useTryMatchMutation();
   const approveMutation = useMatchApproveMutation();
   const rejectMutation = useMatchRejectMutation();
   const approveAllMutation = useMatchApproveAllMutation();
@@ -63,6 +65,11 @@ export const TotalAlertModal = memo(() => {
   };
 
   // handler
+
+  /**
+   * 파라미터가 있으면, 즉 상세페이지라면, mutation 이후 뒤로가기를 한다.
+   * @returns 
+   */
   const isGoBack = () => {
     let goBack = false;
 
@@ -78,25 +85,29 @@ export const TotalAlertModal = memo(() => {
     isCurrentError.current = false;
   };
 
+  const handleTryMatch = () => {
+    tryMatchMutation.mutate({id: userId}, commonMutationOptions(isGoBack()));
+  }
+
   const handleApprove = () => {
     approveMutation.mutate({ id: userId }, commonMutationOptions(isGoBack()));
-  };
+  }
 
   const handleReject = () => {
     rejectMutation.mutate({ id: userId }, commonMutationOptions(isGoBack()));
-  };
+  }
 
   const handleDelete = () => {
     deleteMatchMutation.mutate({ id: userId }, commonMutationOptions());
-  };
+  }
 
   const handleApproveAll = () => {
     approveAllMutation.mutate({}, commonMutationOptions(true));
-  };
+  }
 
   const handleBlock = () => {
     blockUserMutation.mutate({ id: userId }, commonMutationOptions(isGoBack()));
-  };
+  }
 
   const handleReport = (title, reason) => {
     console.log(`report : ${userId} ${userNickName} ${title} ${reason}`);
@@ -126,6 +137,7 @@ export const TotalAlertModal = memo(() => {
   };
 
   const handler = {
+    handleTryMatch,
     handleApprove,
     handleApproveAll,
     handleClose,
@@ -142,6 +154,7 @@ export const TotalAlertModal = memo(() => {
   }
 
   const totalError =
+  tryMatchMutation.error || 
     approveMutation.error ||
     approveAllMutation.error ||
     rejectMutation.error ||

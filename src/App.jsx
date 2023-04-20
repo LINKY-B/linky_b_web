@@ -20,11 +20,12 @@ import FindPwd from "pages/FindPwd/FindPwd";
 import RequireAuthRoute from "utils/Route/RequireAuthRoute";
 import PublicRoute from "utils/Route/PublicRoute";
 import SignUp from "pages/SignUp/SignUp";
+import { HomeSearch } from "pages/HomeSearch/index";
 
 const Wrapper = styled.div`
   background-color: white;
   border: none;
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
   max-width: var(--app-max-width, 768px);
   margin-left: auto;
   margin-right: auto;
@@ -70,7 +71,12 @@ const App = () => {
         </Route>
         {/* private route */}
         <Route element={<RequireAuthRoute />}>
-          <Route exact path="/" element={<Home></Home>} />
+          <Route exact path="/" element={<Home />} />
+          <Route path="/home/search" element={<HomeSearch />} />
+          <Route
+            path="/home/user/:userId"
+            element={<MatchDetail forHomePage />}
+          />
           <Route path="/match" element={<Match />} />
           <Route path="/match/matched" element={<MatchedListPage />} />
           <Route path="/match/matching" element={<MatchingListPage />} />

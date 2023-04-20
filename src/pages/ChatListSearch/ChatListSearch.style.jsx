@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const StyledSearch = styled.section`
   z-index: 40;
-  position: fixed;
   min-height: 100%;
   width: var(--app-max-width, 100%);
   max-width: var(--app-max-width, 100%);
