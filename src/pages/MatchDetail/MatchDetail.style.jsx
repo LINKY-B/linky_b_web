@@ -1,4 +1,4 @@
-import { SelectButtonStyled } from "components/buttons/Buttons.style";
+import { ButtonStyled, SelectButtonStyled } from "components/buttons/Buttons.style";
 import { StickyFooterContainer } from "containers/StickyFooter/StickyFooter.style";
 import styled from "styled-components";
 
@@ -72,13 +72,25 @@ export const BlackSelectButton = styled(SelectButtonStyled)`
   font-size: ${(props) => props.theme.fontSize.xs};
 `;
 
+export const FullWidthButton = styled(ButtonStyled)`
+display: block;
+width: 90%;
+padding: 1rem 0;
+margin-bottom: 1rem;
+background-color: ${props => props.theme.colors.mainGreen};
+color: ${props => props.theme.colors.mainWhite};
+`
+
 export const FooterContainer = styled(StickyFooterContainer)`
   height: 100%;
   display: flex;
   padding: 0 1rem;
   width: fit-content;
+  // width: 100%;
   margin-left: auto;
   margin-right: auto;
   justify-content: space-around;
   align-items: center;
+
+  // border: 1px solid red;
 `;

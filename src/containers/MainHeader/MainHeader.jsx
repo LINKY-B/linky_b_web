@@ -29,8 +29,9 @@ const MainHeader = ({ search, filter, onClickSearch, onClickFilter }) => {
   return (
     <Header>
       <Text fontSize={theme.fontSize.lg}>LINKY-B</Text>
-      <Spacing></Spacing>
-      <FlexWrapper></FlexWrapper>
+      <Spacing/>
+        
+      
       <ButtonWrapper>
         {search && <SearchIcon onClick={onClickSearch}></SearchIcon>}
         {filter && <FilterIcon onClick={onClickFilter}></FilterIcon>}
