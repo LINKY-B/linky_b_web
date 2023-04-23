@@ -126,7 +126,10 @@ export const MatchList = ({
     );
   };
 
-  // 연결내역 목록 헤더
+  
+  /**
+   * 연결내역 목록 헤더 컴포넌트
+   */
   const MatchHeader = memo(({ title, isSubheader }) => {
     return (
       isSubheader && (

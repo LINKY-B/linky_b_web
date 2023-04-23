@@ -6,7 +6,7 @@ export const authSlice = createSlice({
     name: "auth",
 
     initialState: {
-        isLogined: false, //일단 열어둠
+        isLogined: true, //일단 열어둠
         accessToken: null,
         isLoading: false,
         error: null,

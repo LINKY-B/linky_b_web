@@ -10,3 +10,9 @@ export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const SpaceBetweenWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`

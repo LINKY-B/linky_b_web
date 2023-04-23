@@ -7,6 +7,7 @@ export const authorizedAxios = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
+authorizedAxios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlcklkIjoiNSIsImF1dGhvcml0aWVzIjoiVVNFUiIsInR5cGUiOiJCZWFyZXIiLCJleHAiOjE2ODk5OTk5MDB9.8r08MI9eG3L7fz9LBLC87XFieyWBC5wkJuPkyCrr-VtmysyIk6NQrGrEaRMWAsKdqE8sIm6R7dS_9crQ15Z08g'
 
 export const unauthorizedAxios = axios.create({
   baseURL: BASE_URL,
@@ -24,6 +25,10 @@ export const checkToken = async () => {
   const decode = jwtDecode(accessToken);
 
   const nowDate = new Date().getTime() / 1000;
+
+  if (!accessToken) {
+    return;
+  }
 
   // 토큰 만료시간이 지났다면
   if (decode.exp < nowDate) {

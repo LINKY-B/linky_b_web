@@ -87,7 +87,7 @@ export const useMatchingList = () => {
 }
 
 // Get 연결화면 - 나에게 연결을 시도한 회원 데이터 가져오기
-export const useMatchedList = (type) => {
+export const useMatchedList = () => {
     return useQuery(matchKeys.matched(), () => fetchTryMatchedListApi())
 }
 
