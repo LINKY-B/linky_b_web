@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const MODAL_TYPES = {
     NONE: "MODAL_TYPES/NONE",
+    TRY_MATCH: "MODAL_TYPES/TRY_MATCH",
     APPROVE: "MODAL_TYPES/APPROVE",
     APPROVE_ALL: "MODAL_TYPES/APPROVE_ALL",
     REJECT: "MODAL_TYPES/REJECT",

@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { useAppDispatch, useAppSelector } from "store/Hooks";
-import { useChatListSearch } from "utils/hooks/useChat";
-import { chatActions } from "store/ducks/chatSlice";
 
-import { Header } from "components/header/Header";
 import { ChatQuestionMarkIcon, SearchIcon } from "components/Icon/Icon";
+import { Header } from "components/header/Header";
 import { Spacing } from "components/spacing";
 import { Text } from "components/text";
-import { ChatListItem } from "containers/ChatListItem";
-import { ChatWrapper } from "pages/Chat/Chat.style";
+import HomeList from "containers/HomeList/HomeList";
+import { HomeWrapper } from "containers/HomeList/HomeList.style";
+import { useAppDispatch, useAppSelector } from "store/Hooks";
+import { homeActions } from "store/ducks/homeSlice";
+import { useHomeSearch } from "utils/hooks/useHome";
 import { debounce } from "utils/util";
 import {
   SearchBarContainer,
@@ -18,17 +18,21 @@ import {
   SearchInput,
   StyledButton,
   StyledSearch,
-} from "./ChatListSearch.style";
+} from "./HomeSearch.style";
+import { TotalAlertModal } from "containers/Modal/TotalAlertModal";
 
-const ChatListSearch = () => {
+const HomeSearch = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const searchInputRef = useRef();
   const dispatch = useAppDispatch();
-  const chatSelector = useAppSelector((state) => state.chat);
-  const { listSearchKeyword } = chatSelector;
-  const { data, isLoading, error } = useChatListSearch(listSearchKeyword);
-  const { setChatRoomSearchInput } = chatActions;
+  const homeSelector = useAppSelector((store) => store.home);
+  const { searchString } = homeSelector;
+  const { setSearch } = homeActions;
+
+  const { data, isLoading, error } = useHomeSearch(searchString);
+
+  console.log(searchString);
 
   useEffect(() => {
     if (searchInputRef?.current) {
@@ -38,18 +42,18 @@ const ChatListSearch = () => {
 
   const handleChange = useCallback(
     (e) => {
-      debounce(dispatch(setChatRoomSearchInput(e.target.value)), 500);
+      debounce(dispatch(setSearch(e.target.value)), 1000);
     },
-    [dispatch, setChatRoomSearchInput],
+    [dispatch, setSearch],
   );
 
   const handleCancel = () => {
     navigate(-1);
-    dispatch(setChatRoomSearchInput(""));
   };
 
   return (
-    <StyledSearch>
+    <StyledSearch searchString={searchString}>
+      <TotalAlertModal />
       <Header>
         <SearchBarContainer>
           <SearchIcon />
@@ -57,41 +61,32 @@ const ChatListSearch = () => {
             placeholder="검색"
             ref={searchInputRef}
             onChange={handleChange}
-            value={listSearchKeyword}
+            value={searchString}
           />
         </SearchBarContainer>
         <StyledButton onClick={handleCancel}>
           <Text fontSize={theme.fontSize.sm}>취소</Text>
         </StyledButton>
       </Header>
-      {isLoading || error || !data ? (
+      {isLoading || error || !data || data?.length === 0 ? (
         <SearchContainer>
           <ChatQuestionMarkIcon />
           <Spacing margin={theme.spacing.lg} />
           <Text color={theme.colors.fontGrey} fontSize={theme.fontSize.sm}>
-            닉네임을 검색해 채팅방을 찾아보세요
+            닉네임을 검색해 친구를 추가해보세요
           </Text>
         </SearchContainer>
       ) : (
-        <ChatWrapper>
-          {data &&
-            data.map((item) => {
-              const { userChattingRoomId } = item;
-              return (
-                <div key={userChattingRoomId}>
-                  <ChatListItem chat={item} draggable={false} />
-                  <Spacing margin={theme.spacing.lg} />
-                </div>
-              );
-            })}
-        </ChatWrapper>
+        <HomeWrapper>
+          <HomeList data={data} />
+        </HomeWrapper>
       )}
     </StyledSearch>
   );
 };
 
-ChatListSearch.defaultProps = {
+HomeSearch.defaultProps = {
   onClickCancel: () => {},
 };
 
-export default ChatListSearch;
+export default HomeSearch;

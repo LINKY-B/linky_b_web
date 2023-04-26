@@ -80,8 +80,8 @@ const MemberInfoContainer = ({
             {userInterests && (
               <FlexContainer>
                 {userInterests.map((i) => (
-                  <FlexContainer key={i.userInterest}>
-                    <RadiusLabel>{i.userInterest}</RadiusLabel>
+                  <FlexContainer key={i}>
+                    <RadiusLabel>{i}</RadiusLabel>
                     <Spacing margin={theme.spacing.sm} />
                   </FlexContainer>
                 ))}

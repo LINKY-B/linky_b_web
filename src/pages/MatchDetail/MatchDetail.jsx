@@ -1,6 +1,7 @@
 import { memo, useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTheme } from "styled-components";
+import PropTypes from "prop-types";
 
 import { modalActions, MODAL_TYPES } from "store/ducks/modalSlice";
 import { useAppDispatch } from "store/Hooks";
@@ -20,6 +21,7 @@ import { Hr } from "styles/Style";
 import {
   BlackSelectButton,
   FooterContainer,
+  FullWidthButton,
   InfoItemContainer,
   InfoWrapper,
   IntroductionWrapper,
@@ -29,9 +31,11 @@ import {
 } from "./MatchDetail.style";
 
 /**
+  *@param {*} forHomePage: 홈 화면에서 사용할 상세조회 화면인지(홈-요청 버튼, 연결-수락/거절)
+ * 
  * @returns 연결내역 화면 - 사용자 상세조회 화면
  */
-const MatchDetail = () => {
+const MatchDetail = ({forHomePage}) => {
   const theme = useTheme();
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -59,6 +63,17 @@ const MatchDetail = () => {
         userId,
         userNickName,
         modalType: MODAL_TYPES.REJECT,
+      }),
+    );
+  }, [user, userId, dispatch]);
+
+  const onClickRequestButton = useCallback(() => {
+    const { userNickName } = user;
+    dispatch(
+      modalActions.showModal({
+        userId,
+        userNickName,
+        modalType: MODAL_TYPES.TRY_MATCH,
       }),
     );
   }, [user, userId, dispatch]);
@@ -93,6 +108,11 @@ const MatchDetail = () => {
     userLikeCount,
   } = user;
 
+
+  /**
+   * 상세페이지 헤더
+   * @returns 
+   */
   const MatchHeader = () => (
     <StyledHeader>
       <SubHeader
@@ -114,22 +134,41 @@ const MatchDetail = () => {
     </StyledHeader>
   );
 
+
+  /**
+   * 상세 페이지 밑부분
+   * 홈화면 페이지인 경우에는 '연결 신청하기' 버튼을 보여주고, 
+   * 연결화면 페이지인 경우에는 '거절/수락하기' 버튼을 보여준다.
+   * 
+   * @returns 
+   */
   const MatchFooter = () => (
     <StickyFooter>
-      <FooterContainer>
+      {forHomePage ? 
+        (
+          <FullWidthButton onClick={onClickRequestButton}>연결 신청하기</FullWidthButton>
+        )
+      : 
+      (<FooterContainer>
         <Button onClick={onClickRejectButton} color="grey">
           거절하기
         </Button>
         <Spacing />
         <Button onClick={onClickApproveButton}>수락하기</Button>
-      </FooterContainer>
+      </FooterContainer>)}
     </StickyFooter>
   );
 
+
+  /**
+   * 상세페이지
+   * @returns 
+   */
   const UserDetail = () => {
     // 데이터 전처리. API 스펙에 의존
-    const userInterests = userInterest.map((i) => i.userInterest);
-    const userPersonalities = userPersonality.map((p) => p.userPersonality);
+    const userInterests = userInterest;
+    const userPersonalities = userPersonality
+
     const userInfos = [
       { title: "학과", value: userMajorName },
       { title: "학번", value: userStudentNum },
@@ -207,5 +246,13 @@ const MatchDetail = () => {
     </StyledMatchDetail>
   );
 };
+
+MatchDetail.propTypes = {
+  forHomePage: PropTypes.bool
+};
+
+MatchDetail.defaultProps = {
+  forHomePage: false
+}
 
 export default MatchDetail;

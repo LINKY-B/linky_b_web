@@ -1,8 +1,8 @@
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { loginAxios } from "utils/customAxios";
 import { authorizedAxios } from "utils/customAxios";
 import { unauthorizedAxios } from "utils/customAxios";
-
-import jwtDecode from "jwt-decode";
-import axios from "../../../node_modules/axios/index";
 
 const login = async (email, password) => {
   try {
@@ -89,98 +89,50 @@ const setAccessTokenHeader = (accessToken) => {
   // https://blog.logrocket.com/using-axios-set-request-headers/ 참고하시면 좋을 것 같습니다!
 };
 
-// if (decode.exp < nowDate) {
-//   console.log("check token1: " + accessToken);
-//   console.log(config);
+export const checkToken = async (req) => {
+  const accessToken = localStorage.getItem("accessToken");
+  console.log("check token!! : ", accessToken);
+  if (!accessToken) {
+    return;
+  }
 
-// if (originalConfig.url === "/auth/reissue") {
-//   console.log("이미 url이 reissue라면");
-//   return originalConfig;
+  const decode = jwtDecode(accessToken);
+  const nowDate = new Date().getTime() / 1000;
 
-authorizedAxios.interceptors.request.use(
-  async (config) => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!config.headers["Authorization"]) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
-    }
-    const cookie = config.headers.cookie; // 현재 쿠키 가져오기
-    console.log("쿠키확인" + cookie);
-    if (cookie) {
-      config.headers["Cookie"] = cookie; // 요청 헤더에 현재 쿠키 추가하기
-    }
-    console.log("sad" + JSON.stringify(config));
-    console.log("config_header : " + config.headers);
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-); //인증된 axios
-
-authorizedAxios.interceptors.response.use(
-  (response) => {
-    console.log("pass");
-    return response;
-  },
-
-  async (err) => {
-    console.log("에러에러에러", err);
-    const originalConfig = err.config;
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (
-      err?.response?.data?.status === 400 &&
-      err?.response?.data?.code === "A002" &&
-      !originalConfig._retry &&
-      accessToken
-    ) {
-      console.log("if문 통과");
-      console.log("err.response: " + JSON.stringify(err.response));
-      originalConfig._retry = true;
-      // const decode = jwtDecode(accessToken);
-      // const nowDate = new Date().getTime() / 1000;
-
-      console.log("헤더정보: " + originalConfig.headers.Authorization);
-      console.log("액세스토큰정보: " + accessToken);
-
-      try {
-        const response = await unauthorizedAxios.post(
-          "/auth/reissue",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              Cookie:
-                "refreshToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJSZWZyZXNoVG9rZW4iLCJtZW1iZXJJZCI6IjUiLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODI4NDQyMjR9.uFbEQqPCkQmd7t5oc7V19XPn6u2cj3tHuUHxxxWyz247JWjDjtGJ9pObDr95Jj7uidOn2c-Q9TF5lfsQGG7hNw",
-            },
+  // 토큰 만료시간이 지났다면
+  if (decode.exp < nowDate) {
+    console.log("try reissue: ", accessToken);
+    try {
+      const { data } = await unauthorizedAxios.post(
+        "/auth/reissue",
+        undefined,
+        {
+          headers: {
+            Authorization: ` Bearer ${accessToken}`,
           },
-        );
+        },
+      );
 
-        if (response) {
-          console.log(JSON.stringify(response.data.data.accessToken));
-          // const newAccessToken = response.data.data;
-          // console.log("^^" + newAccessToken);
-
-          // localStorage.setItem("accessToken", newAccessToken);
-          // originalConfig.headers["Authorization"] = `Bearer ${newAccessToken}`;
-
-          console.log("이게 나와야하는데 " + response.data.data.accessToken);
-        }
-      } catch (err) {
-        console.log("Failed to reissue access token.", JSON.stringify(err));
-        // window.location.href = "/";
-        if (err.response.status === 400) {
-          console.log("reissue API 요청이 실패했습니다. 다시 로그인해주세요.");
-          return Promise.reject(err);
-        }
-        console.log(err.config);
-        return unauthorizedAxios(err.config);
-      }
-    } else {
-      Promise.reject(err);
+      // setAccessTokenHeader(data.data.accessToken);
+      const newAccessToken = data.data.accessToken;
+      localStorage.setItem("accessToken", newAccessToken);
+      req.headers.Authorization = `Bearer ${newAccessToken}`; // 여기
+    } catch (e) {
+      console.log("error during refresh token: ", e);
+      // await authorizedAxios.get(/auth/logout, {});
+      // localStorage.removeItem('accessToken');
+      // window.location.replace('/');
     }
-  },
-);
+  } else {
+    console.log("아직 만료되지 않은 토큰");
+    req.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return req;
+};
+
+authorizedAxios.interceptors.request.use(checkToken); //인증된 axios
+
 export const authService = {
   login,
   logout,

@@ -6,6 +6,7 @@ import ReportModal from "containers/Modals/ReportModal";
 
 const ModalSelector = ({ type, handler }) => {
   const {
+    handleTryMatch,
     handleApprove,
     handleApproveAll,
     handleClose,
@@ -22,6 +23,14 @@ const ModalSelector = ({ type, handler }) => {
 
   const modals = {
     [MODAL_TYPES.NONE]: <></>,
+    [MODAL_TYPES.TRY_MATCH]: (
+      <AlertModal
+        title={`${userNickName} 님께 \n 연결요청을 보내겠습니까?`}
+        buttonTitle="연결요청 보내기"
+        onClickButton={handleTryMatch}
+        onClickClose={handleClose}
+      />
+    ),
     [MODAL_TYPES.APPROVE]: (
       <AlertModal
         title={`${userNickName} 님의 \n 연결요청을 수락하시겠습니까?`}

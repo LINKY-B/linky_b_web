@@ -7,9 +7,8 @@ import { chatReducer } from "./ducks/chatSlice";
 import { modalReducer } from "./ducks/modalSlice";
 import termsServiceReducer from "./ducks/termsServiceSlice";
 import signUpReducer from "./ducks/signUpSlice";
-
+import { homeReducer } from "./ducks/homeSlice";
 import thunk from "redux-thunk";
-
 const rootReducer = combineReducers({
   modal: modalReducer,
   termsService: termsServiceReducer,
@@ -17,6 +16,7 @@ const rootReducer = combineReducers({
   // persisted: persistedReducer,
   chat: chatReducer,
   signUp: signUpReducer,
+  home: homeReducer,
 });
 export const persistConfig = {
   key: "root",
