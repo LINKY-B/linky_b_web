@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { loginAxios } from "utils/customAxios";
+
 import { authorizedAxios } from "utils/customAxios";
 import { unauthorizedAxios } from "utils/customAxios";
 
@@ -103,24 +103,21 @@ export const checkToken = async (req) => {
   if (decode.exp < nowDate) {
     console.log("try reissue: ", accessToken);
     try {
-      const { data } = await unauthorizedAxios.post(
-        "/auth/reissue",
-        undefined,
-        {
-          headers: {
-            Authorization: ` Bearer ${accessToken}`,
-          },
+      const data = await unauthorizedAxios.post("/auth/reissue", undefined, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      );
+      });
 
       // setAccessTokenHeader(data.data.accessToken);
       const newAccessToken = data.data.accessToken;
+      console.log(newAccessToken);
       localStorage.setItem("accessToken", newAccessToken);
       req.headers.Authorization = `Bearer ${newAccessToken}`; // 여기
     } catch (e) {
       console.log("error during refresh token: ", e);
-      // await authorizedAxios.get(/auth/logout, {});
-      // localStorage.removeItem('accessToken');
+      // await authorizedAxios.get(`/auth/logout`, {});
+      // localStorage.removeItem("accessToken");
       // window.location.replace('/');
     }
   } else {
@@ -131,7 +128,57 @@ export const checkToken = async (req) => {
   return req;
 };
 
-authorizedAxios.interceptors.request.use(checkToken); //인증된 axios
+const reissue = async () => {
+  try {
+    const data = await unauthorizedAxios.post(`/auth/reissue`, {});
+    const newToken = data.data.accessToken;
+    if (!newToken) {
+      return newToken;
+    } else {
+      console.log("errrerererere");
+    }
+    return newToken;
+  } catch (e) {
+    localStorage.removeItem("accessToken");
+    console.error(e);
+    console.log("??");
+  }
+};
+
+authorizedAxios.interceptors.request.use((config) => {
+  if (!config.headers) {
+    console.log(config.headers);
+    return config;
+  }
+  const token = localStorage.getItem("accessToken");
+
+  if (token !== null) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+authorizedAxios.interceptors.response.use(
+  (res) => res,
+
+  async (err) => {
+    const {
+      config,
+      response: { status },
+    } = err;
+
+    config.sent = true;
+    const newAccessToken = await reissue();
+
+    if (newAccessToken) {
+      config.headers.Authorization = `Bearer ${newAccessToken}`;
+    }
+    return axios(config);
+  },
+);
+
+//인증된 axios
 
 export const authService = {
   login,
