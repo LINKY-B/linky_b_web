@@ -36,7 +36,6 @@ const Login = React.memo(() => {
   const [password, setPassword] = useState("");
   const { error } = useSelector((state) => state.auth);
 
-  console.log("에러에러", error?.errors.reason);
   useEffect(() => {}, []);
 
   const handleSubmit = useCallback(async (e) => {
