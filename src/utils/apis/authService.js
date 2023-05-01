@@ -89,53 +89,26 @@ const setAccessTokenHeader = (accessToken) => {
   // https://blog.logrocket.com/using-axios-set-request-headers/ 참고하시면 좋을 것 같습니다!
 };
 
-export const checkToken = async (req) => {
-  const accessToken = localStorage.getItem("accessToken");
-  console.log("check token!! : ", accessToken);
-  if (!accessToken) {
-    return;
-  }
-
-  const decode = jwtDecode(accessToken);
-  const nowDate = new Date().getTime() / 1000;
-
-  // 토큰 만료시간이 지났다면
-  if (decode.exp < nowDate) {
-    console.log("try reissue: ", accessToken);
-    try {
-      const data = await unauthorizedAxios.post("/auth/reissue", undefined, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      // setAccessTokenHeader(data.data.accessToken);
-      const newAccessToken = data.data.accessToken;
-      console.log(newAccessToken);
-      localStorage.setItem("accessToken", newAccessToken);
-      req.headers.Authorization = `Bearer ${newAccessToken}`; // 여기
-    } catch (e) {
-      console.log("error during refresh token: ", e);
-      // await authorizedAxios.get(`/auth/logout`, {});
-      // localStorage.removeItem("accessToken");
-      // window.location.replace('/');
-    }
-  } else {
-    console.log("아직 만료되지 않은 토큰");
-    req.headers.Authorization = `Bearer ${accessToken}`;
-  }
-
-  return req;
-};
-
 const reissue = async () => {
+  const token = localStorage.getItem("accessToken");
+  console.log("만료된 token" + token);
   try {
-    const data = await unauthorizedAxios.post(`/auth/reissue`, {});
-    const newToken = data.data.accessToken;
+    const data = await unauthorizedAxios.post(
+      `/auth/reissue`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    console.log(JSON.stringify(data, null, 2));
+    const newToken = data.data?.data?.accessToken;
     if (!newToken) {
-      return newToken;
+      console.log("토큰없음");
+      return;
     } else {
-      console.log("errrerererere");
+      console.log("토큰 존재");
     }
     return newToken;
   } catch (e) {
@@ -167,12 +140,14 @@ authorizedAxios.interceptors.response.use(
       config,
       response: { status },
     } = err;
-
+    console.log(status);
     config.sent = true;
     const newAccessToken = await reissue();
-
+    console.log(newAccessToken, "interceptor response");
     if (newAccessToken) {
       config.headers.Authorization = `Bearer ${newAccessToken}`;
+      localStorage.setItem("accessToken", newAccessToken);
+    } else {
     }
     return axios(config);
   },
