@@ -1,7 +1,11 @@
-import { authorizedAxios, setAccessTokenHeader } from "utils/customAxios";
+import axios from "axios";
+
+import { authorizedAxios } from "utils/customAxios";
+import { unauthorizedAxios } from "utils/customAxios";
+
 const login = async (email, password) => {
   try {
-    const response = await authorizedAxios.post(`/auth/login`, {
+    const response = await unauthorizedAxios.post(`/auth/login`, {
       email,
       password,
     });
@@ -9,32 +13,91 @@ const login = async (email, password) => {
     //백엔드에서 data에 상태와 토큰(data)를 넘겨줌
     const { accessToken } = response.data.data;
     localStorage.setItem("accessToken", accessToken);
-
-    //API요청하는 콜마다 헤더에 accessToken 담기
-    setAccessTokenHeader(accessToken);
-
-    return { accessToken };
   } catch (error) {
-    //메세지 객체에 여러 상황의 에러메세지 담겨야함
-    console.log(error.response.data.message);
     throw error;
   }
 };
 
 const logout = async () => {
   try {
-    await authorizedAxios.get(`auth/logout`, {});
+    await authorizedAxios.post(`/auth/logout`, {});
+    localStorage.removeItem("accessToken");
+    delete authorizedAxios.defaults.headers.common["Authorization"];
   } catch (error) {
     throw error.response.data;
   }
 };
 
-// const sendEmail= async(email)=>{
-//     try{
-//         await unauthorizedAxios.post('/auth/reset-password/send-email',{email});
-//     }
-// }
+const sendEmail = async (email) => {
+  try {
+    const response = await authorizedAxios.post(
+      "/auth/reset-password/send-email",
+      { email },
+    );
+    console.log(JSON.stringify(response, null, 2));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const reissue = async () => {
+  const token = localStorage.getItem("accessToken");
+  console.log("만료된 token" + token);
+  try {
+    const data = await unauthorizedAxios.post(
+      `/auth/reissue`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const newToken = data.data?.data?.accessToken;
+    return newToken;
+  } catch (e) {
+    localStorage.removeItem("accessToken");
+    console.error(e);
+  }
+};
+
+authorizedAxios.interceptors.request.use((config) => {
+  if (!config.headers) {
+    return config;
+  }
+  const token = localStorage.getItem("accessToken");
+
+  if (token !== null) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+authorizedAxios.interceptors.response.use(
+  (res) => res,
+
+  async (err) => {
+    const {
+      config,
+      response: { status },
+    } = err;
+
+    config.sent = true;
+    const newAccessToken = await reissue();
+
+    if (newAccessToken) {
+      config.headers.Authorization = `Bearer ${newAccessToken}`;
+      localStorage.setItem("accessToken", newAccessToken);
+    } else {
+    }
+    return axios(config);
+  },
+);
+
 export const authService = {
   login,
   logout,
+  sendEmail,
 };

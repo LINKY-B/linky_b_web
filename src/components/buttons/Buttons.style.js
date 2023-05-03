@@ -60,7 +60,6 @@ const buttonColor = css`
   }}
 `;
 
-
 // 일반버튼
 export const ButtonStyled = styled.button`
   border-radius: 6px;
