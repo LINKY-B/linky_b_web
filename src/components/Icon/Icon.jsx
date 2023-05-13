@@ -6,6 +6,8 @@ import { ReactComponent as TopArrowCircleIcon } from "assets/svgs/top_arrow_circ
 import { ReactComponent as LeftArrowIcon } from "assets/svgs/left_arrow.svg";
 import { ReactComponent as RightArrowIcon } from "assets/svgs/right_arrow.svg";
 import { ReactComponent as BottomArrowIcon } from "assets/svgs/bottom_arrow.svg";
+import { ReactComponent as CursorIcon } from "assets/svgs/cursor.svg";
+import { ReactComponent as ImagePlusIcon } from "assets/svgs/image_plus.svg";
 
 import { ReactComponent as ThumbUpIcon } from "assets/svgs/thumb_up.svg";
 import { ReactComponent as DotMenuIcon } from "assets/svgs/dot_menu.svg";
@@ -67,4 +69,6 @@ export {
   W3Icon,
   W4Icon,
   MainLogoIcon,
+  CursorIcon,
+  ImagePlusIcon,
 };

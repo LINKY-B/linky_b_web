@@ -75,26 +75,25 @@ authorizedAxios.interceptors.request.use((config) => {
   return config;
 });
 
-authorizedAxios.interceptors.response.use(
-  (res) => res,
+// authorizedAxios.interceptors.response.use(
+//   (res) => res,
 
-  async (err) => {
-    const {
-      config,
-      response: { status },
-    } = err;
+//   async (err) => {
+//     const {
+//       config
+//     } = err;
 
-    config.sent = true;
-    const newAccessToken = await reissue();
+//     config.sent = true;
+//     const newAccessToken = await reissue();
 
-    if (newAccessToken) {
-      config.headers.Authorization = `Bearer ${newAccessToken}`;
-      localStorage.setItem("accessToken", newAccessToken);
-    } else {
-    }
-    return axios(config);
-  },
-);
+//     if (newAccessToken) {
+//       config.headers.Authorization = `Bearer ${newAccessToken}`;
+//       localStorage.setItem("accessToken", newAccessToken);
+//     } else {
+//     }
+//     return axios(config);
+//   },
+// );
 
 export const authService = {
   login,

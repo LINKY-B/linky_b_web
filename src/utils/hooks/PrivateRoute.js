@@ -1,11 +1,9 @@
-import React from "react";
-import { Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Home from "pages/Home/Home";
+import { Navigate } from "react-router-dom";
 
-const PrivateRoute = ({ isLoggedIn, children }) => {
-  console.log(isLoggedIn);
-  if (!isLoggedIn) {
+const PrivateRoute = ({ children }) => {
+  const auth = localStorage.getItem('accessToken');
+
+  if (!auth) {
     return <Navigate to="/login" replace />;
   }
 

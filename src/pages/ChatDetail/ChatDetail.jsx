@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useChatDetail } from "utils/hooks/useChat";
 
-import { DotMenuIcon } from "components/Icon/Icon";
+import { CursorIcon, DotMenuIcon, ImagePlusIcon } from "components/Icon/Icon";
 import Input from "components/inputs/Input";
 import Spacing from "components/spacing/Spacing";
 import Text from "components/text/Text";
@@ -20,10 +20,15 @@ import {
   ProfileImage,
   ReversedFlexWrapper,
   StyledChatDetail,
+  StyledChatInput,
+  StyledChatInputContainer,
+  StyledChatInputSection,
   StyledChatList,
   StyledDateLine,
 } from "./ChatDetail.style";
 import { memo } from "react";
+import StickyFooter from "containers/StickyFooter/StickyFooter";
+import { Hr } from "styles/Style";
 
 const ChatDetail = () => {
   const theme = useTheme();
@@ -109,6 +114,24 @@ const ChatDetail = () => {
     );
   });
 
+  const ChatInput = () => {
+    return (
+      <>
+        <StyledChatInputSection>
+          <StyledChatInputContainer>
+            <button>
+              <ImagePlusIcon />
+            </button>
+            <StyledChatInput placeholder="메시지를 입력하세요" />
+            <button>
+              <CursorIcon />
+            </button>
+          </StyledChatInputContainer>
+        </StyledChatInputSection>
+      </>
+    );
+  };
+
   const ChatViewer = () => (
     <>
       <SubHeader
@@ -170,7 +193,12 @@ const ChatDetail = () => {
         />
       )}
       <ChatViewer />
-      <Input />
+
+      <Hr />
+
+      <StickyFooter>
+        <ChatInput />
+      </StickyFooter>
     </StyledChatDetail>
   );
 };

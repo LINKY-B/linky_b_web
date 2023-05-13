@@ -1,19 +1,13 @@
+import Button from "components/buttons/Button";
+import MainLogo from "components/mainLogo/MainLogo";
+import Spacing from "components/spacing/Spacing";
+import { useNavigate } from "react-router-dom";
 import {
-  OnBoardingWrapper,
   ButtonWrapper,
   MainLogoWrapper,
+  OnBoardingWrapper,
 } from "./OnBoarding.style";
-import Button from "components/buttons/Button";
-import Spacing from "components/spacing/Spacing";
-import Text from "components/text/Text";
-import { useTheme } from "styled-components";
-import { useNavigate } from "react-router-dom";
-import MainLogo from "components/mainLogo/MainLogo";
 const OnBoarding = () => {
-  const loginClick = () => {};
-  const signupClick = () => {};
-
-  const theme = useTheme();
   const navigate = useNavigate();
   return (
     <OnBoardingWrapper>
