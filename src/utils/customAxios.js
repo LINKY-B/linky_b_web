@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://wj-code-server.com";
+const BASE_URL = "http://54.180.121.247:8001";
 
 // const BASE_URL = "https://wj-code-server.com";
 // authorized 관련 기능 구현 필요
