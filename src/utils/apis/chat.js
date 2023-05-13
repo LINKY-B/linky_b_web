@@ -1,3 +1,4 @@
+import { chatDB } from "mock/chatdb";
 import { authorizedAxios } from "utils/customAxios";
 import { formatDateTime, formatDate } from "utils/time";
 
@@ -5,14 +6,17 @@ const commonErrorMsg = (errorMessage) => `${errorMessage}`;
 
 // 채팅화면 홈
 export const fetchChatLists = async () => {
-    const { data } = await authorizedAxios.get('/chat/lists');
-    return data.data;
+    // const { data } = await authorizedAxios.get('/chat/lists');
+    // return data.data;
+    const data = chatDB["room"];
+    return data;
 }
 
 // 채팅화면 - 채팅목록 검색
 export const fetchChatListSearch = async (q) => {
-    const { data } = await authorizedAxios.get(`/chat/lists/search?q=${q}`);
-    return data.data;
+    // const { data } = await authorizedAxios.get(`/chat/lists/search?q=${q}`);
+    // return data.data;
+    return chatDB.room.filter(r => r.userNickName.includes(q));
 }
 
 // 채팅화면 - 채팅방 좋아요
@@ -42,17 +46,21 @@ export const doExitChat = async (roomId) => {
 
 // 채팅화면 - 채팅 Details - 목록 가져오기
 export const fetchChatDetail = async (roomId) => {
-    const { data } = await authorizedAxios.get(`/chat/${roomId}`);
-    const { isSuccess, result, message } = data;
+    // const { data } = await authorizedAxios.get(`/chat/${roomId}`);
+    // const { isSuccess, result, message } = data;
 
-    if (!isSuccess) {
-        throw new Error(commonErrorMsg(message));
-    }
+    // if (!isSuccess) {
+    //     throw new Error(commonErrorMsg(message));
+    // }
+
 
     // 채팅 데이터 렌더링을 위한 전처리.
     // 같은 사람 + 같은 시각에 한 것은 하나로 처리하고, 
     // 날짜가 다른 날은 type을 date로 하여 날짜 구분선이 표시될 수 있도록 함.
-    const { info, content } = result;
+    // const { content } = result;
+    const { content, info } = chatDB["details"];
+    console.log('info: ', info);
+
     let lastChatDate = "";
     const renderTarget = [];
 
@@ -103,5 +111,5 @@ export const fetchChatDetail = async (roomId) => {
         i = nextIndex - 1;
     }
 
-    return { info: info, content: renderTarget };
+    return { content: renderTarget, info };
 }

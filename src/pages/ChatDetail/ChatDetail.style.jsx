@@ -63,3 +63,32 @@ export const StyledDateLine = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const StyledChatInputSection = styled.div`
+  width: 100%;
+  background: ${(props) => props.theme.colors.mainWhite};
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledChatInput = styled.input`
+  border: 1px solid ${(props) => props.theme.colors.mainGrey};
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: ${(props) => props.theme.fontSize.xs};
+  color: ${(props) => props.theme.colors.fontGrey};
+  background-color: inherit;
+  width: 100%;
+  outline: none;
+`;
+
+export const StyledChatInputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  padding: 0 1rem;
+  background: ${(props) => props.theme.colors.mainGrey};
+`;
